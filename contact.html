@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CT8E5N460D"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CT8E5N460D');</script>
+    <title>Contact Us - Magic Toolbox</title>
+    <meta name="description" content="Contact Magic Toolbox team. Send feedback, report bugs, or suggest new tools. Email us at usemagictools@gmail.com.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.usemagictools.com/contact.html">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 40%, #24243e 70%, #302b63 100%);
+            color: #e0e0e0; min-height: 100vh; line-height: 1.7;
+        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle { position: absolute; border-radius: 50%; background: rgba(139, 92, 246, 0.3); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; } 50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; } }
+        .top-bar { max-width: 800px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 10; }
+        .logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #c4b5fd; font-weight: 700; font-size: 1.1rem; }
+        .logo-link:hover { color: #e0e0e0; }
+        .logo-img { width: 32px; height: 32px; border-radius: 8px; }
+        .top-right { display: flex; align-items: center; gap: 8px; }
+        .lang-select { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e0e0e0; padding: 6px 10px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; outline: none; }
+        .lang-select option { background: #1a1a3e; color: #e0e0e0; }
+        .theme-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e0e0e0; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+        .theme-btn:hover { background: rgba(139,92,246,0.2); }
+        .content { max-width: 800px; margin: 0 auto; padding: 20px 24px 60px; position: relative; z-index: 1; }
+        .page-title { font-size: 2rem; font-weight: 800; margin-bottom: 24px; background: linear-gradient(135deg, #8b5cf6, #a78bfa, #c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        h2 { color: #c4b5fd; font-size: 1.3rem; margin: 32px 0 12px; }
+        p { color: #d1d5db; margin-bottom: 14px; }
+        a { color: #a78bfa; }
+        a:hover { color: #c4b5fd; }
+        .contact-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; padding: 32px; margin: 24px 0; text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .contact-icon { font-size: 3rem; margin-bottom: 16px; }
+        .contact-email {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 28px; background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: #fff; text-decoration: none; border-radius: 12px; font-size: 1.1rem; font-weight: 600;
+            transition: all 0.3s; box-shadow: 0 4px 20px rgba(139,92,246,0.3);
+        }
+        .contact-email:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,92,246,0.5); color: #fff; }
+        .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+        .info-card {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px; padding: 20px; text-align: center;
+        }
+        .info-card-icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .info-card-title { color: #c4b5fd; font-weight: 600; margin-bottom: 4px; }
+        .info-card-desc { color: #9ca3af; font-size: 0.9rem; }
+        footer { text-align: center; margin-top: 60px; padding: 24px 0; border-top: 1px solid rgba(255, 255, 255, 0.08); color: #52525b; font-size: 0.8rem; }
+        footer a { color: #71717a; text-decoration: none; }
+        footer a:hover { color: #a78bfa; }
+        .footer-links { margin-bottom: 12px; font-size: 0.85rem; }
+        .footer-links a { color: #9ca3af; text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: #a78bfa; text-decoration: underline; }
+        .footer-links-sep { color: #52525b; margin: 0 10px; }
+        body[data-theme="light"] { background: linear-gradient(135deg, #f5f3ff, #ede9fe, #ddd6fe); color: #1f2937; }
+        body[data-theme="light"] .page-title { background: linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6); -webkit-background-clip: text; background-clip: text; }
+        body[data-theme="light"] h2 { color: #6d28d9; }
+        body[data-theme="light"] p { color: #374151; }
+        body[data-theme="light"] a { color: #7c3aed; }
+        body[data-theme="light"] a:hover { color: #5b21b6; }
+        body[data-theme="light"] .logo-link { color: #6d28d9; }
+        body[data-theme="light"] .lang-select { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: #374151; }
+        body[data-theme="light"] .lang-select option { background: #fff; color: #374151; }
+        body[data-theme="light"] .theme-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: #374151; }
+        body[data-theme="light"] .theme-btn:hover { background: rgba(124,58,237,0.1); }
+        body[data-theme="light"] .contact-card { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); }
+        body[data-theme="light"] .info-card { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); }
+        body[data-theme="light"] .info-card-title { color: #6d28d9; }
+        body[data-theme="light"] .info-card-desc { color: #6b7280; }
+        body[data-theme="light"] .particle { background: rgba(124, 58, 237, 0.15); }
+        body[data-theme="light"] footer { border-top-color: #e4e4e7; color: #a1a1aa; }
+        body[data-theme="light"] footer a { color: #71717a; }
+        body[data-theme="light"] footer a:hover { color: #7c3aed; }
+        body[data-theme="light"] .footer-links a { color: #6b7280; }
+        body[data-theme="light"] .footer-links a:hover { color: #7c3aed; }
+        body[data-theme="light"] .footer-links-sep { color: #d4d4d8; }
+        @media (max-width: 600px) { .content { padding: 16px 16px 40px; } .page-title { font-size: 1.5rem; } .info-cards { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="top-bar">
+        <a href="/" class="logo-link">
+            <img src="/favicon-32x32.png" alt="Magic Toolbox" class="logo-img">
+            <span>Magic Toolbox</span>
+        </a>
+        <div class="top-right">
+            <select class="lang-select" id="langSelect">
+                <option value="en">🇺🇸 English</option>
+                <option value="zh-CN">🇨🇳 中文</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="es">🇪🇸 Español</option>
+            </select>
+            <button class="theme-btn" id="themeToggle" title="Toggle theme">🌙</button>
+        </div>
+    </div>
+    <div class="content">
+        <h1 class="page-title" data-i18n="title">Contact Us</h1>
+
+        <p data-i18n="p_intro">We'd love to hear from you! Whether you have feedback, a feature request, a bug report, or just want to say hello — don't hesitate to reach out.</p>
+
+        <div class="contact-card">
+            <div class="contact-icon">📧</div>
+            <p data-i18n="p_email_label" style="color:#9ca3af; margin-bottom:16px;">Send us an email</p>
+            <a href="mailto:usemagictools@gmail.com" class="contact-email">usemagictools@gmail.com</a>
+        </div>
+
+        <h2 data-i18n="h_help">How Can We Help?</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">🐛</div>
+                <div class="info-card-title" data-i18n="c_bug">Report a Bug</div>
+                <div class="info-card-desc" data-i18n="c_bug_desc">Found something broken? Let us know which tool and what happened.</div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">💡</div>
+                <div class="info-card-title" data-i18n="c_feature">Suggest a Tool</div>
+                <div class="info-card-desc" data-i18n="c_feature_desc">Have an idea for a new tool? We're always looking to expand our collection.</div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🤝</div>
+                <div class="info-card-title" data-i18n="c_collab">Collaboration</div>
+                <div class="info-card-desc" data-i18n="c_collab_desc">Interested in partnering or contributing? We'd love to chat.</div>
+            </div>
+        </div>
+
+        <h2 data-i18n="h_response">Response Time</h2>
+        <p data-i18n="p_response">We typically respond to emails within 1-2 business days. For bug reports, please include as much detail as possible: the tool name, your browser, and steps to reproduce the issue.</p>
+
+        <footer>
+            <div class="footer-links">
+                <a href="/privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/terms.html" data-i18n="footerTerms">Terms</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/about.html" data-i18n="footerAbout">About</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/contact.html" data-i18n="footerContact">Contact</a>
+            </div>
+            <p data-i18n="footerCopyright">© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. All rights reserved.</p>
+        </footer>
+    </div>
+    <script>
+    (function() {
+        var c = document.getElementById('particles');
+        for (var i = 0; i < 15; i++) {
+            var p = document.createElement('div'); p.className = 'particle';
+            var s = Math.random() * 6 + 2;
+            p.style.width = s + 'px'; p.style.height = s + 'px';
+            p.style.left = Math.random() * 100 + '%'; p.style.top = Math.random() * 100 + '%';
+            p.style.animationDelay = (Math.random() * 6) + 's'; p.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            c.appendChild(p);
+        }
+
+        var T = {
+            en: {
+                title: 'Contact Us',
+                p_intro: 'We\u2019d love to hear from you! Whether you have feedback, a feature request, a bug report, or just want to say hello \u2014 don\u2019t hesitate to reach out.',
+                p_email_label: 'Send us an email',
+                h_help: 'How Can We Help?',
+                c_bug: 'Report a Bug', c_bug_desc: 'Found something broken? Let us know which tool and what happened.',
+                c_feature: 'Suggest a Tool', c_feature_desc: 'Have an idea for a new tool? We\u2019re always looking to expand our collection.',
+                c_collab: 'Collaboration', c_collab_desc: 'Interested in partnering or contributing? We\u2019d love to chat.',
+                h_response: 'Response Time',
+                p_response: 'We typically respond to emails within 1-2 business days. For bug reports, please include as much detail as possible: the tool name, your browser, and steps to reproduce the issue.',
+                footerPrivacy: 'Privacy Policy', footerTerms: 'Terms', footerAbout: 'About', footerContact: 'Contact',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. All rights reserved.'
+            },
+            'zh-CN': {
+                title: '\u8054\u7cfb\u6211\u4eec',
+                p_intro: '\u6211\u4eec\u5f88\u4e50\u610f\u542c\u53d6\u60a8\u7684\u610f\u89c1\uff01\u65e0\u8bba\u662f\u53cd\u9988\u3001\u529f\u80fd\u8bf7\u6c42\u3001Bug \u62a5\u544a\uff0c\u8fd8\u662f\u53ea\u662f\u60f3\u6253\u4e2a\u62db\u547c\u2014\u2014\u8bf7\u968f\u65f6\u8054\u7cfb\u6211\u4eec\u3002',
+                p_email_label: '\u7ed9\u6211\u4eec\u53d1\u90ae\u4ef6',
+                h_help: '\u6211\u4eec\u80fd\u5e2e\u4ec0\u4e48\u5fd9\uff1f',
+                c_bug: '\u62a5\u544a Bug', c_bug_desc: '\u53d1\u73b0\u4e86\u95ee\u9898\uff1f\u8bf7\u544a\u8bc9\u6211\u4eec\u54ea\u4e2a\u5de5\u5177\u4ee5\u53ca\u53d1\u751f\u4e86\u4ec0\u4e48\u3002',
+                c_feature: '\u5efa\u8bae\u65b0\u5de5\u5177', c_feature_desc: '\u6709\u65b0\u5de5\u5177\u7684\u60f3\u6cd5\uff1f\u6211\u4eec\u4e00\u76f4\u5728\u5bfb\u627e\u6269\u5c55\u5de5\u5177\u96c6\u7684\u673a\u4f1a\u3002',
+                c_collab: '\u5408\u4f5c', c_collab_desc: '\u6709\u5174\u8da3\u5408\u4f5c\u6216\u8d21\u732e\uff1f\u6211\u4eec\u5f88\u4e50\u610f\u4ea4\u6d41\u3002',
+                h_response: '\u54cd\u5e94\u65f6\u95f4',
+                p_response: '\u6211\u4eec\u901a\u5e38\u57281-2\u4e2a\u5de5\u4f5c\u65e5\u5185\u56de\u590d\u90ae\u4ef6\u3002\u62a5\u544a Bug \u65f6\uff0c\u8bf7\u5c3d\u53ef\u80fd\u63d0\u4f9b\u8be6\u7ec6\u4fe1\u606f\uff1a\u5de5\u5177\u540d\u79f0\u3001\u60a8\u7684\u6d4f\u89c8\u5668\u4ee5\u53ca\u590d\u73b0\u6b65\u9aa4\u3002',
+                footerPrivacy: '\u9690\u79c1\u653f\u7b56', footerTerms: '\u670d\u52a1\u6761\u6b3e', footerAbout: '\u5173\u4e8e', footerContact: '\u8054\u7cfb\u6211\u4eec',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. \u4fdd\u7559\u6240\u6709\u6743\u5229\u3002'
+            },
+            fr: {
+                title: 'Nous Contacter',
+                p_intro: 'Nous serions ravis de vous entendre ! Que vous ayez des commentaires, une demande de fonctionnalit\u00e9, un rapport de bug ou que vous vouliez simplement dire bonjour \u2014 n\u2019h\u00e9sitez pas \u00e0 nous contacter.',
+                p_email_label: 'Envoyez-nous un email',
+                h_help: 'Comment Pouvons-Nous Aider ?',
+                c_bug: 'Signaler un Bug', c_bug_desc: 'Vous avez trouv\u00e9 quelque chose de cass\u00e9 ? Dites-nous quel outil et ce qui s\u2019est pass\u00e9.',
+                c_feature: 'Sugg\u00e9rer un Outil', c_feature_desc: 'Vous avez une id\u00e9e pour un nouvel outil ? Nous cherchons toujours \u00e0 \u00e9largir notre collection.',
+                c_collab: 'Collaboration', c_collab_desc: 'Int\u00e9ress\u00e9 par un partenariat ou une contribution ? Nous serions ravis d\u2019en discuter.',
+                h_response: 'D\u00e9lai de R\u00e9ponse',
+                p_response: 'Nous r\u00e9pondons g\u00e9n\u00e9ralement aux emails sous 1-2 jours ouvrables. Pour les rapports de bugs, veuillez inclure autant de d\u00e9tails que possible.',
+                footerPrivacy: 'Confidentialit\u00e9', footerTerms: 'Conditions', footerAbout: '\u00c0 Propos', footerContact: 'Contact',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. Tous droits r\u00e9serv\u00e9s.'
+            },
+            es: {
+                title: 'Cont\u00e1ctenos',
+                p_intro: '\u00a1Nos encantar\u00eda saber de usted! Ya sea que tenga comentarios, una solicitud de funci\u00f3n, un informe de error o simplemente quiera saludar \u2014 no dude en contactarnos.',
+                p_email_label: 'Env\u00edenos un correo electr\u00f3nico',
+                h_help: '\u00bfC\u00f3mo Podemos Ayudar?',
+                c_bug: 'Reportar un Bug', c_bug_desc: '\u00bfEncontr\u00f3 algo roto? D\u00edganos qu\u00e9 herramienta y qu\u00e9 sucedi\u00f3.',
+                c_feature: 'Sugerir una Herramienta', c_feature_desc: '\u00bfTiene una idea para una nueva herramienta? Siempre buscamos expandir nuestra colecci\u00f3n.',
+                c_collab: 'Colaboraci\u00f3n', c_collab_desc: '\u00bfInteresado en asociarse o contribuir? Nos encantar\u00eda conversar.',
+                h_response: 'Tiempo de Respuesta',
+                p_response: 'Generalmente respondemos los correos en 1-2 d\u00edas h\u00e1biles. Para reportes de bugs, incluya la mayor cantidad de detalles posible.',
+                footerPrivacy: 'Privacidad', footerTerms: 'T\u00e9rminos', footerAbout: 'Acerca de', footerContact: 'Contacto',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. Todos los derechos reservados.'
+            }
+        };
+
+        var LANG_KEY = 'toolbox_lang';
+        var lang = localStorage.getItem(LANG_KEY) || 'en';
+        var sel = document.getElementById('langSelect');
+        sel.value = lang;
+        function applyLang(l) {
+            var t = T[l] || T.en;
+            var els = document.querySelectorAll('[data-i18n]');
+            for (var i = 0; i < els.length; i++) { var k = els[i].getAttribute('data-i18n'); if (t[k]) els[i].innerHTML = t[k]; }
+            document.documentElement.lang = l === 'zh-CN' ? 'zh' : l;
+        }
+        applyLang(lang);
+        sel.addEventListener('change', function() { lang = this.value; localStorage.setItem(LANG_KEY, lang); applyLang(lang); });
+
+        var themeBtn = document.getElementById('themeToggle');
+        var saved = localStorage.getItem('magic_toolbox_theme');
+        if (saved === 'light') { document.body.setAttribute('data-theme', 'light'); themeBtn.textContent = '\u2600\ufe0f'; }
+        themeBtn.addEventListener('click', function() {
+            var isLight = document.body.getAttribute('data-theme') === 'light';
+            if (isLight) { document.body.removeAttribute('data-theme'); localStorage.setItem('magic_toolbox_theme', 'dark'); themeBtn.textContent = '\ud83c\udf19'; }
+            else { document.body.setAttribute('data-theme', 'light'); localStorage.setItem('magic_toolbox_theme', 'light'); themeBtn.textContent = '\u2600\ufe0f'; }
+        });
+    })();
+    </script>
+</body>
+</html>

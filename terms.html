@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CT8E5N460D"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CT8E5N460D');</script>
+    <title>Terms of Service - Magic Toolbox</title>
+    <meta name="description" content="Terms of Service for Magic Toolbox. Usage guidelines, disclaimers, intellectual property rights, and limitations for our free online browser tools.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.usemagictools.com/terms.html">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 40%, #24243e 70%, #302b63 100%);
+            color: #e0e0e0; min-height: 100vh; line-height: 1.7;
+        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle { position: absolute; border-radius: 50%; background: rgba(139, 92, 246, 0.3); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; } 50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; } }
+        .top-bar { max-width: 800px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 10; }
+        .logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #c4b5fd; font-weight: 700; font-size: 1.1rem; }
+        .logo-link:hover { color: #e0e0e0; }
+        .logo-img { width: 32px; height: 32px; border-radius: 8px; }
+        .top-right { display: flex; align-items: center; gap: 8px; }
+        .lang-select { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e0e0e0; padding: 6px 10px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; outline: none; }
+        .lang-select option { background: #1a1a3e; color: #e0e0e0; }
+        .theme-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e0e0e0; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+        .theme-btn:hover { background: rgba(139,92,246,0.2); }
+        .content { max-width: 800px; margin: 0 auto; padding: 20px 24px 60px; position: relative; z-index: 1; }
+        .page-title { font-size: 2rem; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, #8b5cf6, #a78bfa, #c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .last-updated { color: #9ca3af; font-size: 0.9rem; margin-bottom: 32px; }
+        h2 { color: #c4b5fd; font-size: 1.3rem; margin: 32px 0 12px; }
+        p { color: #d1d5db; margin-bottom: 14px; }
+        ul { margin: 0 0 14px 24px; color: #d1d5db; }
+        li { margin-bottom: 6px; }
+        a { color: #a78bfa; }
+        a:hover { color: #c4b5fd; }
+        footer { text-align: center; margin-top: 60px; padding: 24px 0; border-top: 1px solid rgba(255, 255, 255, 0.08); color: #52525b; font-size: 0.8rem; }
+        footer a { color: #71717a; text-decoration: none; }
+        footer a:hover { color: #a78bfa; }
+        .footer-links { margin-bottom: 12px; font-size: 0.85rem; }
+        .footer-links a { color: #9ca3af; text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: #a78bfa; text-decoration: underline; }
+        .footer-links-sep { color: #52525b; margin: 0 10px; }
+        body[data-theme="light"] { background: linear-gradient(135deg, #f5f3ff, #ede9fe, #ddd6fe); color: #1f2937; }
+        body[data-theme="light"] .page-title { background: linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6); -webkit-background-clip: text; background-clip: text; }
+        body[data-theme="light"] .last-updated { color: #6b7280; }
+        body[data-theme="light"] h2 { color: #6d28d9; }
+        body[data-theme="light"] p, body[data-theme="light"] li { color: #374151; }
+        body[data-theme="light"] a { color: #7c3aed; }
+        body[data-theme="light"] a:hover { color: #5b21b6; }
+        body[data-theme="light"] .logo-link { color: #6d28d9; }
+        body[data-theme="light"] .lang-select { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: #374151; }
+        body[data-theme="light"] .lang-select option { background: #fff; color: #374151; }
+        body[data-theme="light"] .theme-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: #374151; }
+        body[data-theme="light"] .theme-btn:hover { background: rgba(124,58,237,0.1); }
+        body[data-theme="light"] .particle { background: rgba(124, 58, 237, 0.15); }
+        body[data-theme="light"] footer { border-top-color: #e4e4e7; color: #a1a1aa; }
+        body[data-theme="light"] footer a { color: #71717a; }
+        body[data-theme="light"] footer a:hover { color: #7c3aed; }
+        body[data-theme="light"] .footer-links a { color: #6b7280; }
+        body[data-theme="light"] .footer-links a:hover { color: #7c3aed; }
+        body[data-theme="light"] .footer-links-sep { color: #d4d4d8; }
+        @media (max-width: 600px) { .content { padding: 16px 16px 40px; } .page-title { font-size: 1.5rem; } }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="top-bar">
+        <a href="/" class="logo-link">
+            <img src="/favicon-32x32.png" alt="Magic Toolbox" class="logo-img">
+            <span>Magic Toolbox</span>
+        </a>
+        <div class="top-right">
+            <select class="lang-select" id="langSelect">
+                <option value="en">🇺🇸 English</option>
+                <option value="zh-CN">🇨🇳 中文</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="es">🇪🇸 Español</option>
+            </select>
+            <button class="theme-btn" id="themeToggle" title="Toggle theme">🌙</button>
+        </div>
+    </div>
+    <div class="content">
+        <h1 class="page-title" data-i18n="title">Terms of Service</h1>
+        <p class="last-updated" data-i18n="updated">Last updated: February 28, 2026</p>
+
+        <h2 data-i18n="h_accept">Acceptance of Terms</h2>
+        <p data-i18n="p_accept">By accessing and using Magic Toolbox (<a href="https://www.usemagictools.com">usemagictools.com</a>), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.</p>
+
+        <h2 data-i18n="h_service">Description of Service</h2>
+        <p data-i18n="p_service">Magic Toolbox provides a collection of free, browser-based online tools including PDF utilities, image processing, developer tools, text tools, media tools, and utility tools. All tools run entirely in your web browser — no files are uploaded to or processed on our servers.</p>
+
+        <h2 data-i18n="h_use">Acceptable Use</h2>
+        <p data-i18n="p_use">You agree to use our tools only for lawful purposes. You may not:</p>
+        <ul>
+            <li data-i18n="li_u1">Use the tools to process illegal, harmful, or infringing content</li>
+            <li data-i18n="li_u2">Attempt to reverse-engineer, decompile, or disassemble any part of the website</li>
+            <li data-i18n="li_u3">Use automated scripts or bots to access the website in a way that degrades performance for other users</li>
+            <li data-i18n="li_u4">Misrepresent Magic Toolbox or imply any official affiliation</li>
+        </ul>
+
+        <h2 data-i18n="h_ip">Intellectual Property</h2>
+        <p data-i18n="p_ip">The Magic Toolbox website, including its design, code, logos, and content, is the property of UseMagicTools. The tools are provided for personal and commercial use at no charge. You may not copy, redistribute, or sell the website's source code or design without permission.</p>
+
+        <h2 data-i18n="h_content">Your Content</h2>
+        <p data-i18n="p_content">Any files, text, or data you process using our tools remain entirely yours. Since all processing happens in your browser, we never have access to your content. You are solely responsible for the content you process and any resulting output.</p>
+
+        <h2 data-i18n="h_disclaimer">Disclaimer of Warranties</h2>
+        <p data-i18n="p_disclaimer">Our tools are provided "as is" and "as available" without warranties of any kind, either express or implied. We do not guarantee that the tools will be error-free, uninterrupted, or meet your specific requirements. Use the tools at your own risk.</p>
+
+        <h2 data-i18n="h_liability">Limitation of Liability</h2>
+        <p data-i18n="p_liability">To the maximum extent permitted by law, UseMagicTools shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the tools, including but not limited to data loss, file corruption, or inaccurate output.</p>
+
+        <h2 data-i18n="h_changes">Changes to Terms</h2>
+        <p data-i18n="p_changes">We reserve the right to modify these terms at any time. Changes will be posted on this page with an updated date. Your continued use of the website after changes constitutes acceptance of the new terms.</p>
+
+        <h2 data-i18n="h_law">Governing Law</h2>
+        <p data-i18n="p_law">These Terms of Service shall be governed by and construed in accordance with applicable laws, without regard to conflict of law principles.</p>
+
+        <h2 data-i18n="h_contact">Contact Us</h2>
+        <p data-i18n="p_contact">If you have any questions about these Terms of Service, please contact us at <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a>.</p>
+
+        <footer>
+            <div class="footer-links">
+                <a href="/privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/terms.html" data-i18n="footerTerms">Terms</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/about.html" data-i18n="footerAbout">About</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/contact.html" data-i18n="footerContact">Contact</a>
+            </div>
+            <p data-i18n="footerCopyright">© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. All rights reserved.</p>
+        </footer>
+    </div>
+    <script>
+    (function() {
+        var c = document.getElementById('particles');
+        for (var i = 0; i < 15; i++) {
+            var p = document.createElement('div'); p.className = 'particle';
+            var s = Math.random() * 6 + 2;
+            p.style.width = s + 'px'; p.style.height = s + 'px';
+            p.style.left = Math.random() * 100 + '%'; p.style.top = Math.random() * 100 + '%';
+            p.style.animationDelay = (Math.random() * 6) + 's'; p.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            c.appendChild(p);
+        }
+
+        var T = {
+            en: {
+                title: 'Terms of Service', updated: 'Last updated: February 28, 2026',
+                h_accept: 'Acceptance of Terms',
+                p_accept: 'By accessing and using Magic Toolbox (<a href="https://www.usemagictools.com">usemagictools.com</a>), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.',
+                h_service: 'Description of Service',
+                p_service: 'Magic Toolbox provides a collection of free, browser-based online tools including PDF utilities, image processing, developer tools, text tools, media tools, and utility tools. All tools run entirely in your web browser \u2014 no files are uploaded to or processed on our servers.',
+                h_use: 'Acceptable Use',
+                p_use: 'You agree to use our tools only for lawful purposes. You may not:',
+                li_u1: 'Use the tools to process illegal, harmful, or infringing content',
+                li_u2: 'Attempt to reverse-engineer, decompile, or disassemble any part of the website',
+                li_u3: 'Use automated scripts or bots to access the website in a way that degrades performance for other users',
+                li_u4: 'Misrepresent Magic Toolbox or imply any official affiliation',
+                h_ip: 'Intellectual Property',
+                p_ip: 'The Magic Toolbox website, including its design, code, logos, and content, is the property of UseMagicTools. The tools are provided for personal and commercial use at no charge. You may not copy, redistribute, or sell the website\u2019s source code or design without permission.',
+                h_content: 'Your Content',
+                p_content: 'Any files, text, or data you process using our tools remain entirely yours. Since all processing happens in your browser, we never have access to your content. You are solely responsible for the content you process and any resulting output.',
+                h_disclaimer: 'Disclaimer of Warranties',
+                p_disclaimer: 'Our tools are provided \u201cas is\u201d and \u201cas available\u201d without warranties of any kind, either express or implied. We do not guarantee that the tools will be error-free, uninterrupted, or meet your specific requirements. Use the tools at your own risk.',
+                h_liability: 'Limitation of Liability',
+                p_liability: 'To the maximum extent permitted by law, UseMagicTools shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the tools, including but not limited to data loss, file corruption, or inaccurate output.',
+                h_changes: 'Changes to Terms',
+                p_changes: 'We reserve the right to modify these terms at any time. Changes will be posted on this page with an updated date. Your continued use of the website after changes constitutes acceptance of the new terms.',
+                h_law: 'Governing Law',
+                p_law: 'These Terms of Service shall be governed by and construed in accordance with applicable laws, without regard to conflict of law principles.',
+                h_contact: 'Contact Us',
+                p_contact: 'If you have any questions about these Terms of Service, please contact us at <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a>.',
+                footerPrivacy: 'Privacy Policy', footerTerms: 'Terms', footerAbout: 'About', footerContact: 'Contact',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. All rights reserved.'
+            },
+            'zh-CN': {
+                title: '\u670d\u52a1\u6761\u6b3e', updated: '\u6700\u540e\u66f4\u65b0\uff1a2026\u5e742\u670828\u65e5',
+                h_accept: '\u6761\u6b3e\u63a5\u53d7',
+                p_accept: '\u901a\u8fc7\u8bbf\u95ee\u548c\u4f7f\u7528\u9b54\u6cd5\u5de5\u5177\u7bb1\uff08<a href="https://www.usemagictools.com">usemagictools.com</a>\uff09\uff0c\u60a8\u540c\u610f\u53d7\u672c\u670d\u52a1\u6761\u6b3e\u7684\u7ea6\u675f\u3002\u5982\u679c\u60a8\u4e0d\u540c\u610f\u8fd9\u4e9b\u6761\u6b3e\uff0c\u8bf7\u4e0d\u8981\u4f7f\u7528\u6211\u4eec\u7684\u7f51\u7ad9\u3002',
+                h_service: '\u670d\u52a1\u63cf\u8ff0',
+                p_service: '\u9b54\u6cd5\u5de5\u5177\u7bb1\u63d0\u4f9b\u4e00\u7cfb\u5217\u514d\u8d39\u7684\u6d4f\u89c8\u5668\u5728\u7ebf\u5de5\u5177\uff0c\u5305\u62ec PDF \u5de5\u5177\u3001\u56fe\u7247\u5904\u7406\u3001\u5f00\u53d1\u8005\u5de5\u5177\u3001\u6587\u672c\u5de5\u5177\u3001\u5a92\u4f53\u5de5\u5177\u548c\u5b9e\u7528\u5de5\u5177\u3002\u6240\u6709\u5de5\u5177\u5b8c\u5168\u5728\u60a8\u7684\u6d4f\u89c8\u5668\u4e2d\u8fd0\u884c\u2014\u2014\u4e0d\u4f1a\u5c06\u6587\u4ef6\u4e0a\u4f20\u5230\u6211\u4eec\u7684\u670d\u52a1\u5668\u8fdb\u884c\u5904\u7406\u3002',
+                h_use: '\u53ef\u63a5\u53d7\u7684\u4f7f\u7528',
+                p_use: '\u60a8\u540c\u610f\u4ec5\u5c06\u6211\u4eec\u7684\u5de5\u5177\u7528\u4e8e\u5408\u6cd5\u76ee\u7684\u3002\u60a8\u4e0d\u5f97\uff1a',
+                li_u1: '\u4f7f\u7528\u5de5\u5177\u5904\u7406\u975e\u6cd5\u3001\u6709\u5bb3\u6216\u4fb5\u6743\u5185\u5bb9',
+                li_u2: '\u5c1d\u8bd5\u5bf9\u7f51\u7ad9\u7684\u4efb\u4f55\u90e8\u5206\u8fdb\u884c\u9006\u5411\u5de5\u7a0b\u3001\u53cd\u7f16\u8bd1\u6216\u53cd\u6c47\u7f16',
+                li_u3: '\u4f7f\u7528\u81ea\u52a8\u5316\u811a\u672c\u6216\u673a\u5668\u4eba\u4ee5\u964d\u4f4e\u5176\u4ed6\u7528\u6237\u6027\u80fd\u7684\u65b9\u5f0f\u8bbf\u95ee\u7f51\u7ad9',
+                li_u4: '\u865a\u5047\u4ee3\u8868\u9b54\u6cd5\u5de5\u5177\u7bb1\u6216\u6697\u793a\u4efb\u4f55\u5b98\u65b9\u5173\u8054',
+                h_ip: '\u77e5\u8bc6\u4ea7\u6743',
+                p_ip: '\u9b54\u6cd5\u5de5\u5177\u7bb1\u7f51\u7ad9\uff0c\u5305\u62ec\u5176\u8bbe\u8ba1\u3001\u4ee3\u7801\u3001\u6807\u5fd7\u548c\u5185\u5bb9\uff0c\u5747\u4e3a UseMagicTools \u7684\u8d22\u4ea7\u3002\u5de5\u5177\u514d\u8d39\u63d0\u4f9b\u4e2a\u4eba\u548c\u5546\u4e1a\u4f7f\u7528\u3002\u672a\u7ecf\u8bb8\u53ef\uff0c\u60a8\u4e0d\u5f97\u590d\u5236\u3001\u91cd\u65b0\u5206\u53d1\u6216\u51fa\u552e\u7f51\u7ad9\u7684\u6e90\u4ee3\u7801\u6216\u8bbe\u8ba1\u3002',
+                h_content: '\u60a8\u7684\u5185\u5bb9',
+                p_content: '\u60a8\u4f7f\u7528\u6211\u4eec\u5de5\u5177\u5904\u7406\u7684\u4efb\u4f55\u6587\u4ef6\u3001\u6587\u672c\u6216\u6570\u636e\u5b8c\u5168\u5c5e\u4e8e\u60a8\u3002\u7531\u4e8e\u6240\u6709\u5904\u7406\u90fd\u5728\u60a8\u7684\u6d4f\u89c8\u5668\u4e2d\u8fdb\u884c\uff0c\u6211\u4eec\u6c38\u8fdc\u65e0\u6cd5\u8bbf\u95ee\u60a8\u7684\u5185\u5bb9\u3002\u60a8\u5bf9\u5904\u7406\u7684\u5185\u5bb9\u53ca\u4efb\u4f55\u8f93\u51fa\u7ed3\u679c\u8d1f\u5168\u90e8\u8d23\u4efb\u3002',
+                h_disclaimer: '\u514d\u8d23\u58f0\u660e',
+                p_disclaimer: '\u6211\u4eec\u7684\u5de5\u5177\u6309\u201c\u539f\u6837\u201d\u548c\u201c\u53ef\u7528\u201d\u72b6\u6001\u63d0\u4f9b\uff0c\u4e0d\u63d0\u4f9b\u4efb\u4f55\u660e\u793a\u6216\u6697\u793a\u7684\u4fdd\u8bc1\u3002\u6211\u4eec\u4e0d\u4fdd\u8bc1\u5de5\u5177\u5c06\u65e0\u9519\u8bef\u3001\u4e0d\u4e2d\u65ad\u6216\u6ee1\u8db3\u60a8\u7684\u7279\u5b9a\u9700\u6c42\u3002\u4f7f\u7528\u5de5\u5177\u7684\u98ce\u9669\u7531\u60a8\u81ea\u884c\u627f\u62c5\u3002',
+                h_liability: '\u8d23\u4efb\u9650\u5236',
+                p_liability: '\u5728\u6cd5\u5f8b\u5141\u8bb8\u7684\u6700\u5927\u8303\u56f4\u5185\uff0cUseMagicTools \u4e0d\u5bf9\u56e0\u60a8\u4f7f\u7528\u6216\u65e0\u6cd5\u4f7f\u7528\u5de5\u5177\u800c\u4ea7\u751f\u7684\u4efb\u4f55\u95f4\u63a5\u3001\u9644\u5e26\u3001\u7279\u6b8a\u3001\u540e\u679c\u6027\u6216\u60e9\u7f5a\u6027\u635f\u5bb3\u8d54\u507f\u8d1f\u8d23\uff0c\u5305\u62ec\u4f46\u4e0d\u9650\u4e8e\u6570\u636e\u4e22\u5931\u3001\u6587\u4ef6\u635f\u574f\u6216\u4e0d\u51c6\u786e\u7684\u8f93\u51fa\u3002',
+                h_changes: '\u6761\u6b3e\u53d8\u66f4',
+                p_changes: '\u6211\u4eec\u4fdd\u7559\u968f\u65f6\u4fee\u6539\u8fd9\u4e9b\u6761\u6b3e\u7684\u6743\u5229\u3002\u66f4\u6539\u5c06\u53d1\u5e03\u5728\u6b64\u9875\u9762\u4e0a\u5e76\u66f4\u65b0\u65e5\u671f\u3002\u60a8\u5728\u66f4\u6539\u540e\u7ee7\u7eed\u4f7f\u7528\u7f51\u7ad9\u5373\u8868\u793a\u63a5\u53d7\u65b0\u6761\u6b3e\u3002',
+                h_law: '\u9002\u7528\u6cd5\u5f8b',
+                p_law: '\u672c\u670d\u52a1\u6761\u6b3e\u5e94\u53d7\u9002\u7528\u6cd5\u5f8b\u7ba1\u8f96\u5e76\u6309\u5176\u89e3\u91ca\uff0c\u4e0d\u8003\u8651\u6cd5\u5f8b\u51b2\u7a81\u539f\u5219\u3002',
+                h_contact: '\u8054\u7cfb\u6211\u4eec',
+                p_contact: '\u5982\u679c\u60a8\u5bf9\u672c\u670d\u52a1\u6761\u6b3e\u6709\u4efb\u4f55\u7591\u95ee\uff0c\u8bf7\u901a\u8fc7 <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a> \u8054\u7cfb\u6211\u4eec\u3002',
+                footerPrivacy: '\u9690\u79c1\u653f\u7b56', footerTerms: '\u670d\u52a1\u6761\u6b3e', footerAbout: '\u5173\u4e8e', footerContact: '\u8054\u7cfb\u6211\u4eec',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. \u4fdd\u7559\u6240\u6709\u6743\u5229\u3002'
+            },
+            fr: {
+                title: 'Conditions d\u2019Utilisation', updated: 'Derni\u00e8re mise \u00e0 jour : 28 f\u00e9vrier 2026',
+                h_accept: 'Acceptation des Conditions',
+                p_accept: 'En acc\u00e9dant et en utilisant Magic Toolbox (<a href="https://www.usemagictools.com">usemagictools.com</a>), vous acceptez d\u2019\u00eatre li\u00e9 par ces conditions d\u2019utilisation. Si vous n\u2019acceptez pas ces conditions, veuillez ne pas utiliser notre site.',
+                h_service: 'Description du Service',
+                p_service: 'Magic Toolbox propose une collection d\u2019outils en ligne gratuits fonctionnant dans le navigateur, incluant des utilitaires PDF, le traitement d\u2019images, des outils de d\u00e9veloppement, de texte, de m\u00e9dias et utilitaires. Tous les outils fonctionnent enti\u00e8rement dans votre navigateur.',
+                h_use: 'Utilisation Acceptable',
+                p_use: 'Vous acceptez d\u2019utiliser nos outils uniquement \u00e0 des fins l\u00e9gales. Vous ne pouvez pas :',
+                li_u1: 'Utiliser les outils pour traiter du contenu ill\u00e9gal, nuisible ou contrefait',
+                li_u2: 'Tenter de d\u00e9compiler ou d\u00e9sassembler toute partie du site',
+                li_u3: 'Utiliser des scripts automatis\u00e9s d\u00e9gradant les performances pour les autres utilisateurs',
+                li_u4: 'Repr\u00e9senter faussement Magic Toolbox ou impliquer une affiliation officielle',
+                h_ip: 'Propri\u00e9t\u00e9 Intellectuelle',
+                p_ip: 'Le site Magic Toolbox, y compris son design, code, logos et contenu, est la propri\u00e9t\u00e9 de UseMagicTools. Les outils sont fournis gratuitement pour un usage personnel et commercial. Vous ne pouvez pas copier, redistribuer ou vendre le code source ou le design du site sans autorisation.',
+                h_content: 'Votre Contenu',
+                p_content: 'Tout fichier, texte ou donn\u00e9e que vous traitez avec nos outils reste enti\u00e8rement le v\u00f4tre. Tout le traitement se fait dans votre navigateur, nous n\u2019avons jamais acc\u00e8s \u00e0 votre contenu.',
+                h_disclaimer: 'Exclusion de Garanties',
+                p_disclaimer: 'Nos outils sont fournis \u00ab tels quels \u00bb et \u00ab selon disponibilit\u00e9 \u00bb sans aucune garantie. Nous ne garantissons pas que les outils seront sans erreur ou r\u00e9pondront \u00e0 vos besoins sp\u00e9cifiques.',
+                h_liability: 'Limitation de Responsabilit\u00e9',
+                p_liability: 'Dans toute la mesure permise par la loi, UseMagicTools ne sera pas responsable des dommages indirects, accessoires, sp\u00e9ciaux ou cons\u00e9cutifs r\u00e9sultant de votre utilisation des outils.',
+                h_changes: 'Modifications des Conditions',
+                p_changes: 'Nous nous r\u00e9servons le droit de modifier ces conditions \u00e0 tout moment. Les changements seront publi\u00e9s sur cette page avec une date mise \u00e0 jour.',
+                h_law: 'Droit Applicable',
+                p_law: 'Ces conditions d\u2019utilisation sont r\u00e9gies par le droit applicable, sans \u00e9gard aux principes de conflit de lois.',
+                h_contact: 'Nous Contacter',
+                p_contact: 'Pour toute question concernant ces conditions, contactez-nous \u00e0 <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a>.',
+                footerPrivacy: 'Confidentialit\u00e9', footerTerms: 'Conditions', footerAbout: '\u00c0 Propos', footerContact: 'Contact',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. Tous droits r\u00e9serv\u00e9s.'
+            },
+            es: {
+                title: 'T\u00e9rminos de Servicio', updated: '\u00daltima actualizaci\u00f3n: 28 de febrero de 2026',
+                h_accept: 'Aceptaci\u00f3n de T\u00e9rminos',
+                p_accept: 'Al acceder y usar Magic Toolbox (<a href="https://www.usemagictools.com">usemagictools.com</a>), usted acepta estar sujeto a estos T\u00e9rminos de Servicio. Si no est\u00e1 de acuerdo, por favor no use nuestro sitio web.',
+                h_service: 'Descripci\u00f3n del Servicio',
+                p_service: 'Magic Toolbox ofrece una colecci\u00f3n de herramientas en l\u00ednea gratuitas basadas en navegador, incluyendo utilidades PDF, procesamiento de im\u00e1genes, herramientas de desarrollo, texto, medios y utilidades. Todas funcionan completamente en su navegador.',
+                h_use: 'Uso Aceptable',
+                p_use: 'Usted acepta usar nuestras herramientas solo para fines legales. No puede:',
+                li_u1: 'Usar las herramientas para procesar contenido ilegal, da\u00f1ino o infractor',
+                li_u2: 'Intentar realizar ingenier\u00eda inversa de cualquier parte del sitio',
+                li_u3: 'Usar scripts automatizados que degraden el rendimiento para otros usuarios',
+                li_u4: 'Tergiversar Magic Toolbox o implicar afiliaci\u00f3n oficial',
+                h_ip: 'Propiedad Intelectual',
+                p_ip: 'El sitio web Magic Toolbox, incluyendo su dise\u00f1o, c\u00f3digo, logotipos y contenido, es propiedad de UseMagicTools. Las herramientas se proporcionan gratuitamente para uso personal y comercial. No puede copiar, redistribuir o vender el c\u00f3digo fuente o dise\u00f1o del sitio sin permiso.',
+                h_content: 'Su Contenido',
+                p_content: 'Cualquier archivo, texto o dato que procese con nuestras herramientas sigue siendo completamente suyo. Todo el procesamiento ocurre en su navegador, nunca tenemos acceso a su contenido.',
+                h_disclaimer: 'Exenci\u00f3n de Garant\u00edas',
+                p_disclaimer: 'Nuestras herramientas se proporcionan \u201ctal cual\u201d y \u201cseg\u00fan disponibilidad\u201d sin garant\u00edas de ning\u00fan tipo. No garantizamos que las herramientas est\u00e9n libres de errores o cumplan sus requisitos espec\u00edficos.',
+                h_liability: 'Limitaci\u00f3n de Responsabilidad',
+                p_liability: 'En la m\u00e1xima medida permitida por la ley, UseMagicTools no ser\u00e1 responsable de ning\u00fan da\u00f1o indirecto, incidental, especial o consecuente derivado de su uso de las herramientas.',
+                h_changes: 'Cambios en los T\u00e9rminos',
+                p_changes: 'Nos reservamos el derecho de modificar estos t\u00e9rminos en cualquier momento. Los cambios se publicar\u00e1n en esta p\u00e1gina con una fecha actualizada.',
+                h_law: 'Ley Aplicable',
+                p_law: 'Estos T\u00e9rminos de Servicio se regir\u00e1n por la ley aplicable, sin tener en cuenta los principios de conflicto de leyes.',
+                h_contact: 'Cont\u00e1ctenos',
+                p_contact: 'Si tiene preguntas sobre estos T\u00e9rminos de Servicio, cont\u00e1ctenos en <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a>.',
+                footerPrivacy: 'Privacidad', footerTerms: 'T\u00e9rminos', footerAbout: 'Acerca de', footerContact: 'Contacto',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. Todos los derechos reservados.'
+            }
+        };
+
+        var LANG_KEY = 'toolbox_lang';
+        var lang = localStorage.getItem(LANG_KEY) || 'en';
+        var sel = document.getElementById('langSelect');
+        sel.value = lang;
+        function applyLang(l) {
+            var t = T[l] || T.en;
+            var els = document.querySelectorAll('[data-i18n]');
+            for (var i = 0; i < els.length; i++) { var k = els[i].getAttribute('data-i18n'); if (t[k]) els[i].innerHTML = t[k]; }
+            document.documentElement.lang = l === 'zh-CN' ? 'zh' : l;
+        }
+        applyLang(lang);
+        sel.addEventListener('change', function() { lang = this.value; localStorage.setItem(LANG_KEY, lang); applyLang(lang); });
+
+        var themeBtn = document.getElementById('themeToggle');
+        var saved = localStorage.getItem('magic_toolbox_theme');
+        if (saved === 'light') { document.body.setAttribute('data-theme', 'light'); themeBtn.textContent = '\u2600\ufe0f'; }
+        themeBtn.addEventListener('click', function() {
+            var isLight = document.body.getAttribute('data-theme') === 'light';
+            if (isLight) { document.body.removeAttribute('data-theme'); localStorage.setItem('magic_toolbox_theme', 'dark'); themeBtn.textContent = '\ud83c\udf19'; }
+            else { document.body.setAttribute('data-theme', 'light'); localStorage.setItem('magic_toolbox_theme', 'light'); themeBtn.textContent = '\u2600\ufe0f'; }
+        });
+    })();
+    </script>
+</body>
+</html>
