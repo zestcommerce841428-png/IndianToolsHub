@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="hi" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>YouTube Transcript Extractor – Free Video Transcript & Subtitles Tool</title>
+  <meta name="description" content="Extract YouTube video transcripts instantly for free. Get full text transcript with or without timestamps. Perfect for students, content creators, researchers, and professionals." />
+  <meta name="keywords" content="youtube transcript, youtube subtitles extractor, video transcript tool, youtube caption download, transcript generator, youtube to text, free transcript tool" />
+  <meta name="author" content="TranscriptPro" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://avinashwalton.github.io/transcriptpro/" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://avinashwalton.github.io/transcriptpro/" />
+  <meta property="og:title" content="YouTube Transcript Extractor – Free Video Transcript Tool" />
+  <meta property="og:description" content="Extract YouTube video transcripts instantly for free. Get full text transcript with or without timestamps in one click." />
+  <meta property="og:image" content="https://avinashwalton.github.io/transcriptpro/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="YouTube Transcript Extractor – Free Tool" />
+  <meta name="twitter:description" content="Instantly extract full transcripts from any YouTube video. Copy with or without timestamps." />
+  <meta name="twitter:image" content="https://avinashwalton.github.io/transcriptpro/og-image.png" />
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "YouTube Transcript Extractor",
+    "description": "Free tool to extract transcripts from YouTube videos with or without timestamps.",
+    "url": "https://avinashwalton.github.io/transcriptpro/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Noise Texture -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Floating Orbs -->
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="orb orb-3" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="https://avinashwalton.github.io/transcriptpro" class="logo" aria-label="TranscriptPro Home">
+        <span class="logo-icon" aria-hidden="true">▶</span>
+        <span class="logo-text">Transcript<em>Pro</em></span>
+      </a>
+      <nav class="header-nav" aria-label="Main Navigation">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <div class="hero-badge">
+          <span class="badge-dot" aria-hidden="true"></span>
+          100% Free · No Sign-up Required
+        </div>
+        <h1 id="hero-title">
+          YouTube <span class="accent">Transcript</span><br/>Extractor
+        </h1>
+        <p class="hero-subtitle">
+          किसी भी YouTube video का full transcript एक click में। Text copy करें — timestamps के साथ या बिना।
+        </p>
+
+        <!-- ===== INPUT CARD ===== -->
+        <div class="input-card" role="search" aria-label="YouTube URL Input">
+          <div class="input-row">
+            <div class="input-wrapper">
+              <span class="input-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </span>
+              <input
+                type="url"
+                id="youtube-url"
+                class="url-input"
+                placeholder="YouTube video URL paste करें..."
+                aria-label="YouTube Video URL"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <button class="clear-btn" id="clear-btn" aria-label="Clear input" title="Clear" style="display:none;">✕</button>
+            </div>
+            <button class="extract-btn" id="extract-btn" aria-label="Extract Transcript">
+              <span class="btn-text">Extract</span>
+              <span class="btn-icon" aria-hidden="true">→</span>
+            </button>
+          </div>
+          <div class="input-hints" aria-live="polite">
+            <span>Supports:</span>
+            <code>youtube.com/watch?v=</code>
+            <code>youtu.be/</code>
+            <code>youtube.com/shorts/</code>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-msg" id="error-msg" role="alert" aria-live="assertive" style="display:none;"></div>
+      </div>
+    </section>
+
+    <!-- ===== LOADING ===== -->
+    <section class="loading-section" id="loading-section" aria-live="polite" aria-label="Loading" style="display:none;">
+      <div class="container">
+        <div class="loader-card">
+          <div class="loader-bars" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <p class="loader-text" id="loader-text">Fetching transcript…</p>
+          <p class="loader-sub">Processing video captions</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RESULT SECTION ===== -->
+    <section class="result-section" id="result-section" aria-label="Transcript Result" style="display:none;">
+      <div class="container">
+
+        <!-- Video Info Bar -->
+        <div class="video-info-bar" id="video-info-bar">
+          <div class="video-thumb-wrap">
+            <img id="video-thumb" src="" alt="Video thumbnail" class="video-thumb" loading="lazy" />
+            <span class="play-overlay" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-meta">
+            <h2 class="video-title" id="video-title">Video Title</h2>
+            <div class="video-stats">
+              <span id="video-channel" class="stat-chip">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+                Channel
+              </span>
+              <span id="transcript-word-count" class="stat-chip">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                Words
+              </span>
+              <span id="transcript-duration" class="stat-chip">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Duration
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="controls-bar">
+          <div class="controls-left">
+            <button class="tab-btn active" id="tab-plain" data-tab="plain" aria-selected="true" role="tab">
+              📄 Plain Text
+            </button>
+            <button class="tab-btn" id="tab-timestamp" data-tab="timestamp" aria-selected="false" role="tab">
+              🕐 With Timestamps
+            </button>
+          </div>
+          <div class="controls-right">
+            <div class="search-box">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="search" id="transcript-search" placeholder="Search in transcript…" aria-label="Search transcript" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Transcript Box -->
+        <div class="transcript-container" role="tabpanel">
+          <div class="transcript-box" id="transcript-plain" aria-label="Plain text transcript"></div>
+          <div class="transcript-box hidden" id="transcript-timestamp" aria-label="Timestamped transcript"></div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-bar">
+          <button class="action-btn primary" id="copy-plain-btn" aria-label="Copy plain text transcript">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy Plain Text
+          </button>
+          <button class="action-btn secondary" id="copy-ts-btn" aria-label="Copy transcript with timestamps">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Copy with Timestamps
+          </button>
+          <button class="action-btn ghost" id="download-btn" aria-label="Download transcript as text file">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download .txt
+          </button>
+          <button class="action-btn ghost" id="new-btn" aria-label="Extract another transcript">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.65"/></svg>
+            New Extract
+          </button>
+        </div>
+
+        <!-- Toast Notification -->
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="how-section" id="how-it-works" aria-labelledby="how-title">
+      <div class="container">
+        <div class="section-label">Simple Process</div>
+        <h2 id="how-title" class="section-title">3 Steps में Transcript Ready</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number" aria-hidden="true">01</div>
+            <div class="step-icon" aria-hidden="true">🔗</div>
+            <h3>URL Paste करें</h3>
+            <p>किसी भी YouTube video का link copy करके ऊपर paste करें।</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number" aria-hidden="true">02</div>
+            <div class="step-icon" aria-hidden="true">⚡</div>
+            <h3>Extract Click करें</h3>
+            <p>Extract button दबाएं और कुछ seconds में transcript तैयार।</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number" aria-hidden="true">03</div>
+            <div class="step-icon" aria-hidden="true">📋</div>
+            <h3>Copy / Download</h3>
+            <p>Plain text या timestamps के साथ copy करें या .txt file download करें।</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features-section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-label">Why TranscriptPro</div>
+        <h2 id="features-title" class="section-title">सब कुछ एक जगह</h2>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">⚡</div>
+            <h3>Lightning Fast</h3>
+            <p>Seconds में transcript extract होती है। कोई waiting नहीं।</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🕐</div>
+            <h3>Timestamp Support</h3>
+            <p>हर line के साथ exact timestamp — जब चाहें jump करें।</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🔍</div>
+            <h3>Transcript Search</h3>
+            <p>Transcript में किसी भी word को instantly search करें।</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">📥</div>
+            <h3>Download .txt</h3>
+            <p>पूरी transcript को text file में download करें offline use के लिए।</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">📱</div>
+            <h3>Mobile Friendly</h3>
+            <p>Phone और desktop दोनों पर perfectly काम करती है।</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🔒</div>
+            <h3>No Login, Free</h3>
+            <p>कोई account नहीं, कोई payment नहीं। 100% free tool।</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-label">FAQ</div>
+        <h2 id="faq-title" class="section-title">अक्सर पूछे जाने वाले सवाल</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-q">क्या यह tool बिल्कुल free है?</summary>
+            <p class="faq-a">हाँ, TranscriptPro पूरी तरह free है। कोई sign-up या payment नहीं।</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">किन videos का transcript मिलेगा?</summary>
+            <p class="faq-a">उन videos का transcript मिलता है जिनमें YouTube captions/subtitles enabled हों — auto-generated या manual दोनों।</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">Timestamp वाला transcript किस format में होता है?</summary>
+            <p class="faq-a">हर line के आगे [MM:SS] format में timestamp होता है जो video के exact moment को indicate करता है।</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">क्या Hindi videos का transcript मिलता है?</summary>
+            <p class="faq-a">हाँ, अगर video में Hindi captions हैं तो transcript Hindi में मिलेगा। Auto-generated captions भी support होती हैं।</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q">Private या Age-restricted videos?</summary>
+            <p class="faq-a">Private और age-restricted videos का transcript extract नहीं होता क्योंकि YouTube उनकी captions publicly accessible नहीं रखता।</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="https://avinashwalton.github.io/transcriptpro" class="footer-logo-link" aria-label="TranscriptPro Home">
+          <span class="logo-icon" aria-hidden="true">▶</span>
+          <span class="logo-text">Transcript<em>Pro</em></span>
+        </a>
+        <p class="footer-tagline">YouTube transcripts, instantly.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <!-- Social Media Badges -->
+      <div class="social-links" aria-label="Avinash Walton on Social Media">
+        <a href="https://youtube.com/@AvinashWalton" class="social-badge youtube" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <span>YouTube</span>
+        </a>
+        <a href="https://facebook.com/AvinashWalton" class="social-badge facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span>Facebook</span>
+        </a>
+        <a href="https://twitter.com/AvinashWalton" class="social-badge twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span>Twitter</span>
+        </a>
+        <a href="https://instagram.com/AvinashWalton" class="social-badge instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          <span>Instagram</span>
+        </a>
+        <a href="https://threads.net/@AvinashWalton" class="social-badge threads" target="_blank" rel="noopener noreferrer" aria-label="Threads">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.848 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.642-2.045 1.494-1.655 1.47-3.478 1.41-4.516a7.45 7.45 0 0 0-.044-.72c-.21.058-.433.108-.663.147-1.116.19-2.297.252-3.466.152-2.577-.215-4.533-1.483-4.93-3.39a4.3 4.3 0 0 1 .108-2.12c.496-1.674 1.918-2.645 3.908-2.645.282 0 .571.015.867.043 1.977.187 3.392.95 4.205 2.27.624 1.011.838 2.316.636 3.876-.041.315-.096.617-.162.906.139.04.277.087.413.137l.028.01c1.274.481 2.14 1.313 2.443 2.34.306 1.03.077 2.177-.641 3.232-.718 1.054-1.803 1.776-3.17 2.139-.937.25-1.998.383-3.162.399-.135.002-.27.004-.405.004zm.05-11.516c-1.312 0-2.12.527-2.384 1.566a2.457 2.457 0 0 0-.06 1.25c.225 1.073 1.47 1.808 3.333 1.963.982.082 1.992.034 2.949-.139.197-.034.386-.075.567-.122.079-.562.1-1.11.06-1.624-.156-1.275-.616-2.183-1.367-2.698-.652-.453-1.6-.696-3.098-.196z"/></svg>
+          <span>Threads</span>
+        </a>
+        <a href="https://linkedin.com/in/SonuKumarSuman" class="social-badge linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+
+      <div class="footer-divider" aria-hidden="true"></div>
+
+      <p class="footer-made">
+        Made with <span class="heart" aria-label="love">❤️</span> in <span class="india-flag" aria-label="India">🇮🇳</span> India &nbsp;·&nbsp; By <a href="https://youtube.com/@AvinashWalton" target="_blank" rel="noopener noreferrer" class="author-link">Avinash Walton</a>
+      </p>
+      <p class="footer-copy">
+        &copy; <span id="year"></span> TranscriptPro &nbsp;·&nbsp; Not affiliated with YouTube or Google.
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

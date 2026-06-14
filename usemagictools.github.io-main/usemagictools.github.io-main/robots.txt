@@ -1,0 +1,133 @@
+# Robots.txt for www.usemagictools.com
+# Magic Toolbox - 60+ Free Online Browser Tools
+# 更新日期: 2026-02-23
+
+# ============================================
+# 默认规则 - 允许所有爬虫
+# ============================================
+User-agent: *
+Allow: /
+Disallow: /common/
+Disallow: /docs/
+Disallow: /.DS_Store
+
+# ============================================
+# 主流搜索引擎
+# ============================================
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Sogou
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: PetalBot
+Allow: /
+
+# ============================================
+# AI 爬虫 - OpenAI / ChatGPT
+# ============================================
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# ============================================
+# AI 爬虫 - Google AI
+# ============================================
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# ============================================
+# AI 爬虫 - Anthropic / Claude
+# ============================================
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# ============================================
+# AI 爬虫 - 其他 AI 服务
+# ============================================
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: AI2Bot
+Allow: /
+
+User-agent: Ai2Bot-Dolma
+Allow: /
+
+User-agent: iaskspider
+Allow: /
+
+# ============================================
+# Sitemaps
+# ============================================
+Sitemap: https://www.usemagictools.com/sitemap.xml
+
+# ============================================
+# LLMs.txt
+# ============================================
+LLMs: https://www.usemagictools.com/llms.txt

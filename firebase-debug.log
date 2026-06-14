@@ -1,0 +1,136 @@
+[debug] [2026-06-08T19:05:39.947Z] ----------------------------------------------------------------------
+[debug] [2026-06-08T19:05:39.949Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\anony\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only firestore:rules
+[debug] [2026-06-08T19:05:39.949Z] CLI Version:   15.19.1
+[debug] [2026-06-08T19:05:39.949Z] Platform:      win32
+[debug] [2026-06-08T19:05:39.950Z] Node Version:  v24.16.0
+[debug] [2026-06-08T19:05:39.950Z] Time:          Tue Jun 09 2026 00:35:39 GMT+0530 (India Standard Time)
+[debug] [2026-06-08T19:05:39.950Z] ----------------------------------------------------------------------
+[debug] 
+[error] 
+[error] Error: No currently active project.
+To run this command, you need to specify a project. You have two options:
+- Run this command with --project <alias_or_project_id>.
+- Set an active project by running firebase use --add, then rerun this command.
+To list all the Firebase projects to which you have access, run firebase projects:list.
+To learn about active projects for the CLI, visit https://firebase.google.com/docs/cli#project_aliases
+
+
+[debug] [2026-06-08T19:05:55.645Z] ----------------------------------------------------------------------
+[debug] [2026-06-08T19:05:55.648Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\anony\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js projects:list
+[debug] [2026-06-08T19:05:55.648Z] CLI Version:   15.19.1
+[debug] [2026-06-08T19:05:55.648Z] Platform:      win32
+[debug] [2026-06-08T19:05:55.648Z] Node Version:  v24.16.0
+[debug] [2026-06-08T19:05:55.648Z] Time:          Tue Jun 09 2026 00:35:55 GMT+0530 (India Standard Time)
+[debug] [2026-06-08T19:05:55.648Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-08T19:05:55.786Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-08T19:05:55.787Z] > authorizing via signed-in user (zestcommerce841428@gmail.com)
+[debug] [2026-06-08T19:05:55.790Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:05:55.790Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:05:55.791Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2026-06-08T19:05:56.582Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-06-08T19:05:56.582Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] ┌──────────────────────┬────────────────┬────────────────┬──────────────────────┐
+│ Project Display Name │ Project ID     │ Project Number │ Resource Location ID │
+├──────────────────────┼────────────────┼────────────────┼──────────────────────┤
+│ IndianToolsHub       │ indiantoolshub │ 808286803580   │ [Not specified]      │
+└──────────────────────┴────────────────┴────────────────┴──────────────────────┘
+[info] 
+[info] 1 project(s) total.
+[debug] [2026-06-08T19:06:07.597Z] ----------------------------------------------------------------------
+[debug] [2026-06-08T19:06:07.599Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\anony\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js use indiantoolshub
+[debug] [2026-06-08T19:06:07.599Z] CLI Version:   15.19.1
+[debug] [2026-06-08T19:06:07.599Z] Platform:      win32
+[debug] [2026-06-08T19:06:07.599Z] Node Version:  v24.16.0
+[debug] [2026-06-08T19:06:07.600Z] Time:          Tue Jun 09 2026 00:36:07 GMT+0530 (India Standard Time)
+[debug] [2026-06-08T19:06:07.600Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-08T19:06:07.715Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-08T19:06:07.715Z] > authorizing via signed-in user (zestcommerce841428@gmail.com)
+[debug] [2026-06-08T19:06:07.717Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:07.717Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:07.718Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/indiantoolshub/services/cloudresourcemanager.googleapis.com [none]
+[debug] [2026-06-08T19:06:07.718Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/indiantoolshub/services/cloudresourcemanager.googleapis.com  x-goog-user-project=indiantoolshub
+[debug] [2026-06-08T19:06:09.559Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/indiantoolshub/services/cloudresourcemanager.googleapis.com 200
+[debug] [2026-06-08T19:06:09.559Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/indiantoolshub/services/cloudresourcemanager.googleapis.com [omitted]
+[debug] [2026-06-08T19:06:09.572Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:09.572Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:09.572Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/indiantoolshub [none]
+[debug] [2026-06-08T19:06:11.110Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/indiantoolshub 200
+[debug] [2026-06-08T19:06:11.111Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/indiantoolshub {"projectNumber":"808286803580","projectId":"indiantoolshub","lifecycleState":"ACTIVE","name":"IndianToolsHub","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2026-06-07T10:04:52.919Z"}
+[info] Now using project indiantoolshub
+[debug] [2026-06-08T19:06:18.323Z] ----------------------------------------------------------------------
+[debug] [2026-06-08T19:06:18.325Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\anony\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only firestore:rules
+[debug] [2026-06-08T19:06:18.326Z] CLI Version:   15.19.1
+[debug] [2026-06-08T19:06:18.326Z] Platform:      win32
+[debug] [2026-06-08T19:06:18.326Z] Node Version:  v24.16.0
+[debug] [2026-06-08T19:06:18.326Z] Time:          Tue Jun 09 2026 00:36:18 GMT+0530 (India Standard Time)
+[debug] [2026-06-08T19:06:18.326Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-08T19:06:19.209Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-08T19:06:19.210Z] > authorizing via signed-in user (zestcommerce841428@gmail.com)
+[debug] [2026-06-08T19:06:19.210Z] [iam] checking project indiantoolshub for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2026-06-08T19:06:19.211Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:19.212Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:19.212Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/indiantoolshub:testIamPermissions [none]
+[debug] [2026-06-08T19:06:19.213Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/indiantoolshub:testIamPermissions  x-goog-user-project=indiantoolshub
+[debug] [2026-06-08T19:06:19.213Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/indiantoolshub:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2026-06-08T19:06:19.737Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/indiantoolshub:testIamPermissions 200
+[debug] [2026-06-08T19:06:19.737Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/indiantoolshub:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'indiantoolshub'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-06-08T19:06:19.739Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:19.739Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:19.739Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/indiantoolshub/services/firestore.googleapis.com [none]
+[debug] [2026-06-08T19:06:19.739Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/indiantoolshub/services/firestore.googleapis.com  x-goog-user-project=indiantoolshub
+[debug] [2026-06-08T19:06:21.454Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/indiantoolshub/services/firestore.googleapis.com 200
+[debug] [2026-06-08T19:06:21.455Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/indiantoolshub/services/firestore.googleapis.com [omitted]
+[info] +  firestore: required API firestore.googleapis.com is enabled 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-06-08T19:06:21.461Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:21.461Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:21.461Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/indiantoolshub/databases/(default) [none]
+[debug] [2026-06-08T19:06:21.864Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/indiantoolshub/databases/(default) 200
+[debug] [2026-06-08T19:06:21.865Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/indiantoolshub/databases/(default) {"name":"projects/indiantoolshub/databases/(default)","uid":"13484f4d-7711-4a3c-b8d3-581c73826c05","createTime":"2026-06-07T10:12:48.557541Z","updateTime":"2026-06-07T10:12:48.557541Z","locationId":"asia-south1","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2026-06-08T18:06:22.136529Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"j","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"ILOzpqar+JQDMOTR5ajy9JQD"}
+[info] i  cloud.firestore: checking firestore.rules for compilation errors... 
+[debug] [2026-06-08T19:06:21.866Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:21.866Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:21.866Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/indiantoolshub:test [none]
+[debug] [2026-06-08T19:06:21.866Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/indiantoolshub:test [omitted]
+[debug] [2026-06-08T19:06:23.476Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/indiantoolshub:test 200
+[debug] [2026-06-08T19:06:23.476Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/indiantoolshub:test {}
+[info] +  cloud.firestore: rules file firestore.rules compiled successfully 
+[debug] [2026-06-08T19:06:23.478Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:23.478Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:23.478Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/indiantoolshub/releases pageSize=10&pageToken=
+[debug] [2026-06-08T19:06:24.825Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/indiantoolshub/releases 200
+[debug] [2026-06-08T19:06:24.825Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/indiantoolshub/releases {"releases":[{"name":"projects/indiantoolshub/releases/cloud.firestore","rulesetName":"projects/indiantoolshub/rulesets/ffcdfe5d-2b07-430e-87dd-e67e4f6ebc92","createTime":"2026-06-07T10:12:53.306251Z","updateTime":"2026-06-07T10:13:41.336508Z"}]}
+[debug] [2026-06-08T19:06:24.825Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:24.825Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:24.826Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/indiantoolshub/rulesets/ffcdfe5d-2b07-430e-87dd-e67e4f6ebc92 [none]
+[debug] [2026-06-08T19:06:25.166Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/indiantoolshub/rulesets/ffcdfe5d-2b07-430e-87dd-e67e4f6ebc92 200
+[debug] [2026-06-08T19:06:25.166Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/indiantoolshub/rulesets/ffcdfe5d-2b07-430e-87dd-e67e4f6ebc92 [omitted]
+[info] i  firestore: uploading rules firestore.rules... 
+[debug] [2026-06-08T19:06:25.167Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:25.167Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:25.167Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/indiantoolshub/rulesets [none]
+[debug] [2026-06-08T19:06:25.167Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/indiantoolshub/rulesets [omitted]
+[debug] [2026-06-08T19:06:26.573Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/indiantoolshub/rulesets 200
+[debug] [2026-06-08T19:06:26.573Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/indiantoolshub/rulesets {"name":"projects/indiantoolshub/rulesets/d02e4eb0-6f75-439a-a952-0f3693304860","source":{"files":[{"content":"rules_version = '2';\r\n\r\nservice cloud.firestore {\r\n  match /databases/{database}/documents {\r\n    \r\n    // ============================================\r\n    // User Documents\r\n    // ============================================\r\n    // Allow authenticated users to read/write their own user document\r\n    match /users/{userId} {\r\n      allow read: if request.auth != null && request.auth.uid == userId;\r\n      allow write: if request.auth != null && request.auth.uid == userId;\r\n      allow create: if request.auth != null && request.auth.uid == userId;\r\n      allow update: if request.auth != null && request.auth.uid == userId;\r\n      allow delete: if request.auth != null && request.auth.uid == userId;\r\n    }\r\n    \r\n    // ============================================\r\n    // OTP Collection (Email Verification)\r\n    // ============================================\r\n    // Allow OTP operations for email verification system\r\n    match /otps/{email} {\r\n      // Allow creating OTPs (server-side API creates them)\r\n      allow create: if true;\r\n      \r\n      // Allow reading OTPs (for verification)\r\n      allow read: if true;\r\n      \r\n      // Allow updating OTPs (in case of resend)\r\n      allow update: if true;\r\n      \r\n      // Allow deleting OTPs (after successful verification)\r\n      allow delete: if true;\r\n    }\r\n    \r\n    // ============================================\r\n    // Default: Deny All Other Access\r\n    // ============================================\r\n    match /{document=**} {\r\n      allow read, write: if false;\r\n    }\r\n  }\r\n}\r\n","name":"firestore.rules"}]},"createTime":"2026-06-08T19:06:26.737791Z","metadata":{"services":["cloud.firestore"]}}
+[debug] [2026-06-08T19:06:26.573Z] [rules] created ruleset projects/indiantoolshub/rulesets/d02e4eb0-6f75-439a-a952-0f3693304860
+[debug] [2026-06-08T19:06:26.574Z] [rules] releasing cloud.firestore with ruleset projects/indiantoolshub/rulesets/d02e4eb0-6f75-439a-a952-0f3693304860
+[debug] [2026-06-08T19:06:26.574Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:26.575Z] Checked if tokens are valid: true, expires at: 1780949112945
+[debug] [2026-06-08T19:06:26.575Z] >>> [apiv2][query] PATCH https://firebaserules.googleapis.com/v1/projects/indiantoolshub/releases/cloud.firestore [none]
+[debug] [2026-06-08T19:06:26.575Z] >>> [apiv2][body] PATCH https://firebaserules.googleapis.com/v1/projects/indiantoolshub/releases/cloud.firestore {"release":{"name":"projects/indiantoolshub/releases/cloud.firestore","rulesetName":"projects/indiantoolshub/rulesets/d02e4eb0-6f75-439a-a952-0f3693304860"}}
+[debug] [2026-06-08T19:06:27.933Z] <<< [apiv2][status] PATCH https://firebaserules.googleapis.com/v1/projects/indiantoolshub/releases/cloud.firestore 200
+[debug] [2026-06-08T19:06:27.934Z] <<< [apiv2][body] PATCH https://firebaserules.googleapis.com/v1/projects/indiantoolshub/releases/cloud.firestore {"name":"projects/indiantoolshub/releases/cloud.firestore","rulesetName":"projects/indiantoolshub/rulesets/d02e4eb0-6f75-439a-a952-0f3693304860","createTime":"2026-06-07T10:12:53.306251Z","updateTime":"2026-06-08T19:06:28.100369Z"}
+[debug] [2026-06-08T19:06:27.934Z] [rules] updated release projects/indiantoolshub/releases/cloud.firestore
+[info] +  firestore: released rules firestore.rules to cloud.firestore 
+[info] 
+[info] +  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/indiantoolshub/overview

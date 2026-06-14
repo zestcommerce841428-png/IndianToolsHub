@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 40%, #24243e 70%, #302b63 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        /* 粒子背景 */
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; }
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .error-code {
+            font-size: clamp(6rem, 20vw, 10rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(139, 92, 246, 0.6)); }
+        }
+        .error-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #c4b5fd;
+            margin-bottom: 12px;
+        }
+        .error-desc {
+            font-size: 1.05rem;
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+            margin-bottom: 40px;
+        }
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+        }
+        .popular-tools {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+        .popular-tools h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+        .tool-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            color: #c4b5fd;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .tool-link:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(139, 92, 246, 0.3);
+            color: #e0e0e0;
+        }
+        .tool-icon { font-size: 1.1rem; }
+        /* 浅色主题 */
+        body[data-theme="light"] {
+            background: linear-gradient(135deg, #f5f3ff, #ede9fe, #ddd6fe);
+            color: #1f2937;
+        }
+        body[data-theme="light"] .error-code {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        body[data-theme="light"] .error-title { color: #6d28d9; }
+        body[data-theme="light"] .error-desc { color: #6b7280; }
+        body[data-theme="light"] .popular-tools {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(124, 58, 237, 0.15);
+        }
+        body[data-theme="light"] .popular-tools h3 { color: #6b7280; }
+        body[data-theme="light"] .tool-link { color: #7c3aed; background: rgba(124, 58, 237, 0.05); }
+        body[data-theme="light"] .tool-link:hover { background: rgba(124, 58, 237, 0.1); color: #5b21b6; }
+        body[data-theme="light"] .particle { background: rgba(124, 58, 237, 0.15); }
+        @media (max-width: 600px) {
+            .container { padding: 24px 16px; }
+            .tool-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="container">
+        <div class="error-code">404</div>
+        <h1 class="error-title" data-i18n="title">Page Not Found</h1>
+        <p class="error-desc" data-i18n="desc">The page you're looking for doesn't exist or has been moved. Try one of our popular tools below.</p>
+        <a href="/" class="btn-home" data-i18n="home_btn">&#8592; Back to Home</a>
+        <div class="popular-tools">
+            <h3 data-i18n="popular">Popular Tools</h3>
+            <div class="tool-grid">
+                <a href="/json-viewer.html" class="tool-link"><span class="tool-icon">{ }</span> JSON Viewer</a>
+                <a href="/image-compressor.html" class="tool-link"><span class="tool-icon">&#128247;</span> <span data-i18n="t_compress">Image Compressor</span></a>
+                <a href="/calculator.html" class="tool-link"><span class="tool-icon">&#128290;</span> <span data-i18n="t_calc">Calculator</span></a>
+                <a href="/color-palette.html" class="tool-link"><span class="tool-icon">&#127912;</span> <span data-i18n="t_color">Color Palette</span></a>
+                <a href="/qr-code-generator.html" class="tool-link"><span class="tool-icon">&#9641;</span> <span data-i18n="t_qr">QR Code Generator</span></a>
+                <a href="/password-generator.html" class="tool-link"><span class="tool-icon">&#128272;</span> <span data-i18n="t_pwd">Password Generator</span></a>
+            </div>
+        </div>
+    </div>
+    <script>
+    (function() {
+        // 粒子效果
+        var container = document.getElementById('particles');
+        for (var i = 0; i < 20; i++) {
+            var p = document.createElement('div');
+            p.className = 'particle';
+            var size = Math.random() * 6 + 2;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            p.style.animationDelay = (Math.random() * 6) + 's';
+            p.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            container.appendChild(p);
+        }
+
+        // 多语言
+        var translations = {
+            en: { title: 'Page Not Found', desc: "The page you're looking for doesn't exist or has been moved. Try one of our popular tools below.", home_btn: '\u2190 Back to Home', popular: 'Popular Tools', t_compress: 'Image Compressor', t_calc: 'Calculator', t_color: 'Color Palette', t_qr: 'QR Code Generator', t_pwd: 'Password Generator' },
+            'zh-CN': { title: '\u9875\u9762\u672a\u627e\u5230', desc: '\u60a8\u8bbf\u95ee\u7684\u9875\u9762\u4e0d\u5b58\u5728\u6216\u5df2\u88ab\u79fb\u52a8\u3002\u8bd5\u8bd5\u4e0b\u65b9\u7684\u70ed\u95e8\u5de5\u5177\u5427\u3002', home_btn: '\u2190 \u8fd4\u56de\u9996\u9875', popular: '\u70ed\u95e8\u5de5\u5177', t_compress: '\u56fe\u7247\u538b\u7f29', t_calc: '\u8ba1\u7b97\u5668', t_color: '\u8c03\u8272\u677f', t_qr: '\u4e8c\u7ef4\u7801\u751f\u6210', t_pwd: '\u5bc6\u7801\u751f\u6210\u5668' },
+            fr: { title: 'Page Non Trouv\u00e9e', desc: "La page que vous recherchez n'existe pas ou a \u00e9t\u00e9 d\u00e9plac\u00e9e. Essayez l'un de nos outils populaires ci-dessous.", home_btn: '\u2190 Retour \u00e0 l\u2019accueil', popular: 'Outils Populaires', t_compress: "Compresseur d'images", t_calc: 'Calculatrice', t_color: 'Palette de couleurs', t_qr: 'G\u00e9n\u00e9rateur QR', t_pwd: 'G\u00e9n\u00e9rateur de MdP' },
+            es: { title: 'P\u00e1gina No Encontrada', desc: 'La p\u00e1gina que buscas no existe o ha sido movida. Prueba una de nuestras herramientas populares.', home_btn: '\u2190 Volver al inicio', popular: 'Herramientas Populares', t_compress: 'Compresor de im\u00e1genes', t_calc: 'Calculadora', t_color: 'Paleta de colores', t_qr: 'Generador QR', t_pwd: 'Generador de contrase\u00f1as' }
+        };
+
+        function getLang() {
+            var nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+            if (nav.indexOf('zh') === 0) return 'zh-CN';
+            if (nav.indexOf('fr') === 0) return 'fr';
+            if (nav.indexOf('es') === 0) return 'es';
+            return 'en';
+        }
+
+        var lang = getLang();
+        var t = translations[lang] || translations.en;
+        var els = document.querySelectorAll('[data-i18n]');
+        for (var i = 0; i < els.length; i++) {
+            var key = els[i].getAttribute('data-i18n');
+            if (t[key]) els[i].textContent = t[key];
+        }
+    })();
+    </script>
+</body>
+</html>

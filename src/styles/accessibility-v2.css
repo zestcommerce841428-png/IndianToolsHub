@@ -1,0 +1,867 @@
+/* ===================================================================
+   COMPREHENSIVE ACCESSIBILITY SYSTEM V2 - 101 FEATURES
+   IndianToolsHub - Professional Implementation
+   =================================================================== */
+
+/* ==================== ROOT VARIABLES ==================== */
+:root {
+  --a11y-text-size: 100%;
+  --a11y-line-height: 1.5;
+  --a11y-letter-spacing: normal;
+  --a11y-word-spacing: normal;
+  --a11y-brightness: 100%;
+  --a11y-saturation: 100%;
+  --a11y-hue-rotation: 0deg;
+  --a11y-contrast: 1;
+  --a11y-whitespace: 1;
+  --a11y-cursor-size: 1;
+}
+
+/* ==================== CATEGORY 1: VISION & DISPLAY (18) ==================== */
+
+/* 1. Text Size Scaling */
+.a11y-text-size-50 * { font-size: 50% !important; }
+.a11y-text-size-75 * { font-size: 75% !important; }
+.a11y-text-size-100 * { font-size: 100% !important; }
+.a11y-text-size-125 * { font-size: 125% !important; }
+.a11y-text-size-150 * { font-size: 150% !important; }
+.a11y-text-size-175 * { font-size: 175% !important; }
+.a11y-text-size-200 * { font-size: 200% !important; }
+
+/* 2. Line Height */
+.a11y-line-height-normal * { line-height: 1.5 !important; }
+.a11y-line-height-large * { line-height: 1.8 !important; }
+.a11y-line-height-xl * { line-height: 2.2 !important; }
+.a11y-line-height-max * { line-height: 2.8 !important; }
+
+/* 3. Letter Spacing */
+.a11y-letter-spacing-normal * { letter-spacing: normal !important; }
+.a11y-letter-spacing-increased * { letter-spacing: 0.1em !important; }
+.a11y-letter-spacing-wide * { letter-spacing: 0.2em !important; }
+.a11y-letter-spacing-xwide * { letter-spacing: 0.3em !important; }
+
+/* 4. Word Spacing */
+.a11y-word-spacing-normal * { word-spacing: normal !important; }
+.a11y-word-spacing-spaced * { word-spacing: 0.2em !important; }
+.a11y-word-spacing-wide * { word-spacing: 0.4em !important; }
+.a11y-word-spacing-xwide * { word-spacing: 0.6em !important; }
+
+/* 5. Text Alignment */
+.a11y-text-align-left * { text-align: left !important; }
+.a11y-text-align-center * { text-align: center !important; }
+.a11y-text-align-right * { text-align: right !important; }
+.a11y-text-align-justify * { text-align: justify !important; }
+
+/* 6. Font Family Override */
+.a11y-font-serif * { font-family: Georgia, serif !important; }
+.a11y-font-sans-serif * { font-family: Arial, sans-serif !important; }
+.a11y-font-monospace * { font-family: 'Courier New', monospace !important; }
+.a11y-font-dyslexic * { font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important; }
+.a11y-font-arial * { font-family: Arial, sans-serif !important; }
+.a11y-font-verdana * { font-family: Verdana, sans-serif !important; }
+
+/* 7-8. High Contrast & Themes */
+.a11y-high-contrast * {
+  filter: contrast(1.5) !important;
+}
+
+.a11y-contrast-yellow-on-black {
+  background-color: #000 !important;
+  color: #ff0 !important;
+}
+.a11y-contrast-yellow-on-black * {
+  background-color: #000 !important;
+  color: #ff0 !important;
+}
+
+.a11y-contrast-white-on-black {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+.a11y-contrast-white-on-black * {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.a11y-contrast-black-on-white {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+.a11y-contrast-black-on-white * {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+.a11y-contrast-black-on-yellow {
+  background-color: #ff0 !important;
+  color: #000 !important;
+}
+.a11y-contrast-black-on-yellow * {
+  background-color: #ff0 !important;
+  color: #000 !important;
+}
+
+.a11y-contrast-green-on-black {
+  background-color: #000 !important;
+  color: #0f0 !important;
+}
+.a11y-contrast-green-on-black * {
+  background-color: #000 !important;
+  color: #0f0 !important;
+}
+
+.a11y-contrast-blue-on-white {
+  background-color: #fff !important;
+  color: #00f !important;
+}
+.a11y-contrast-blue-on-white * {
+  background-color: #fff !important;
+  color: #00f !important;
+}
+
+.a11y-contrast-amber-on-dark {
+  background-color: #1a1a1a !important;
+  color: #ffbf00 !important;
+}
+.a11y-contrast-amber-on-dark * {
+  background-color: #1a1a1a !important;
+  color: #ffbf00 !important;
+}
+
+/* 9. Invert Colors */
+.a11y-invert-colors {
+  filter: invert(100%) !important;
+}
+
+/* 10. Grayscale Mode */
+.a11y-grayscale {
+  filter: grayscale(100%) !important;
+}
+
+/* 11-12. Dark/Light Mode */
+.a11y-dark-mode {
+  background-color: #0f0f0f !important;
+  color: #e0e0e0 !important;
+}
+.a11y-dark-mode * {
+  background-color: #0f0f0f !important;
+  color: #e0e0e0 !important;
+}
+
+.a11y-light-mode {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+.a11y-light-mode * {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* 13. Sepia Tone */
+.a11y-sepia {
+  filter: sepia(100%) !important;
+}
+
+/* 14. Colorblind Filters */
+.a11y-colorblind-protanopia {
+  filter: url('#protanopia-filter') !important;
+}
+
+.a11y-colorblind-deuteranopia {
+  filter: url('#deuteranopia-filter') !important;
+}
+
+.a11y-colorblind-tritanopia {
+  filter: url('#tritanopia-filter') !important;
+}
+
+.a11y-colorblind-achromatopsia {
+  filter: grayscale(100%) !important;
+}
+
+.a11y-colorblind-blue-cone {
+  filter: saturate(50%) hue-rotate(180deg) !important;
+}
+
+/* 15-17. Brightness, Saturation, Hue */
+body.a11y-filters-active {
+  filter: 
+    brightness(var(--a11y-brightness))
+    saturate(var(--a11y-saturation))
+    hue-rotate(var(--a11y-hue-rotation));
+}
+
+/* ==================== CATEGORY 2: READING & FOCUS (15) ==================== */
+
+/* 19-24. Reading Guides */
+.a11y-reading-guide-line {
+  position: fixed;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 0, 0, 0.8);
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.a11y-reading-ruler {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  background: rgba(255, 255, 0, 0.2);
+  border-top: 2px solid rgba(255, 255, 0, 0.8);
+  border-bottom: 2px solid rgba(255, 255, 0, 0.8);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.a11y-reading-mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9997;
+  background: 
+    linear-gradient(to bottom, 
+      rgba(0, 0, 0, 0.85) 0%, 
+      rgba(0, 0, 0, 0.85) 40%, 
+      transparent 45%, 
+      transparent 55%, 
+      rgba(0, 0, 0, 0.85) 60%, 
+      rgba(0, 0, 0, 0.85) 100%
+    );
+}
+
+.a11y-reading-spotlight {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 0%, rgba(0, 0, 0, 0.85) 70%);
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+}
+
+.a11y-line-highlighter p:hover,
+.a11y-line-highlighter div:hover,
+.a11y-line-highlighter span:hover {
+  background-color: rgba(255, 255, 0, 0.3) !important;
+  outline: 2px solid rgba(255, 200, 0, 0.6);
+}
+
+.a11y-paragraph-highlighter p:hover {
+  background-color: rgba(135, 206, 250, 0.3) !important;
+  outline: 3px solid rgba(100, 149, 237, 0.7);
+  border-radius: 4px;
+}
+
+.a11y-dyslexia-ruler {
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  background: rgba(173, 216, 230, 0.25);
+  border-top: 3px solid rgba(70, 130, 180, 0.8);
+  border-bottom: 3px solid rgba(70, 130, 180, 0.8);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* 27-33. Text-to-Speech Highlighting */
+.a11y-word-highlight {
+  background-color: rgba(255, 165, 0, 0.5) !important;
+  padding: 2px 4px;
+  border-radius: 3px;
+  animation: pulse-highlight 0.5s ease-in-out;
+}
+
+.a11y-sentence-highlight {
+  background-color: rgba(144, 238, 144, 0.4) !important;
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(144, 238, 144, 0.6);
+}
+
+@keyframes pulse-highlight {
+  0%, 100% { background-color: rgba(255, 165, 0, 0.3); }
+  50% { background-color: rgba(255, 165, 0, 0.7); }
+}
+
+/* ==================== CATEGORY 3: NAVIGATION & CONTROL (16) ==================== */
+
+/* 34-39. Cursor Enhancements */
+.a11y-cursor-large {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><path d="M12 2 L12 28 L20 20 L25 32 L30 30 L25 18 L34 18 Z" fill="black" stroke="white" stroke-width="2"/></svg>') 12 0, auto !important;
+}
+
+.a11y-cursor-large * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><path d="M12 2 L12 28 L20 20 L25 32 L30 30 L25 18 L34 18 Z" fill="black" stroke="white" stroke-width="2"/></svg>') 12 0, auto !important;
+}
+
+.a11y-cursor-crosshair {
+  cursor: crosshair !important;
+}
+.a11y-cursor-crosshair * {
+  cursor: crosshair !important;
+}
+
+.a11y-cursor-trail {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent);
+  pointer-events: none;
+  z-index: 10000;
+  animation: fade-out-trail 0.6s ease-out forwards;
+}
+
+@keyframes fade-out-trail {
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.a11y-click-ripple {
+  position: fixed;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.6), transparent 70%);
+  pointer-events: none;
+  z-index: 10001;
+  animation: ripple-expand 0.6s ease-out forwards;
+}
+
+@keyframes ripple-expand {
+  from {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  to {
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+  }
+}
+
+/* 40-49. Keyboard Navigation */
+.a11y-focus-indicators *:focus {
+  outline: 4px solid #ff6b00 !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 6px rgba(255, 107, 0, 0.3) !important;
+  z-index: 1000;
+  position: relative;
+}
+
+.a11y-skip-to-content {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: #2563eb;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  z-index: 10000;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.a11y-skip-to-content:focus {
+  transform: translateX(-50%) translateY(0);
+}
+
+.a11y-tab-order-display {
+  position: relative;
+}
+
+.a11y-tab-order-display *:focus::before {
+  content: attr(data-tab-index);
+  position: absolute;
+  top: -20px;
+  left: 0;
+  background: #ff6b00;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 10000;
+}
+
+.a11y-keyboard-hud {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  font-family: monospace;
+  font-size: 14px;
+  z-index: 10000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  max-width: 300px;
+}
+
+/* ==================== CATEGORY 4: CONTENT ENHANCEMENT (12) ==================== */
+
+/* 50. Link Underlining */
+.a11y-link-underline a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 4px !important;
+}
+
+/* 51. Link Icons */
+.a11y-link-icons a[href^="http"]::after {
+  content: " ↗";
+  font-size: 0.8em;
+  color: #2563eb;
+}
+
+.a11y-link-icons a[href$=".pdf"]::after {
+  content: " 📄";
+  font-size: 0.9em;
+}
+
+.a11y-link-icons a[href^="mailto:"]::after {
+  content: " ✉";
+  font-size: 0.9em;
+}
+
+/* 53. Alt Text Overlay */
+.a11y-alt-overlay img::after {
+  content: attr(alt);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* 55. Hide Images */
+.a11y-hide-images img {
+  display: none !important;
+}
+
+.a11y-hide-images img::after {
+  content: "Image: " attr(alt);
+  display: block;
+  padding: 12px;
+  background: #f3f4f6;
+  border: 1px dashed #9ca3af;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+/* 56. Simplify Fonts */
+.a11y-simplify-fonts * {
+  font-family: Arial, sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+/* 57. Remove Animations */
+.a11y-remove-animations,
+.a11y-remove-animations * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* 58. Pause GIFs */
+.a11y-pause-gifs img[src$=".gif"] {
+  filter: grayscale(100%);
+  opacity: 0.7;
+  position: relative;
+}
+
+.a11y-pause-gifs img[src$=".gif"]::after {
+  content: "▶";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: white;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* 59. Remove Videos */
+.a11y-remove-videos video,
+.a11y-remove-videos iframe[src*="youtube"],
+.a11y-remove-videos iframe[src*="vimeo"] {
+  display: none !important;
+}
+
+/* 60. Remove Backgrounds */
+.a11y-remove-backgrounds * {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+/* 61. Remove Shadows */
+.a11y-remove-shadows * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* ==================== CATEGORY 5: LAYOUT & STRUCTURE (10) ==================== */
+
+/* 68. Sticky Header */
+.a11y-sticky-header header,
+.a11y-sticky-header nav {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}
+
+/* 69. Highlight Headers */
+.a11y-highlight-headers h1 {
+  background: rgba(255, 0, 0, 0.2) !important;
+  border-left: 5px solid red !important;
+  padding-left: 12px !important;
+}
+
+.a11y-highlight-headers h2 {
+  background: rgba(255, 165, 0, 0.2) !important;
+  border-left: 5px solid orange !important;
+  padding-left: 12px !important;
+}
+
+.a11y-highlight-headers h3 {
+  background: rgba(255, 255, 0, 0.2) !important;
+  border-left: 5px solid yellow !important;
+  padding-left: 12px !important;
+}
+
+.a11y-highlight-headers h4 {
+  background: rgba(0, 255, 0, 0.2) !important;
+  border-left: 5px solid green !important;
+  padding-left: 12px !important;
+}
+
+.a11y-highlight-headers h5,
+.a11y-highlight-headers h6 {
+  background: rgba(0, 0, 255, 0.2) !important;
+  border-left: 5px solid blue !important;
+  padding-left: 12px !important;
+}
+
+/* 70. Highlight Buttons */
+.a11y-highlight-buttons button,
+.a11y-highlight-buttons a[role="button"],
+.a11y-highlight-buttons input[type="submit"],
+.a11y-highlight-buttons input[type="button"] {
+  outline: 3px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* 71. White Space Control */
+.a11y-whitespace-adjust * {
+  padding: calc(var(--a11y-whitespace) * 1rem) !important;
+  margin: calc(var(--a11y-whitespace) * 0.5rem) !important;
+}
+
+/* ==================== CATEGORY 6: MOTOR & DEXTERITY (8) ==================== */
+
+/* 72-73. Big Button Mode */
+.a11y-big-buttons button,
+.a11y-big-buttons a[role="button"],
+.a11y-big-buttons input[type="submit"],
+.a11y-big-buttons input[type="button"] {
+  min-height: 60px !important;
+  min-width: 120px !important;
+  font-size: 18px !important;
+  padding: 16px 24px !important;
+  margin: 8px !important;
+}
+
+.a11y-button-size-1 button { transform: scale(1) !important; }
+.a11y-button-size-1-5 button { transform: scale(1.5) !important; }
+.a11y-button-size-2 button { transform: scale(2) !important; }
+.a11y-button-size-3 button { transform: scale(3) !important; }
+
+/* 76. Touch Target Size */
+.a11y-touch-targets a,
+.a11y-touch-targets button,
+.a11y-touch-targets input,
+.a11y-touch-targets [role="button"] {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  padding: 12px !important;
+}
+
+/* 77. Hover Freeze */
+.a11y-hover-freeze *:hover {
+  pointer-events: none;
+}
+
+.a11y-hover-freeze *:active {
+  pointer-events: auto;
+}
+
+/* ==================== CATEGORY 7: COGNITIVE & LEARNING (7) ==================== */
+
+/* 83. Number Formatting */
+.a11y-number-format .number::after {
+  content: attr(data-formatted);
+}
+
+/* ==================== CATEGORY 8: SEIZURE & VESTIBULAR (6) ==================== */
+
+/* 87-92. Seizure Safe Mode */
+.a11y-seizure-safe,
+.a11y-seizure-safe * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.a11y-animation-freeze * {
+  animation-play-state: paused !important;
+}
+
+.a11y-parallax-disable {
+  background-attachment: scroll !important;
+}
+
+.a11y-parallax-disable * {
+  transform: none !important;
+}
+
+.a11y-reduce-motion {
+  scroll-behavior: auto !important;
+}
+
+.a11y-reduce-motion *,
+.a11y-reduce-motion *::before,
+.a11y-reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* ==================== CATEGORY 10: ADVANCED TOOLS (3) ==================== */
+
+/* 98-99. Magnifiers */
+.a11y-magnifier-overlay {
+  position: fixed;
+  border: 3px solid #3b82f6;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10002;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.a11y-magnifier-content {
+  position: absolute;
+  transform-origin: top left;
+}
+
+/* 100. Screen Reader Mode */
+.a11y-screen-reader-mode {
+  font-family: Arial, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.8 !important;
+  color: #000 !important;
+  background: #fff !important;
+}
+
+.a11y-screen-reader-mode * {
+  font-family: Arial, sans-serif !important;
+  background: transparent !important;
+}
+
+/* ==================== WIDGET UI ==================== */
+
+.a11y-widget-v2 {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.a11y-widget-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 24px;
+}
+
+.a11y-widget-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.6);
+}
+
+.a11y-widget-button:active {
+  transform: scale(0.95);
+}
+
+.a11y-panel {
+  position: fixed;
+  bottom: 100px;
+  left: 20px;
+  width: 420px;
+  max-height: 80vh;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slide-up 0.3s ease-out;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.a11y-panel-header {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.a11y-panel-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.a11y-panel-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.a11y-panel-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.a11y-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.a11y-category {
+  margin-bottom: 24px;
+}
+
+.a11y-category-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.a11y-feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.a11y-feature-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.a11y-feature-card:hover {
+  background: #f3f4f6;
+}
+
+.a11y-feature-label {
+  font-size: 14px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+
+.a11y-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .a11y-panel {
+    width: calc(100vw - 40px);
+    left: 20px;
+    right: 20px;
+  }
+  
+  .a11y-widget-button {
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+  }
+}
+
+/* ==================== PRINT STYLES ==================== */
+
+@media print {
+  .a11y-widget-v2,
+  .a11y-panel,
+  .a11y-reading-guide-line,
+  .a11y-reading-ruler,
+  .a11y-reading-mask,
+  .a11y-reading-spotlight {
+    display: none !important;
+  }
+}

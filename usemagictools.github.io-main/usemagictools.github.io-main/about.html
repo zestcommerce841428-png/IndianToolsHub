@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CT8E5N460D"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CT8E5N460D');</script>
+    <title>About - Magic Toolbox</title>
+    <meta name="description" content="About Magic Toolbox: 60+ free, browser-based online tools. No ads, no signup, no install. Built for developers, designers, and everyday users who value privacy and simplicity.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.usemagictools.com/about.html">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 40%, #24243e 70%, #302b63 100%);
+            color: #e0e0e0; min-height: 100vh; line-height: 1.7;
+        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle { position: absolute; border-radius: 50%; background: rgba(139, 92, 246, 0.3); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; } 50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; } }
+        .top-bar { max-width: 800px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 10; }
+        .logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #c4b5fd; font-weight: 700; font-size: 1.1rem; }
+        .logo-link:hover { color: #e0e0e0; }
+        .logo-img { width: 32px; height: 32px; border-radius: 8px; }
+        .top-right { display: flex; align-items: center; gap: 8px; }
+        .lang-select { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e0e0e0; padding: 6px 10px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; outline: none; }
+        .lang-select option { background: #1a1a3e; color: #e0e0e0; }
+        .theme-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e0e0e0; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; }
+        .theme-btn:hover { background: rgba(139,92,246,0.2); }
+        .content { max-width: 800px; margin: 0 auto; padding: 20px 24px 60px; position: relative; z-index: 1; }
+        .page-title { font-size: 2rem; font-weight: 800; margin-bottom: 24px; background: linear-gradient(135deg, #8b5cf6, #a78bfa, #c4b5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        h2 { color: #c4b5fd; font-size: 1.3rem; margin: 32px 0 12px; }
+        p { color: #d1d5db; margin-bottom: 14px; }
+        ul { margin: 0 0 14px 24px; color: #d1d5db; }
+        li { margin-bottom: 6px; }
+        a { color: #a78bfa; }
+        a:hover { color: #c4b5fd; }
+        .highlight-box {
+            background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+        }
+        .highlight-box p { margin-bottom: 8px; }
+        .highlight-box p:last-child { margin-bottom: 0; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 24px 0; }
+        .stat-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 20px; text-align: center;
+        }
+        .stat-num { font-size: 2rem; font-weight: 800; color: #a78bfa; }
+        .stat-label { font-size: 0.85rem; color: #9ca3af; margin-top: 4px; }
+        footer { text-align: center; margin-top: 60px; padding: 24px 0; border-top: 1px solid rgba(255, 255, 255, 0.08); color: #52525b; font-size: 0.8rem; }
+        footer a { color: #71717a; text-decoration: none; }
+        footer a:hover { color: #a78bfa; }
+        .footer-links { margin-bottom: 12px; font-size: 0.85rem; }
+        .footer-links a { color: #9ca3af; text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: #a78bfa; text-decoration: underline; }
+        .footer-links-sep { color: #52525b; margin: 0 10px; }
+        body[data-theme="light"] { background: linear-gradient(135deg, #f5f3ff, #ede9fe, #ddd6fe); color: #1f2937; }
+        body[data-theme="light"] .page-title { background: linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6); -webkit-background-clip: text; background-clip: text; }
+        body[data-theme="light"] h2 { color: #6d28d9; }
+        body[data-theme="light"] p, body[data-theme="light"] li { color: #374151; }
+        body[data-theme="light"] a { color: #7c3aed; }
+        body[data-theme="light"] a:hover { color: #5b21b6; }
+        body[data-theme="light"] .logo-link { color: #6d28d9; }
+        body[data-theme="light"] .lang-select { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: #374151; }
+        body[data-theme="light"] .lang-select option { background: #fff; color: #374151; }
+        body[data-theme="light"] .theme-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: #374151; }
+        body[data-theme="light"] .theme-btn:hover { background: rgba(124,58,237,0.1); }
+        body[data-theme="light"] .highlight-box { background: rgba(124,58,237,0.05); border-color: rgba(124,58,237,0.15); }
+        body[data-theme="light"] .stat-card { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); }
+        body[data-theme="light"] .stat-num { color: #7c3aed; }
+        body[data-theme="light"] .stat-label { color: #6b7280; }
+        body[data-theme="light"] .particle { background: rgba(124, 58, 237, 0.15); }
+        body[data-theme="light"] footer { border-top-color: #e4e4e7; color: #a1a1aa; }
+        body[data-theme="light"] footer a { color: #71717a; }
+        body[data-theme="light"] footer a:hover { color: #7c3aed; }
+        body[data-theme="light"] .footer-links a { color: #6b7280; }
+        body[data-theme="light"] .footer-links a:hover { color: #7c3aed; }
+        body[data-theme="light"] .footer-links-sep { color: #d4d4d8; }
+        @media (max-width: 600px) { .content { padding: 16px 16px 40px; } .page-title { font-size: 1.5rem; } .stats { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="top-bar">
+        <a href="/" class="logo-link">
+            <img src="/favicon-32x32.png" alt="Magic Toolbox" class="logo-img">
+            <span>Magic Toolbox</span>
+        </a>
+        <div class="top-right">
+            <select class="lang-select" id="langSelect">
+                <option value="en">🇺🇸 English</option>
+                <option value="zh-CN">🇨🇳 中文</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="es">🇪🇸 Español</option>
+            </select>
+            <button class="theme-btn" id="themeToggle" title="Toggle theme">🌙</button>
+        </div>
+    </div>
+    <div class="content">
+        <h1 class="page-title" data-i18n="title">About Magic Toolbox</h1>
+
+        <div class="highlight-box">
+            <p data-i18n="slogan"><strong>No install. Just use.</strong> — Magic Toolbox is a collection of 60+ free online tools that run entirely in your browser. No ads, no signup, no data uploaded to servers.</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-num">60+</div>
+                <div class="stat-label" data-i18n="s_tools">Free Tools</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">6</div>
+                <div class="stat-label" data-i18n="s_cats">Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">4</div>
+                <div class="stat-label" data-i18n="s_langs">Languages</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">0</div>
+                <div class="stat-label" data-i18n="s_ads">Ads</div>
+            </div>
+        </div>
+
+        <h2 data-i18n="h_mission">Our Mission</h2>
+        <p data-i18n="p_mission">We believe everyday tools should be free, fast, and private. Too many online tools are cluttered with ads, require signups, or secretly upload your files to remote servers. Magic Toolbox takes a different approach: every tool runs 100% in your browser using modern web technologies like WebAssembly, Canvas API, and the File API.</p>
+
+        <h2 data-i18n="h_what">What We Offer</h2>
+        <ul>
+            <li data-i18n="li_w1"><strong>PDF Tools</strong> — Merge, split, compress, convert, and edit PDFs directly in your browser</li>
+            <li data-i18n="li_w2"><strong>Image Tools</strong> — Compress, convert, resize, remove backgrounds, and process images with no quality loss</li>
+            <li data-i18n="li_w3"><strong>Developer Tools</strong> — JSON viewer, API tester, regex tester, Base64 encoder, SQLite viewer, and more</li>
+            <li data-i18n="li_w4"><strong>Text Tools</strong> — Word counter, Markdown editor, text diff, case converter, and translation tools</li>
+            <li data-i18n="li_w5"><strong>Media Tools</strong> — Screen recorder, audio cutter, M3U8 downloader, video converter</li>
+            <li data-i18n="li_w6"><strong>Utility Tools</strong> — QR code generator, password generator, calculator, timer, and everyday utilities</li>
+        </ul>
+
+        <h2 data-i18n="h_why">Why Choose Us</h2>
+        <ul>
+            <li data-i18n="li_y1"><strong>100% Browser-Based</strong> — Your files never leave your device. All processing happens locally.</li>
+            <li data-i18n="li_y2"><strong>No Ads, No Tracking</strong> — We only use Google Analytics for basic traffic insights. No ad networks, no profiling.</li>
+            <li data-i18n="li_y3"><strong>No Signup Required</strong> — Use any tool instantly. No accounts, no email collection, no paywalls.</li>
+            <li data-i18n="li_y4"><strong>Open & Multilingual</strong> — Available in English, Chinese, French, and Spanish with dark/light themes.</li>
+        </ul>
+
+        <h2 data-i18n="h_tech">Built With</h2>
+        <p data-i18n="p_tech">Magic Toolbox is built with pure HTML, CSS, and JavaScript — no frameworks, no backend servers. We leverage WebAssembly for heavy processing tasks (like PDF manipulation and image compression), ensuring desktop-class performance in your browser. The site is hosted on GitHub Pages for maximum reliability and speed.</p>
+
+        <h2 data-i18n="h_contact">Contact</h2>
+        <p data-i18n="p_contact">Have feedback, suggestions, or found a bug? We'd love to hear from you. Reach us at <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a> or visit our <a href="/contact.html">contact page</a>.</p>
+
+        <footer>
+            <div class="footer-links">
+                <a href="/privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/terms.html" data-i18n="footerTerms">Terms</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/about.html" data-i18n="footerAbout">About</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/contact.html" data-i18n="footerContact">Contact</a>
+            </div>
+            <p data-i18n="footerCopyright">© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. All rights reserved.</p>
+        </footer>
+    </div>
+    <script>
+    (function() {
+        var c = document.getElementById('particles');
+        for (var i = 0; i < 15; i++) {
+            var p = document.createElement('div'); p.className = 'particle';
+            var s = Math.random() * 6 + 2;
+            p.style.width = s + 'px'; p.style.height = s + 'px';
+            p.style.left = Math.random() * 100 + '%'; p.style.top = Math.random() * 100 + '%';
+            p.style.animationDelay = (Math.random() * 6) + 's'; p.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            c.appendChild(p);
+        }
+
+        var T = {
+            en: {
+                title: 'About Magic Toolbox',
+                slogan: '<strong>No install. Just use.</strong> \u2014 Magic Toolbox is a collection of 60+ free online tools that run entirely in your browser. No ads, no signup, no data uploaded to servers.',
+                s_tools: 'Free Tools', s_cats: 'Categories', s_langs: 'Languages', s_ads: 'Ads',
+                h_mission: 'Our Mission',
+                p_mission: 'We believe everyday tools should be free, fast, and private. Too many online tools are cluttered with ads, require signups, or secretly upload your files to remote servers. Magic Toolbox takes a different approach: every tool runs 100% in your browser using modern web technologies like WebAssembly, Canvas API, and the File API.',
+                h_what: 'What We Offer',
+                li_w1: '<strong>PDF Tools</strong> \u2014 Merge, split, compress, convert, and edit PDFs directly in your browser',
+                li_w2: '<strong>Image Tools</strong> \u2014 Compress, convert, resize, remove backgrounds, and process images with no quality loss',
+                li_w3: '<strong>Developer Tools</strong> \u2014 JSON viewer, API tester, regex tester, Base64 encoder, SQLite viewer, and more',
+                li_w4: '<strong>Text Tools</strong> \u2014 Word counter, Markdown editor, text diff, case converter, and translation tools',
+                li_w5: '<strong>Media Tools</strong> \u2014 Screen recorder, audio cutter, M3U8 downloader, video converter',
+                li_w6: '<strong>Utility Tools</strong> \u2014 QR code generator, password generator, calculator, timer, and everyday utilities',
+                h_why: 'Why Choose Us',
+                li_y1: '<strong>100% Browser-Based</strong> \u2014 Your files never leave your device. All processing happens locally.',
+                li_y2: '<strong>No Ads, No Tracking</strong> \u2014 We only use Google Analytics for basic traffic insights. No ad networks, no profiling.',
+                li_y3: '<strong>No Signup Required</strong> \u2014 Use any tool instantly. No accounts, no email collection, no paywalls.',
+                li_y4: '<strong>Open & Multilingual</strong> \u2014 Available in English, Chinese, French, and Spanish with dark/light themes.',
+                h_tech: 'Built With',
+                p_tech: 'Magic Toolbox is built with pure HTML, CSS, and JavaScript \u2014 no frameworks, no backend servers. We leverage WebAssembly for heavy processing tasks (like PDF manipulation and image compression), ensuring desktop-class performance in your browser. The site is hosted on GitHub Pages for maximum reliability and speed.',
+                h_contact: 'Contact',
+                p_contact: 'Have feedback, suggestions, or found a bug? We\u2019d love to hear from you. Reach us at <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a> or visit our <a href="/contact.html">contact page</a>.',
+                footerPrivacy: 'Privacy Policy', footerTerms: 'Terms', footerAbout: 'About', footerContact: 'Contact',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. All rights reserved.'
+            },
+            'zh-CN': {
+                title: '\u5173\u4e8e\u9b54\u6cd5\u5de5\u5177\u7bb1',
+                slogan: '<strong>\u514d\u5b89\u88c5\u3001\u5373\u5f00\u5373\u7528\u3002</strong> \u2014 \u9b54\u6cd5\u5de5\u5177\u7bb1\u662f\u4e00\u5957 60+ \u514d\u8d39\u5728\u7ebf\u5de5\u5177\uff0c\u5b8c\u5168\u5728\u60a8\u7684\u6d4f\u89c8\u5668\u4e2d\u8fd0\u884c\u3002\u65e0\u5e7f\u544a\u3001\u65e0\u6ce8\u518c\u3001\u65e0\u6570\u636e\u4e0a\u4f20\u3002',
+                s_tools: '\u514d\u8d39\u5de5\u5177', s_cats: '\u5de5\u5177\u5206\u7c7b', s_langs: '\u652f\u6301\u8bed\u8a00', s_ads: '\u5e7f\u544a',
+                h_mission: '\u6211\u4eec\u7684\u4f7f\u547d',
+                p_mission: '\u6211\u4eec\u76f8\u4fe1\u65e5\u5e38\u5de5\u5177\u5e94\u8be5\u662f\u514d\u8d39\u3001\u5feb\u901f\u4e14\u79c1\u5bc6\u7684\u3002\u592a\u591a\u5728\u7ebf\u5de5\u5177\u5145\u65a5\u7740\u5e7f\u544a\uff0c\u9700\u8981\u6ce8\u518c\uff0c\u6216\u6697\u4e2d\u5c06\u60a8\u7684\u6587\u4ef6\u4e0a\u4f20\u5230\u8fdc\u7a0b\u670d\u52a1\u5668\u3002\u9b54\u6cd5\u5de5\u5177\u7bb1\u91c7\u53d6\u4e0d\u540c\u7684\u65b9\u6cd5\uff1a\u6bcf\u4e2a\u5de5\u5177\u90fd 100% \u5728\u60a8\u7684\u6d4f\u89c8\u5668\u4e2d\u8fd0\u884c\uff0c\u4f7f\u7528 WebAssembly\u3001Canvas API \u548c File API \u7b49\u73b0\u4ee3 Web \u6280\u672f\u3002',
+                h_what: '\u6211\u4eec\u63d0\u4f9b\u4ec0\u4e48',
+                li_w1: '<strong>PDF \u5de5\u5177</strong> \u2014 \u5728\u6d4f\u89c8\u5668\u4e2d\u76f4\u63a5\u5408\u5e76\u3001\u62c6\u5206\u3001\u538b\u7f29\u3001\u8f6c\u6362\u548c\u7f16\u8f91 PDF',
+                li_w2: '<strong>\u56fe\u7247\u5de5\u5177</strong> \u2014 \u538b\u7f29\u3001\u8f6c\u6362\u3001\u8c03\u6574\u5927\u5c0f\u3001\u53bb\u9664\u80cc\u666f\uff0c\u65e0\u8d28\u91cf\u635f\u5931',
+                li_w3: '<strong>\u5f00\u53d1\u8005\u5de5\u5177</strong> \u2014 JSON \u67e5\u770b\u5668\u3001API \u6d4b\u8bd5\u3001\u6b63\u5219\u6d4b\u8bd5\u3001Base64 \u7f16\u7801\u3001SQLite \u67e5\u770b\u5668\u7b49',
+                li_w4: '<strong>\u6587\u672c\u5de5\u5177</strong> \u2014 \u5b57\u6570\u7edf\u8ba1\u3001Markdown \u7f16\u8f91\u5668\u3001\u6587\u672c\u5bf9\u6bd4\u3001\u5927\u5c0f\u5199\u8f6c\u6362\u3001\u7ffb\u8bd1\u5de5\u5177',
+                li_w5: '<strong>\u5a92\u4f53\u5de5\u5177</strong> \u2014 \u5c4f\u5e55\u5f55\u5236\u3001\u97f3\u9891\u526a\u8f91\u3001M3U8 \u4e0b\u8f7d\u3001\u89c6\u9891\u8f6c\u6362',
+                li_w6: '<strong>\u5b9e\u7528\u5de5\u5177</strong> \u2014 \u4e8c\u7ef4\u7801\u751f\u6210\u3001\u5bc6\u7801\u751f\u6210\u3001\u8ba1\u7b97\u5668\u3001\u8ba1\u65f6\u5668\u7b49\u65e5\u5e38\u5de5\u5177',
+                h_why: '\u4e3a\u4ec0\u4e48\u9009\u62e9\u6211\u4eec',
+                li_y1: '<strong>100% \u6d4f\u89c8\u5668\u8fd0\u884c</strong> \u2014 \u60a8\u7684\u6587\u4ef6\u6c38\u8fdc\u4e0d\u4f1a\u79bb\u5f00\u60a8\u7684\u8bbe\u5907\u3002\u6240\u6709\u5904\u7406\u90fd\u5728\u672c\u5730\u8fdb\u884c\u3002',
+                li_y2: '<strong>\u65e0\u5e7f\u544a\u3001\u65e0\u8ddf\u8e2a</strong> \u2014 \u6211\u4eec\u4ec5\u4f7f\u7528 Google Analytics \u83b7\u53d6\u57fa\u672c\u6d41\u91cf\u6d1e\u5bdf\u3002\u65e0\u5e7f\u544a\u7f51\u7edc\u3001\u65e0\u7528\u6237\u753b\u50cf\u3002',
+                li_y3: '<strong>\u65e0\u9700\u6ce8\u518c</strong> \u2014 \u5373\u65f6\u4f7f\u7528\u4efb\u4f55\u5de5\u5177\u3002\u65e0\u8d26\u6237\u3001\u65e0\u90ae\u4ef6\u6536\u96c6\u3001\u65e0\u4ed8\u8d39\u5899\u3002',
+                li_y4: '<strong>\u5f00\u653e\u591a\u8bed\u8a00</strong> \u2014 \u652f\u6301\u82f1\u8bed\u3001\u4e2d\u6587\u3001\u6cd5\u8bed\u548c\u897f\u73ed\u7259\u8bed\uff0c\u63d0\u4f9b\u6df1\u8272/\u6d45\u8272\u4e3b\u9898\u3002',
+                h_tech: '\u6280\u672f\u6808',
+                p_tech: '\u9b54\u6cd5\u5de5\u5177\u7bb1\u4f7f\u7528\u7eaf HTML\u3001CSS \u548c JavaScript \u6784\u5efa\u2014\u2014\u65e0\u6846\u67b6\u3001\u65e0\u540e\u7aef\u670d\u52a1\u5668\u3002\u6211\u4eec\u5229\u7528 WebAssembly \u5904\u7406\u91cd\u578b\u4efb\u52a1\uff08\u5982 PDF \u64cd\u4f5c\u548c\u56fe\u7247\u538b\u7f29\uff09\uff0c\u786e\u4fdd\u6d4f\u89c8\u5668\u4e2d\u7684\u684c\u9762\u7ea7\u6027\u80fd\u3002\u7f51\u7ad9\u6258\u7ba1\u5728 GitHub Pages \u4e0a\u3002',
+                h_contact: '\u8054\u7cfb\u6211\u4eec',
+                p_contact: '\u6709\u53cd\u9988\u3001\u5efa\u8bae\u6216\u53d1\u73b0\u4e86 bug\uff1f\u6211\u4eec\u5f88\u4e50\u610f\u542c\u53d6\u60a8\u7684\u610f\u89c1\u3002\u8bf7\u901a\u8fc7 <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a> \u8054\u7cfb\u6211\u4eec\uff0c\u6216\u8bbf\u95ee\u6211\u4eec\u7684<a href="/contact.html">\u8054\u7cfb\u9875\u9762</a>\u3002',
+                footerPrivacy: '\u9690\u79c1\u653f\u7b56', footerTerms: '\u670d\u52a1\u6761\u6b3e', footerAbout: '\u5173\u4e8e', footerContact: '\u8054\u7cfb\u6211\u4eec',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. \u4fdd\u7559\u6240\u6709\u6743\u5229\u3002'
+            },
+            fr: {
+                title: '\u00c0 Propos de Magic Toolbox',
+                slogan: '<strong>Pas d\u2019installation. Utilisez directement.</strong> \u2014 Magic Toolbox est une collection de 60+ outils en ligne gratuits qui fonctionnent enti\u00e8rement dans votre navigateur. Sans publicit\u00e9s, sans inscription, sans donn\u00e9es envoy\u00e9es aux serveurs.',
+                s_tools: 'Outils Gratuits', s_cats: 'Cat\u00e9gories', s_langs: 'Langues', s_ads: 'Publicit\u00e9s',
+                h_mission: 'Notre Mission',
+                p_mission: 'Nous croyons que les outils quotidiens doivent \u00eatre gratuits, rapides et priv\u00e9s. Trop d\u2019outils en ligne sont remplis de publicit\u00e9s, n\u00e9cessitent des inscriptions ou t\u00e9l\u00e9chargent secr\u00e8tement vos fichiers. Magic Toolbox adopte une approche diff\u00e9rente : chaque outil fonctionne \u00e0 100% dans votre navigateur.',
+                h_what: 'Ce Que Nous Offrons',
+                li_w1: '<strong>Outils PDF</strong> \u2014 Fusionner, diviser, compresser, convertir et \u00e9diter des PDF dans votre navigateur',
+                li_w2: '<strong>Outils Image</strong> \u2014 Compresser, convertir, redimensionner, supprimer les arri\u00e8re-plans',
+                li_w3: '<strong>Outils D\u00e9veloppeur</strong> \u2014 Visualiseur JSON, testeur API, testeur regex, encodeur Base64, visualiseur SQLite',
+                li_w4: '<strong>Outils Texte</strong> \u2014 Compteur de mots, \u00e9diteur Markdown, comparaison de texte, convertisseur de casse',
+                li_w5: '<strong>Outils M\u00e9dia</strong> \u2014 Enregistreur d\u2019\u00e9cran, coupeur audio, t\u00e9l\u00e9chargeur M3U8, convertisseur vid\u00e9o',
+                li_w6: '<strong>Outils Utilitaires</strong> \u2014 G\u00e9n\u00e9rateur QR, g\u00e9n\u00e9rateur de mots de passe, calculatrice, minuteur',
+                h_why: 'Pourquoi Nous Choisir',
+                li_y1: '<strong>100% dans le navigateur</strong> \u2014 Vos fichiers ne quittent jamais votre appareil.',
+                li_y2: '<strong>Sans pub, sans tracking</strong> \u2014 Nous utilisons uniquement Google Analytics pour les statistiques de base.',
+                li_y3: '<strong>Sans inscription</strong> \u2014 Utilisez n\u2019importe quel outil instantan\u00e9ment. Pas de comptes, pas de paywall.',
+                li_y4: '<strong>Ouvert & Multilingue</strong> \u2014 Disponible en anglais, chinois, fran\u00e7ais et espagnol avec th\u00e8mes sombre/clair.',
+                h_tech: 'Technologies Utilis\u00e9es',
+                p_tech: 'Magic Toolbox est construit avec du HTML, CSS et JavaScript pur \u2014 sans framework, sans serveur backend. Nous utilisons WebAssembly pour les t\u00e2ches lourdes. Le site est h\u00e9berg\u00e9 sur GitHub Pages.',
+                h_contact: 'Contact',
+                p_contact: 'Des commentaires ou suggestions ? Contactez-nous \u00e0 <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a> ou visitez notre <a href="/contact.html">page de contact</a>.',
+                footerPrivacy: 'Confidentialit\u00e9', footerTerms: 'Conditions', footerAbout: '\u00c0 Propos', footerContact: 'Contact',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. Tous droits r\u00e9serv\u00e9s.'
+            },
+            es: {
+                title: 'Acerca de Magic Toolbox',
+                slogan: '<strong>Sin instalaci\u00f3n. Solo usa.</strong> \u2014 Magic Toolbox es una colecci\u00f3n de 60+ herramientas en l\u00ednea gratuitas que funcionan completamente en tu navegador. Sin anuncios, sin registro, sin datos subidos a servidores.',
+                s_tools: 'Herramientas Gratis', s_cats: 'Categor\u00edas', s_langs: 'Idiomas', s_ads: 'Anuncios',
+                h_mission: 'Nuestra Misi\u00f3n',
+                p_mission: 'Creemos que las herramientas cotidianas deben ser gratuitas, r\u00e1pidas y privadas. Demasiadas herramientas en l\u00ednea est\u00e1n llenas de anuncios, requieren registros o suben secretamente sus archivos. Magic Toolbox toma un enfoque diferente: cada herramienta funciona 100% en su navegador.',
+                h_what: 'Lo Que Ofrecemos',
+                li_w1: '<strong>Herramientas PDF</strong> \u2014 Fusionar, dividir, comprimir, convertir y editar PDFs en su navegador',
+                li_w2: '<strong>Herramientas de Imagen</strong> \u2014 Comprimir, convertir, redimensionar, eliminar fondos',
+                li_w3: '<strong>Herramientas de Desarrollo</strong> \u2014 Visor JSON, tester API, tester regex, codificador Base64, visor SQLite',
+                li_w4: '<strong>Herramientas de Texto</strong> \u2014 Contador de palabras, editor Markdown, comparaci\u00f3n de texto, conversor de may\u00fasculas',
+                li_w5: '<strong>Herramientas de Medios</strong> \u2014 Grabador de pantalla, cortador de audio, descargador M3U8, conversor de video',
+                li_w6: '<strong>Herramientas Utilitarias</strong> \u2014 Generador QR, generador de contrase\u00f1as, calculadora, temporizador',
+                h_why: 'Por Qu\u00e9 Elegirnos',
+                li_y1: '<strong>100% en el navegador</strong> \u2014 Sus archivos nunca salen de su dispositivo.',
+                li_y2: '<strong>Sin anuncios, sin rastreo</strong> \u2014 Solo usamos Google Analytics para estad\u00edsticas b\u00e1sicas.',
+                li_y3: '<strong>Sin registro</strong> \u2014 Use cualquier herramienta al instante. Sin cuentas, sin paywall.',
+                li_y4: '<strong>Abierto y Multiling\u00fce</strong> \u2014 Disponible en ingl\u00e9s, chino, franc\u00e9s y espa\u00f1ol con temas oscuro/claro.',
+                h_tech: 'Tecnolog\u00edas',
+                p_tech: 'Magic Toolbox est\u00e1 construido con HTML, CSS y JavaScript puro \u2014 sin frameworks, sin servidores backend. Usamos WebAssembly para tareas pesadas. El sitio est\u00e1 alojado en GitHub Pages.',
+                h_contact: 'Contacto',
+                p_contact: '\u00bfTiene comentarios o sugerencias? Cont\u00e1ctenos en <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a> o visite nuestra <a href="/contact.html">p\u00e1gina de contacto</a>.',
+                footerPrivacy: 'Privacidad', footerTerms: 'T\u00e9rminos', footerAbout: 'Acerca de', footerContact: 'Contacto',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. Todos los derechos reservados.'
+            }
+        };
+
+        var LANG_KEY = 'toolbox_lang';
+        var lang = localStorage.getItem(LANG_KEY) || 'en';
+        var sel = document.getElementById('langSelect');
+        sel.value = lang;
+        function applyLang(l) {
+            var t = T[l] || T.en;
+            var els = document.querySelectorAll('[data-i18n]');
+            for (var i = 0; i < els.length; i++) { var k = els[i].getAttribute('data-i18n'); if (t[k]) els[i].innerHTML = t[k]; }
+            document.documentElement.lang = l === 'zh-CN' ? 'zh' : l;
+        }
+        applyLang(lang);
+        sel.addEventListener('change', function() { lang = this.value; localStorage.setItem(LANG_KEY, lang); applyLang(lang); });
+
+        var themeBtn = document.getElementById('themeToggle');
+        var saved = localStorage.getItem('magic_toolbox_theme');
+        if (saved === 'light') { document.body.setAttribute('data-theme', 'light'); themeBtn.textContent = '\u2600\ufe0f'; }
+        themeBtn.addEventListener('click', function() {
+            var isLight = document.body.getAttribute('data-theme') === 'light';
+            if (isLight) { document.body.removeAttribute('data-theme'); localStorage.setItem('magic_toolbox_theme', 'dark'); themeBtn.textContent = '\ud83c\udf19'; }
+            else { document.body.setAttribute('data-theme', 'light'); localStorage.setItem('magic_toolbox_theme', 'light'); themeBtn.textContent = '\u2600\ufe0f'; }
+        });
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CT8E5N460D"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CT8E5N460D');</script>
+    <title>Privacy Policy - Magic Toolbox</title>
+    <meta name="description" content="Privacy Policy for Magic Toolbox. Learn how we handle your data: no server-side collection, browser-only processing, Google Analytics usage, and localStorage preferences.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.usemagictools.com/privacy.html">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 40%, #24243e 70%, #302b63 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle {
+            position: absolute; border-radius: 50%; background: rgba(139, 92, 246, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; }
+        }
+        /* 顶部栏 */
+        .top-bar {
+            max-width: 800px; margin: 0 auto; padding: 16px 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: relative; z-index: 10;
+        }
+        .logo-link {
+            display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: #c4b5fd; font-weight: 700; font-size: 1.1rem;
+        }
+        .logo-link:hover { color: #e0e0e0; }
+        .logo-img { width: 32px; height: 32px; border-radius: 8px; }
+        .top-right { display: flex; align-items: center; gap: 8px; }
+        /* 语言选择器 */
+        .lang-select {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+            color: #e0e0e0; padding: 6px 10px; border-radius: 8px; font-size: 0.85rem;
+            cursor: pointer; outline: none;
+        }
+        .lang-select option { background: #1a1a3e; color: #e0e0e0; }
+        /* 主题切换 */
+        .theme-btn {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+            color: #e0e0e0; width: 36px; height: 36px; border-radius: 8px;
+            cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+        }
+        .theme-btn:hover { background: rgba(139,92,246,0.2); }
+        /* 内容区 */
+        .content {
+            max-width: 800px; margin: 0 auto; padding: 20px 24px 60px;
+            position: relative; z-index: 1;
+        }
+        .page-title {
+            font-size: 2rem; font-weight: 800; margin-bottom: 8px;
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa, #c4b5fd);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .last-updated { color: #9ca3af; font-size: 0.9rem; margin-bottom: 32px; }
+        h2 { color: #c4b5fd; font-size: 1.3rem; margin: 32px 0 12px; }
+        h3 { color: #a78bfa; font-size: 1.1rem; margin: 20px 0 8px; }
+        p { color: #d1d5db; margin-bottom: 14px; }
+        ul { margin: 0 0 14px 24px; color: #d1d5db; }
+        li { margin-bottom: 6px; }
+        a { color: #a78bfa; }
+        a:hover { color: #c4b5fd; }
+        footer {
+            text-align: center; margin-top: 60px; padding: 24px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08); color: #52525b; font-size: 0.8rem;
+        }
+        footer a { color: #71717a; text-decoration: none; }
+        footer a:hover { color: #a78bfa; }
+        .footer-links { margin-bottom: 12px; font-size: 0.85rem; }
+        .footer-links a { color: #9ca3af; text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: #a78bfa; text-decoration: underline; }
+        .footer-links-sep { color: #52525b; margin: 0 10px; }
+        /* 浅色主题 */
+        body[data-theme="light"] { background: linear-gradient(135deg, #f5f3ff, #ede9fe, #ddd6fe); color: #1f2937; }
+        body[data-theme="light"] .page-title {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6);
+            -webkit-background-clip: text; background-clip: text;
+        }
+        body[data-theme="light"] .last-updated { color: #6b7280; }
+        body[data-theme="light"] h2 { color: #6d28d9; }
+        body[data-theme="light"] h3 { color: #7c3aed; }
+        body[data-theme="light"] p, body[data-theme="light"] li { color: #374151; }
+        body[data-theme="light"] a { color: #7c3aed; }
+        body[data-theme="light"] a:hover { color: #5b21b6; }
+        body[data-theme="light"] .logo-link { color: #6d28d9; }
+        body[data-theme="light"] .lang-select { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: #374151; }
+        body[data-theme="light"] .lang-select option { background: #fff; color: #374151; }
+        body[data-theme="light"] .theme-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: #374151; }
+        body[data-theme="light"] .theme-btn:hover { background: rgba(124,58,237,0.1); }
+        body[data-theme="light"] .particle { background: rgba(124, 58, 237, 0.15); }
+        body[data-theme="light"] footer { border-top-color: #e4e4e7; color: #a1a1aa; }
+        body[data-theme="light"] footer a { color: #71717a; }
+        body[data-theme="light"] footer a:hover { color: #7c3aed; }
+        body[data-theme="light"] .footer-links a { color: #6b7280; }
+        body[data-theme="light"] .footer-links a:hover { color: #7c3aed; }
+        body[data-theme="light"] .footer-links-sep { color: #d4d4d8; }
+        @media (max-width: 600px) {
+            .content { padding: 16px 16px 40px; }
+            .page-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="top-bar">
+        <a href="/" class="logo-link">
+            <img src="/favicon-32x32.png" alt="Magic Toolbox" class="logo-img">
+            <span>Magic Toolbox</span>
+        </a>
+        <div class="top-right">
+            <select class="lang-select" id="langSelect">
+                <option value="en">🇺🇸 English</option>
+                <option value="zh-CN">🇨🇳 中文</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="es">🇪🇸 Español</option>
+            </select>
+            <button class="theme-btn" id="themeToggle" title="Toggle theme">🌙</button>
+        </div>
+    </div>
+    <div class="content">
+        <h1 class="page-title" data-i18n="title">Privacy Policy</h1>
+        <p class="last-updated" data-i18n="updated">Last updated: February 28, 2026</p>
+
+        <h2 data-i18n="h_overview">Overview</h2>
+        <p data-i18n="p_overview">Magic Toolbox ("we", "us", or "our") operates the website <a href="https://www.usemagictools.com">usemagictools.com</a>. We are committed to protecting your privacy. All our tools run entirely in your browser — we do not collect, store, or transmit any files or personal data you process with our tools.</p>
+
+        <h2 data-i18n="h_collect">Information We Collect</h2>
+        <h3 data-i18n="h_analytics">Google Analytics</h3>
+        <p data-i18n="p_analytics">We use Google Analytics (GA4, property ID: G-CT8E5N460D) to understand how visitors use our website. Google Analytics collects:</p>
+        <ul>
+            <li data-i18n="li_a1">Pages visited and time spent on each page</li>
+            <li data-i18n="li_a2">Referral source (how you found our site)</li>
+            <li data-i18n="li_a3">Browser type, device type, and screen resolution</li>
+            <li data-i18n="li_a4">Approximate geographic location (country/city level)</li>
+            <li data-i18n="li_a5">Anonymous usage patterns (clicks, scrolls)</li>
+        </ul>
+        <p data-i18n="p_analytics2">Google Analytics uses cookies to distinguish unique visitors. You can opt out by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a> or by disabling cookies in your browser settings.</p>
+
+        <h3 data-i18n="h_local">Local Storage</h3>
+        <p data-i18n="p_local">We use your browser's localStorage to save your preferences:</p>
+        <ul>
+            <li data-i18n="li_l1">Language preference (e.g., English, Chinese, French, Spanish)</li>
+            <li data-i18n="li_l2">Theme preference (dark or light mode)</li>
+            <li data-i18n="li_l3">Tool-specific settings (e.g., last-used options)</li>
+        </ul>
+        <p data-i18n="p_local2">This data never leaves your browser and is not transmitted to any server. You can clear it at any time via your browser settings.</p>
+
+        <h2 data-i18n="h_nocollect">Information We Do NOT Collect</h2>
+        <ul>
+            <li data-i18n="li_n1">Files you upload or process (images, PDFs, JSON, etc.) — all processing happens locally in your browser</li>
+            <li data-i18n="li_n2">Personal information such as name, email, or phone number (unless you voluntarily contact us)</li>
+            <li data-i18n="li_n3">Payment or financial information — our tools are 100% free</li>
+        </ul>
+
+        <h2 data-i18n="h_cookies">Cookies</h2>
+        <p data-i18n="p_cookies">We use only the cookies set by Google Analytics for traffic analysis. We do not use advertising cookies, tracking pixels, or any third-party marketing tools. No cookie consent banner is required as we do not serve ads or use cookies for profiling.</p>
+
+        <h2 data-i18n="h_thirdparty">Third-Party Services</h2>
+        <p data-i18n="p_thirdparty">Our website is hosted on GitHub Pages. We use Google Analytics for traffic analysis. We do not integrate any advertising networks, social media trackers, or other third-party data collection services. Some tools may load open-source libraries from CDNs (e.g., cdnjs, unpkg), which may log standard web server access data.</p>
+
+        <h2 data-i18n="h_children">Children's Privacy</h2>
+        <p data-i18n="p_children">Our service is not directed at children under 13. We do not knowingly collect personal information from children.</p>
+
+        <h2 data-i18n="h_changes">Changes to This Policy</h2>
+        <p data-i18n="p_changes">We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last updated" date. We encourage you to review this policy periodically.</p>
+
+        <h2 data-i18n="h_contact">Contact Us</h2>
+        <p data-i18n="p_contact">If you have any questions about this Privacy Policy, please contact us at <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a>.</p>
+
+        <footer>
+            <div class="footer-links">
+                <a href="/privacy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/terms.html" data-i18n="footerTerms">Terms</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/about.html" data-i18n="footerAbout">About</a>
+                <span class="footer-links-sep">|</span>
+                <a href="/contact.html" data-i18n="footerContact">Contact</a>
+            </div>
+            <p data-i18n="footerCopyright">© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. All rights reserved.</p>
+        </footer>
+    </div>
+    <script>
+    (function() {
+        // 粒子效果
+        var c = document.getElementById('particles');
+        for (var i = 0; i < 15; i++) {
+            var p = document.createElement('div');
+            p.className = 'particle';
+            var s = Math.random() * 6 + 2;
+            p.style.width = s + 'px'; p.style.height = s + 'px';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            p.style.animationDelay = (Math.random() * 6) + 's';
+            p.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            c.appendChild(p);
+        }
+
+        // 多语言翻译
+        var T = {
+            en: {
+                title: 'Privacy Policy',
+                updated: 'Last updated: February 28, 2026',
+                h_overview: 'Overview',
+                p_overview: 'Magic Toolbox (\u201cwe\u201d, \u201cus\u201d, or \u201cour\u201d) operates the website <a href="https://www.usemagictools.com">usemagictools.com</a>. We are committed to protecting your privacy. All our tools run entirely in your browser \u2014 we do not collect, store, or transmit any files or personal data you process with our tools.',
+                h_collect: 'Information We Collect',
+                h_analytics: 'Google Analytics',
+                p_analytics: 'We use Google Analytics (GA4, property ID: G-CT8E5N460D) to understand how visitors use our website. Google Analytics collects:',
+                li_a1: 'Pages visited and time spent on each page',
+                li_a2: 'Referral source (how you found our site)',
+                li_a3: 'Browser type, device type, and screen resolution',
+                li_a4: 'Approximate geographic location (country/city level)',
+                li_a5: 'Anonymous usage patterns (clicks, scrolls)',
+                p_analytics2: 'Google Analytics uses cookies to distinguish unique visitors. You can opt out by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a> or by disabling cookies in your browser settings.',
+                h_local: 'Local Storage',
+                p_local: 'We use your browser\u2019s localStorage to save your preferences:',
+                li_l1: 'Language preference (e.g., English, Chinese, French, Spanish)',
+                li_l2: 'Theme preference (dark or light mode)',
+                li_l3: 'Tool-specific settings (e.g., last-used options)',
+                p_local2: 'This data never leaves your browser and is not transmitted to any server. You can clear it at any time via your browser settings.',
+                h_nocollect: 'Information We Do NOT Collect',
+                li_n1: 'Files you upload or process (images, PDFs, JSON, etc.) \u2014 all processing happens locally in your browser',
+                li_n2: 'Personal information such as name, email, or phone number (unless you voluntarily contact us)',
+                li_n3: 'Payment or financial information \u2014 our tools are 100% free',
+                h_cookies: 'Cookies',
+                p_cookies: 'We use only the cookies set by Google Analytics for traffic analysis. We do not use advertising cookies, tracking pixels, or any third-party marketing tools. No cookie consent banner is required as we do not serve ads or use cookies for profiling.',
+                h_thirdparty: 'Third-Party Services',
+                p_thirdparty: 'Our website is hosted on GitHub Pages. We use Google Analytics for traffic analysis. We do not integrate any advertising networks, social media trackers, or other third-party data collection services. Some tools may load open-source libraries from CDNs (e.g., cdnjs, unpkg), which may log standard web server access data.',
+                h_children: 'Children\u2019s Privacy',
+                p_children: 'Our service is not directed at children under 13. We do not knowingly collect personal information from children.',
+                h_changes: 'Changes to This Policy',
+                p_changes: 'We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated \u201cLast updated\u201d date. We encourage you to review this policy periodically.',
+                h_contact: 'Contact Us',
+                p_contact: 'If you have any questions about this Privacy Policy, please contact us at <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a>.',
+                footerPrivacy: 'Privacy Policy', footerTerms: 'Terms', footerAbout: 'About', footerContact: 'Contact',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. All rights reserved.'
+            },
+            'zh-CN': {
+                title: '\u9690\u79c1\u653f\u7b56',
+                updated: '\u6700\u540e\u66f4\u65b0\uff1a2026\u5e742\u670828\u65e5',
+                h_overview: '\u6982\u8ff0',
+                p_overview: '\u9b54\u6cd5\u5de5\u5177\u7bb1\uff08\u201c\u6211\u4eec\u201d\uff09\u8fd0\u8425\u7f51\u7ad9 <a href="https://www.usemagictools.com">usemagictools.com</a>\u3002\u6211\u4eec\u81f4\u529b\u4e8e\u4fdd\u62a4\u60a8\u7684\u9690\u79c1\u3002\u6240\u6709\u5de5\u5177\u5b8c\u5168\u5728\u60a8\u7684\u6d4f\u89c8\u5668\u4e2d\u8fd0\u884c\u2014\u2014\u6211\u4eec\u4e0d\u4f1a\u6536\u96c6\u3001\u5b58\u50a8\u6216\u4f20\u8f93\u60a8\u4f7f\u7528\u5de5\u5177\u5904\u7406\u7684\u4efb\u4f55\u6587\u4ef6\u6216\u4e2a\u4eba\u6570\u636e\u3002',
+                h_collect: '\u6211\u4eec\u6536\u96c6\u7684\u4fe1\u606f',
+                h_analytics: 'Google Analytics',
+                p_analytics: '\u6211\u4eec\u4f7f\u7528 Google Analytics\uff08GA4\uff0c\u5c5e\u6027 ID\uff1aG-CT8E5N460D\uff09\u6765\u4e86\u89e3\u8bbf\u5ba2\u5982\u4f55\u4f7f\u7528\u6211\u4eec\u7684\u7f51\u7ad9\u3002Google Analytics \u6536\u96c6\uff1a',
+                li_a1: '\u8bbf\u95ee\u7684\u9875\u9762\u53ca\u5728\u6bcf\u4e2a\u9875\u9762\u4e0a\u7684\u505c\u7559\u65f6\u95f4',
+                li_a2: '\u6765\u6e90\u6e20\u9053\uff08\u60a8\u5982\u4f55\u627e\u5230\u6211\u4eec\u7684\u7f51\u7ad9\uff09',
+                li_a3: '\u6d4f\u89c8\u5668\u7c7b\u578b\u3001\u8bbe\u5907\u7c7b\u578b\u548c\u5c4f\u5e55\u5206\u8fa8\u7387',
+                li_a4: '\u5927\u81f4\u5730\u7406\u4f4d\u7f6e\uff08\u56fd\u5bb6/\u57ce\u5e02\u7ea7\u522b\uff09',
+                li_a5: '\u533f\u540d\u4f7f\u7528\u6a21\u5f0f\uff08\u70b9\u51fb\u3001\u6eda\u52a8\uff09',
+                p_analytics2: 'Google Analytics \u4f7f\u7528 Cookie \u6765\u533a\u5206\u72ec\u7acb\u8bbf\u5ba2\u3002\u60a8\u53ef\u4ee5\u901a\u8fc7\u5b89\u88c5 <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics \u9000\u51fa\u6d4f\u89c8\u5668\u63d2\u4ef6</a> \u6216\u5728\u6d4f\u89c8\u5668\u8bbe\u7f6e\u4e2d\u7981\u7528 Cookie \u6765\u9009\u62e9\u9000\u51fa\u3002',
+                h_local: '\u672c\u5730\u5b58\u50a8',
+                p_local: '\u6211\u4eec\u4f7f\u7528\u6d4f\u89c8\u5668\u7684 localStorage \u4fdd\u5b58\u60a8\u7684\u504f\u597d\u8bbe\u7f6e\uff1a',
+                li_l1: '\u8bed\u8a00\u504f\u597d\uff08\u5982\u82f1\u8bed\u3001\u4e2d\u6587\u3001\u6cd5\u8bed\u3001\u897f\u73ed\u7259\u8bed\uff09',
+                li_l2: '\u4e3b\u9898\u504f\u597d\uff08\u6df1\u8272\u6216\u6d45\u8272\u6a21\u5f0f\uff09',
+                li_l3: '\u5de5\u5177\u7279\u5b9a\u8bbe\u7f6e\uff08\u5982\u4e0a\u6b21\u4f7f\u7528\u7684\u9009\u9879\uff09',
+                p_local2: '\u8fd9\u4e9b\u6570\u636e\u6c38\u8fdc\u4e0d\u4f1a\u79bb\u5f00\u60a8\u7684\u6d4f\u89c8\u5668\uff0c\u4e5f\u4e0d\u4f1a\u4f20\u8f93\u5230\u4efb\u4f55\u670d\u52a1\u5668\u3002\u60a8\u53ef\u4ee5\u968f\u65f6\u901a\u8fc7\u6d4f\u89c8\u5668\u8bbe\u7f6e\u6e05\u9664\u8fd9\u4e9b\u6570\u636e\u3002',
+                h_nocollect: '\u6211\u4eec\u4e0d\u6536\u96c6\u7684\u4fe1\u606f',
+                li_n1: '\u60a8\u4e0a\u4f20\u6216\u5904\u7406\u7684\u6587\u4ef6\uff08\u56fe\u7247\u3001PDF\u3001JSON \u7b49\uff09\u2014\u2014\u6240\u6709\u5904\u7406\u90fd\u5728\u60a8\u7684\u6d4f\u89c8\u5668\u4e2d\u672c\u5730\u5b8c\u6210',
+                li_n2: '\u59d3\u540d\u3001\u7535\u5b50\u90ae\u4ef6\u6216\u7535\u8bdd\u53f7\u7801\u7b49\u4e2a\u4eba\u4fe1\u606f\uff08\u9664\u975e\u60a8\u4e3b\u52a8\u8054\u7cfb\u6211\u4eec\uff09',
+                li_n3: '\u4ed8\u6b3e\u6216\u8d22\u52a1\u4fe1\u606f\u2014\u2014\u6211\u4eec\u7684\u5de5\u5177 100% \u514d\u8d39',
+                h_cookies: 'Cookie',
+                p_cookies: '\u6211\u4eec\u4ec5\u4f7f\u7528 Google Analytics \u8bbe\u7f6e\u7684 Cookie \u8fdb\u884c\u6d41\u91cf\u5206\u6790\u3002\u6211\u4eec\u4e0d\u4f7f\u7528\u5e7f\u544a Cookie\u3001\u8ddf\u8e2a\u50cf\u7d20\u6216\u4efb\u4f55\u7b2c\u4e09\u65b9\u8425\u9500\u5de5\u5177\u3002',
+                h_thirdparty: '\u7b2c\u4e09\u65b9\u670d\u52a1',
+                p_thirdparty: '\u6211\u4eec\u7684\u7f51\u7ad9\u6258\u7ba1\u5728 GitHub Pages \u4e0a\u3002\u6211\u4eec\u4f7f\u7528 Google Analytics \u8fdb\u884c\u6d41\u91cf\u5206\u6790\u3002\u6211\u4eec\u4e0d\u96c6\u6210\u4efb\u4f55\u5e7f\u544a\u7f51\u7edc\u3001\u793e\u4ea4\u5a92\u4f53\u8ddf\u8e2a\u5668\u6216\u5176\u4ed6\u7b2c\u4e09\u65b9\u6570\u636e\u6536\u96c6\u670d\u52a1\u3002\u90e8\u5206\u5de5\u5177\u53ef\u80fd\u4ece CDN\uff08\u5982 cdnjs\u3001unpkg\uff09\u52a0\u8f7d\u5f00\u6e90\u5e93\u3002',
+                h_children: '\u513f\u7ae5\u9690\u79c1',
+                p_children: '\u6211\u4eec\u7684\u670d\u52a1\u4e0d\u9488\u5bf9 13 \u5c81\u4ee5\u4e0b\u7684\u513f\u7ae5\u3002\u6211\u4eec\u4e0d\u4f1a\u6545\u610f\u6536\u96c6\u513f\u7ae5\u7684\u4e2a\u4eba\u4fe1\u606f\u3002',
+                h_changes: '\u653f\u7b56\u53d8\u66f4',
+                p_changes: '\u6211\u4eec\u53ef\u80fd\u4f1a\u4e0d\u65f6\u66f4\u65b0\u672c\u9690\u79c1\u653f\u7b56\u3002\u4efb\u4f55\u66f4\u6539\u90fd\u5c06\u53d1\u5e03\u5728\u6b64\u9875\u9762\u4e0a\uff0c\u5e76\u66f4\u65b0\u201c\u6700\u540e\u66f4\u65b0\u201d\u65e5\u671f\u3002\u5efa\u8bae\u60a8\u5b9a\u671f\u67e5\u770b\u672c\u653f\u7b56\u3002',
+                h_contact: '\u8054\u7cfb\u6211\u4eec',
+                p_contact: '\u5982\u679c\u60a8\u5bf9\u672c\u9690\u79c1\u653f\u7b56\u6709\u4efb\u4f55\u7591\u95ee\uff0c\u8bf7\u901a\u8fc7 <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a> \u8054\u7cfb\u6211\u4eec\u3002',
+                footerPrivacy: '\u9690\u79c1\u653f\u7b56', footerTerms: '\u670d\u52a1\u6761\u6b3e', footerAbout: '\u5173\u4e8e', footerContact: '\u8054\u7cfb\u6211\u4eec',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. \u4fdd\u7559\u6240\u6709\u6743\u5229\u3002'
+            },
+            fr: {
+                title: 'Politique de Confidentialit\u00e9',
+                updated: 'Derni\u00e8re mise \u00e0 jour : 28 f\u00e9vrier 2026',
+                h_overview: 'Aper\u00e7u',
+                p_overview: 'Magic Toolbox (\u00ab nous \u00bb) exploite le site <a href="https://www.usemagictools.com">usemagictools.com</a>. Nous nous engageons \u00e0 prot\u00e9ger votre vie priv\u00e9e. Tous nos outils fonctionnent enti\u00e8rement dans votre navigateur \u2014 nous ne collectons, stockons ni transmettons aucun fichier ou donn\u00e9e personnelle que vous traitez avec nos outils.',
+                h_collect: 'Informations Collect\u00e9es',
+                h_analytics: 'Google Analytics',
+                p_analytics: 'Nous utilisons Google Analytics (GA4, ID : G-CT8E5N460D) pour comprendre comment les visiteurs utilisent notre site. Google Analytics collecte :',
+                li_a1: 'Pages visit\u00e9es et temps pass\u00e9 sur chaque page',
+                li_a2: 'Source de r\u00e9f\u00e9rence (comment vous avez trouv\u00e9 notre site)',
+                li_a3: 'Type de navigateur, type d\u2019appareil et r\u00e9solution d\u2019\u00e9cran',
+                li_a4: 'Localisation g\u00e9ographique approximative (niveau pays/ville)',
+                li_a5: 'Mod\u00e8les d\u2019utilisation anonymes (clics, d\u00e9filements)',
+                p_analytics2: 'Google Analytics utilise des cookies pour distinguer les visiteurs uniques. Vous pouvez vous d\u00e9sinscrire en installant le <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">module de d\u00e9sactivation Google Analytics</a> ou en d\u00e9sactivant les cookies dans les param\u00e8tres de votre navigateur.',
+                h_local: 'Stockage Local',
+                p_local: 'Nous utilisons le localStorage de votre navigateur pour enregistrer vos pr\u00e9f\u00e9rences :',
+                li_l1: 'Pr\u00e9f\u00e9rence linguistique (anglais, chinois, fran\u00e7ais, espagnol)',
+                li_l2: 'Pr\u00e9f\u00e9rence de th\u00e8me (mode sombre ou clair)',
+                li_l3: 'Param\u00e8tres sp\u00e9cifiques aux outils',
+                p_local2: 'Ces donn\u00e9es ne quittent jamais votre navigateur et ne sont transmises \u00e0 aucun serveur. Vous pouvez les effacer \u00e0 tout moment via les param\u00e8tres de votre navigateur.',
+                h_nocollect: 'Informations Non Collect\u00e9es',
+                li_n1: 'Les fichiers que vous t\u00e9l\u00e9chargez ou traitez \u2014 tout le traitement se fait localement dans votre navigateur',
+                li_n2: 'Informations personnelles telles que nom, e-mail ou num\u00e9ro de t\u00e9l\u00e9phone',
+                li_n3: 'Informations de paiement \u2014 nos outils sont 100% gratuits',
+                h_cookies: 'Cookies',
+                p_cookies: 'Nous utilisons uniquement les cookies d\u00e9finis par Google Analytics pour l\u2019analyse du trafic. Nous n\u2019utilisons pas de cookies publicitaires, de pixels de suivi ou d\u2019outils marketing tiers.',
+                h_thirdparty: 'Services Tiers',
+                p_thirdparty: 'Notre site est h\u00e9berg\u00e9 sur GitHub Pages. Nous utilisons Google Analytics pour l\u2019analyse du trafic. Nous n\u2019int\u00e9grons aucun r\u00e9seau publicitaire, traqueur de r\u00e9seaux sociaux ou autre service de collecte de donn\u00e9es tiers.',
+                h_children: 'Confidentialit\u00e9 des Enfants',
+                p_children: 'Notre service ne s\u2019adresse pas aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d\u2019informations personnelles aupr\u00e8s d\u2019enfants.',
+                h_changes: 'Modifications de Cette Politique',
+                p_changes: 'Nous pouvons mettre \u00e0 jour cette politique de confidentialit\u00e9 de temps en temps. Tout changement sera publi\u00e9 sur cette page avec une date de mise \u00e0 jour.',
+                h_contact: 'Nous Contacter',
+                p_contact: 'Si vous avez des questions concernant cette politique de confidentialit\u00e9, contactez-nous \u00e0 <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a>.',
+                footerPrivacy: 'Confidentialit\u00e9', footerTerms: 'Conditions', footerAbout: '\u00c0 Propos', footerContact: 'Contact',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. Tous droits r\u00e9serv\u00e9s.'
+            },
+            es: {
+                title: 'Pol\u00edtica de Privacidad',
+                updated: '\u00daltima actualizaci\u00f3n: 28 de febrero de 2026',
+                h_overview: 'Descripci\u00f3n General',
+                p_overview: 'Magic Toolbox (\u201cnosotros\u201d) opera el sitio web <a href="https://www.usemagictools.com">usemagictools.com</a>. Nos comprometemos a proteger su privacidad. Todas nuestras herramientas funcionan completamente en su navegador \u2014 no recopilamos, almacenamos ni transmitimos ning\u00fan archivo o dato personal que procese con nuestras herramientas.',
+                h_collect: 'Informaci\u00f3n que Recopilamos',
+                h_analytics: 'Google Analytics',
+                p_analytics: 'Usamos Google Analytics (GA4, ID: G-CT8E5N460D) para entender c\u00f3mo los visitantes usan nuestro sitio. Google Analytics recopila:',
+                li_a1: 'P\u00e1ginas visitadas y tiempo en cada p\u00e1gina',
+                li_a2: 'Fuente de referencia (c\u00f3mo encontr\u00f3 nuestro sitio)',
+                li_a3: 'Tipo de navegador, dispositivo y resoluci\u00f3n de pantalla',
+                li_a4: 'Ubicaci\u00f3n geogr\u00e1fica aproximada (nivel pa\u00eds/ciudad)',
+                li_a5: 'Patrones de uso an\u00f3nimos (clics, desplazamientos)',
+                p_analytics2: 'Google Analytics usa cookies para distinguir visitantes \u00fanicos. Puede optar por no participar instalando el <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">complemento de exclusi\u00f3n de Google Analytics</a> o desactivando las cookies en la configuraci\u00f3n de su navegador.',
+                h_local: 'Almacenamiento Local',
+                p_local: 'Usamos el localStorage de su navegador para guardar sus preferencias:',
+                li_l1: 'Preferencia de idioma (ingl\u00e9s, chino, franc\u00e9s, espa\u00f1ol)',
+                li_l2: 'Preferencia de tema (modo oscuro o claro)',
+                li_l3: 'Configuraciones espec\u00edficas de herramientas',
+                p_local2: 'Estos datos nunca salen de su navegador y no se transmiten a ning\u00fan servidor. Puede borrarlos en cualquier momento desde la configuraci\u00f3n de su navegador.',
+                h_nocollect: 'Informaci\u00f3n que NO Recopilamos',
+                li_n1: 'Archivos que sube o procesa \u2014 todo el procesamiento ocurre localmente en su navegador',
+                li_n2: 'Informaci\u00f3n personal como nombre, correo electr\u00f3nico o n\u00famero de tel\u00e9fono',
+                li_n3: 'Informaci\u00f3n de pago \u2014 nuestras herramientas son 100% gratuitas',
+                h_cookies: 'Cookies',
+                p_cookies: 'Solo usamos las cookies establecidas por Google Analytics para an\u00e1lisis de tr\u00e1fico. No usamos cookies publicitarias, p\u00edxeles de seguimiento ni herramientas de marketing de terceros.',
+                h_thirdparty: 'Servicios de Terceros',
+                p_thirdparty: 'Nuestro sitio est\u00e1 alojado en GitHub Pages. Usamos Google Analytics para an\u00e1lisis de tr\u00e1fico. No integramos redes publicitarias, rastreadores de redes sociales ni otros servicios de recopilaci\u00f3n de datos de terceros.',
+                h_children: 'Privacidad de los Ni\u00f1os',
+                p_children: 'Nuestro servicio no est\u00e1 dirigido a ni\u00f1os menores de 13 a\u00f1os. No recopilamos intencionalmente informaci\u00f3n personal de ni\u00f1os.',
+                h_changes: 'Cambios en Esta Pol\u00edtica',
+                p_changes: 'Podemos actualizar esta pol\u00edtica de privacidad ocasionalmente. Cualquier cambio se publicar\u00e1 en esta p\u00e1gina con una fecha actualizada.',
+                h_contact: 'Cont\u00e1ctenos',
+                p_contact: 'Si tiene preguntas sobre esta pol\u00edtica de privacidad, cont\u00e1ctenos en <a href="mailto:usemagictools@gmail.com">usemagictools@gmail.com</a>.',
+                footerPrivacy: 'Privacidad', footerTerms: 'T\u00e9rminos', footerAbout: 'Acerca de', footerContact: 'Contacto',
+                footerCopyright: '© 2024-2026 <a href="https://www.usemagictools.com" target="_blank">UseMagicTools</a>. Todos los derechos reservados.'
+            }
+        };
+
+        // 语言检测与切换
+        var LANG_KEY = 'toolbox_lang';
+        var lang = localStorage.getItem(LANG_KEY) || 'en';
+        var sel = document.getElementById('langSelect');
+        sel.value = lang;
+
+        function applyLang(l) {
+            var t = T[l] || T.en;
+            var els = document.querySelectorAll('[data-i18n]');
+            for (var i = 0; i < els.length; i++) {
+                var k = els[i].getAttribute('data-i18n');
+                if (t[k]) els[i].innerHTML = t[k];
+            }
+            document.documentElement.lang = l === 'zh-CN' ? 'zh' : l;
+        }
+        applyLang(lang);
+
+        sel.addEventListener('change', function() {
+            lang = this.value;
+            localStorage.setItem(LANG_KEY, lang);
+            applyLang(lang);
+        });
+
+        // 主题切换
+        var themeBtn = document.getElementById('themeToggle');
+        var saved = localStorage.getItem('magic_toolbox_theme');
+        if (saved === 'light') { document.body.setAttribute('data-theme', 'light'); themeBtn.textContent = '\u2600\ufe0f'; }
+        themeBtn.addEventListener('click', function() {
+            var isLight = document.body.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                document.body.removeAttribute('data-theme');
+                localStorage.setItem('magic_toolbox_theme', 'dark');
+                themeBtn.textContent = '\ud83c\udf19';
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                localStorage.setItem('magic_toolbox_theme', 'light');
+                themeBtn.textContent = '\u2600\ufe0f';
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

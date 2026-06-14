@@ -1,0 +1,326 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  background-color: #f8fafc;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Float Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse animation */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Accessibility Sizing Overrides */
+body.font-scale-small {
+  font-size: 14px !important;
+}
+body.font-scale-normal {
+  font-size: 16px !important;
+}
+body.font-scale-large {
+  font-size: 18px !important;
+}
+body.font-scale-extra-large {
+  font-size: 20px !important;
+}
+
+/* Accessibility Typography Overrides */
+body.open-dyslexic-font,
+body.open-dyslexic-font * {
+  font-family: "Comic Sans MS", "Chalkboard SE", "Arial", sans-serif !important;
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.1em !important;
+}
+
+/* Accessibility Underline Overrides */
+body.underline-links-mode a {
+  text-decoration: underline !important;
+  font-weight: bold !important;
+}
+
+/* Accessibility High Contrast Overrides */
+body.high-contrast-mode {
+  background-color: #000000 !important;
+  color: #ffff00 !important; /* Yellow text on black background is standard WCAG contrast */
+}
+body.high-contrast-mode header,
+body.high-contrast-mode footer,
+body.high-contrast-mode main,
+body.high-contrast-mode div,
+body.high-contrast-mode p,
+body.high-contrast-mode span,
+body.high-contrast-mode h1,
+body.high-contrast-mode h2,
+body.high-contrast-mode h3,
+body.high-contrast-mode h4,
+body.high-contrast-mode h5,
+body.high-contrast-mode h6,
+body.high-contrast-mode section,
+body.high-contrast-mode a,
+body.high-contrast-mode button,
+body.high-contrast-mode input,
+body.high-contrast-mode select,
+body.high-contrast-mode textarea {
+  background-color: #000000 !important;
+  color: #ffff00 !important;
+  border-color: #ffff00 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+body.high-contrast-mode button,
+body.high-contrast-mode a {
+  border: 2px solid #ffff00 !important;
+  text-decoration: underline !important;
+}
+
+/* Custom Accessibility Styles */
+body.text-spacing-mode,
+body.text-spacing-mode * {
+  letter-spacing: 0.12em !important;
+  word-spacing: 0.16em !important;
+  line-height: 2.0 !important;
+}
+
+body.reduce-motion-mode,
+body.reduce-motion-mode * {
+  animation-delay: -1ms !important;
+  animation-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0s !important;
+  scroll-behavior: auto !important;
+}
+
+body.large-cursor-mode,
+body.large-cursor-mode * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M0,0 L0,24 L6,18 L12,30 L16,28 L10,16 L18,16 Z' fill='white' stroke='black' stroke-width='2'/%3E%3C/svg%3E"), auto !important;
+}
+
+/* Customized line height options */
+body.line-height-large,
+body.line-height-large * {
+  line-height: 1.8 !important;
+}
+body.line-height-extra-large,
+body.line-height-extra-large * {
+  line-height: 2.3 !important;
+}
+
+/* Customized word spacing options */
+body.word-spacing-large,
+body.word-spacing-large * {
+  word-spacing: 0.18em !important;
+  letter-spacing: 0.08em !important;
+}
+body.word-spacing-extra-large,
+body.word-spacing-extra-large * {
+  word-spacing: 0.32em !important;
+  letter-spacing: 0.14em !important;
+}
+
+/* Motor / Big Button Mode */
+body.big-button-mode button,
+body.big-button-mode a,
+body.big-button-mode input,
+body.big-button-mode select,
+body.big-button-mode [role="button"] {
+  min-height: 48px !important;
+  min-width: 48px !important;
+  padding: 12px 24px !important;
+  font-size: 1.1rem !important;
+}
+
+/* Ensure smooth scrollbar on html */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Extra Advanced Accessibility CSS Styles */
+body.text-align-left, body.text-align-left * { text-align: left !important; }
+body.text-align-center, body.text-align-center * { text-align: center !important; }
+body.text-align-right, body.text-align-right * { text-align: right !important; }
+body.text-align-justify, body.text-align-justify * { text-align: justify !important; }
+
+body.family-override-serif, body.family-override-serif * { font-family: Georgia, Cambria, "Times New Roman", Times, serif !important; }
+body.family-override-sans-serif, body.family-override-sans-serif * { font-family: Arial, Helvetica, sans-serif !important; }
+body.family-override-monospace, body.family-override-monospace * { font-family: "Courier New", Courier, monospace !important; }
+body.family-override-dyslexic, body.family-override-dyslexic * { font-family: "Comic Sans MS", "Chalkboard SE", sans-serif !important; }
+
+/* Colorblind matrix filters */
+body.cb-filter-protanopia { filter: url('#protanopia-filter') !important; }
+body.cb-filter-deuteranopia { filter: url('#deuteranopia-filter') !important; }
+body.cb-filter-tritanopia { filter: url('#tritanopia-filter') !important; }
+body.cb-filter-monochromacy { filter: url('#monochromacy-filter') !important; }
+
+/* Custom High Contrast themes (Black & Yellow, Black & White, etc) */
+body.hc-theme-black-yellow, body.hc-theme-black-yellow * {
+  background-color: #000000 !important;
+  color: #fbbf24 !important;
+  border-color: #fbbf24 !important;
+}
+body.hc-theme-black-white, body.hc-theme-black-white * {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+body.hc-theme-white-black, body.hc-theme-white-black * {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+}
+body.hc-theme-yellow-black, body.hc-theme-yellow-black * {
+  background-color: #fef08a !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+}
+body.hc-theme-green-black, body.hc-theme-green-black * {
+  background-color: #000000 !important;
+  color: #22c55e !important;
+  border-color: #22c55e !important;
+}
+body.hc-theme-solarized, body.hc-theme-solarized * {
+  background-color: #fdf6e3 !important;
+  color: #586e75 !important;
+  border-color: #93a1a1 !important;
+}
+
+/* Remove Text Shadows */
+body.remove-text-shadows, body.remove-text-shadows * {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove Background images/patterns */
+body.remove-bg-patterns, body.remove-bg-patterns * {
+  background-image: none !important;
+}
+
+/* Highlight Header elements */
+body.highlight-headers-active h1,
+body.highlight-headers-active h2,
+body.highlight-headers-active h3,
+body.highlight-headers-active h4,
+body.highlight-headers-active h5,
+body.highlight-headers-active h6 {
+  border-left: 6px solid #ef4444 !important;
+  padding-left: 12px !important;
+  background-color: rgba(239, 68, 68, 0.08) !important;
+}
+
+/* Sticky Header lock */
+body.sticky-header-active header,
+body.sticky-header-active .MuiAppBar-root {
+  position: fixed !important;
+  top: 0 !important;
+  width: 100% !important;
+  z-index: 1100 !important;
+}
+body.sticky-header-active main {
+  margin-top: 80px !important;
+}
+
+/* Hide Google Translate top bar and banners */
+.goog-te-banner-frame,
+.goog-te-banner,
+.goog-te-menu-value,
+.goog-te-gadget-icon,
+.goog-te-gadget-simple,
+iframe.goog-te-banner-frame {
+  display: none !important;
+}
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+body {
+  top: 0px !important;
+  position: static !important;
+}
+/* Custom Smooth Professional Scrollbar */
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 6px;
+  border: 2px solid #0f172a;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF9933;
+}
+
+::-webkit-scrollbar-corner {
+  background: #0f172a;
+}
+
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 #0f172a;
+}
