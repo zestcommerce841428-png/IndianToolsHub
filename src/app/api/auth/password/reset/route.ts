@@ -164,6 +164,13 @@ export async function PUT(req: NextRequest) {
 
     // OTP verified successfully
     // Store verified OTP in Firestore for cross-instance persistence
+    if (!db) {
+      return NextResponse.json(
+        { error: 'Database not initialized' },
+        { status: 500 }
+      );
+    }
+    
     const verifiedKey = `${normalizedEmail}:${normalizedOtp}`;
     const verifiedOtpsRef = collection(db, 'verifiedOTPs');
     const verifiedOtpDocRef = doc(verifiedOtpsRef, verifiedKey.replace(/[:.@]/g, '_'));
@@ -217,6 +224,11 @@ export async function PUT(req: NextRequest) {
 // Helper to check if OTP is verified (exported for use by reset-with-password)
 export async function isOTPVerified(email: string, otp: string): Promise<boolean> {
   try {
+    if (!db) {
+      console.error('Database not initialized in isOTPVerified');
+      return false;
+    }
+    
     const normalizedEmail = email.toLowerCase().trim();
     const normalizedOtp = String(otp).trim();
     const key = `${normalizedEmail}:${normalizedOtp}`;
@@ -249,6 +261,11 @@ export async function isOTPVerified(email: string, otp: string): Promise<boolean
 // Helper to consume verified OTP (remove after use)
 export async function consumeVerifiedOTP(email: string, otp: string): Promise<boolean> {
   try {
+    if (!db) {
+      console.error('Database not initialized in consumeVerifiedOTP');
+      return false;
+    }
+    
     const normalizedEmail = email.toLowerCase().trim();
     const normalizedOtp = String(otp).trim();
     const key = `${normalizedEmail}:${normalizedOtp}`;
