@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Paper, Box, Typography, Button, CircularProgress, Alert, Switch,
   Dialog, DialogTitle, DialogContent, DialogActions, FormControlLabel,
@@ -31,6 +31,11 @@ export default function TwoFactorSection({
 }: TwoFactorSectionProps) {
   const [enabled, setEnabled] = useState(isEnabled);
   const [loading, setLoading] = useState(false);
+
+  // Sync local state with prop changes
+  useEffect(() => {
+    setEnabled(isEnabled);
+  }, [isEnabled]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   

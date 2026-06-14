@@ -223,6 +223,29 @@ export default function Header() {
       </List>
       <Divider />
       <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+        {/* Auth buttons for mobile */}
+        {!authLoading && !user && (
+          <>
+            <Button
+              fullWidth
+              component={Link}
+              href="/auth/login"
+              variant="outlined"
+              sx={{ fontWeight: 600 }}
+            >
+              Login
+            </Button>
+            <Button
+              fullWidth
+              component={Link}
+              href="/auth/register"
+              variant="contained"
+              sx={{ fontWeight: 600 }}
+            >
+              Sign Up
+            </Button>
+          </>
+        )}
         <Button
           fullWidth
           variant="contained"
