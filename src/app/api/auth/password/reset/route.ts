@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth, db } from '@/config/firebase';
+import { auth, db, ensureFirebaseInitialized } from '@/config/firebase';
 import { withRateLimit, resetRateLimit } from '@/utils/rateLimiter';
 import { getSecurityContext } from '@/utils/securityContext';
 import { generateOTPEmail } from '@/utils/emailTemplates';
@@ -61,10 +61,13 @@ export async function POST(req: NextRequest) {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = Date.now() + 15 * 60 * 1000; // 15 minutes
 
+    // Ensure Firebase is initialized
+    const { db: firestore } = ensureFirebaseInitialized();
+
     // Try to store in Firestore, fall back to memory if unavailable
-    if (db) {
+    if (firestore) {
       try {
-        const otpCollection = collection(db, 'passwordResetOTPs');
+        const otpCollection = collection(firestore, 'passwordResetOTPs');
         const otpDocRef = doc(otpCollection, normalizedEmail.replace(/[@.]/g, '_'));
         
         await setDoc(otpDocRef, {
@@ -145,13 +148,16 @@ export async function PUT(req: NextRequest) {
       );
     }
 
+    // Ensure Firebase is initialized
+    const { db: firestore } = ensureFirebaseInitialized();
+    
     // Try to verify OTP from Firestore, fall back to memory if unavailable
     let storedOTP: any = null;
     let otpDocRef: any = null;
     
-    if (db) {
+    if (firestore) {
       try {
-        const otpCollection = collection(db, 'passwordResetOTPs');
+        const otpCollection = collection(firestore, 'passwordResetOTPs');
         otpDocRef = doc(otpCollection, normalizedEmail.replace(/[@.]/g, '_'));
         const otpDoc = await getDoc(otpDocRef);
         
@@ -184,7 +190,7 @@ export async function PUT(req: NextRequest) {
 
     if (Date.now() > storedOTP.expiresAt) {
       // Clean up expired OTP from both sources
-      if (db && otpDocRef) {
+      if (firestore && otpDocRef) {
         try {
           await deleteDoc(otpDocRef);
         } catch (error) {
@@ -211,9 +217,9 @@ export async function PUT(req: NextRequest) {
     // Store verified OTP in Firestore if available
     const verifiedKey = `${normalizedEmail}:${normalizedOtp}`;
     
-    if (db) {
+    if (firestore) {
       try {
-        const verifiedOtpsRef = collection(db, 'verifiedOTPs');
+        const verifiedOtpsRef = collection(firestore, 'verifiedOTPs');
         const verifiedOtpDocRef = doc(verifiedOtpsRef, verifiedKey.replace(/[:.@]/g, '_'));
         
         await setDoc(verifiedOtpDocRef, {
