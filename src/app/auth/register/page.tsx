@@ -332,6 +332,15 @@ export default function RegisterPage() {
             >
               {loading ? <CircularProgress size={24} color="inherit" /> : 'Create Advanced Account'}
             </Button>
+
+            <Box sx={{ mt: 3, textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary">
+                Already have an account?{' '}
+                <Link href="/auth/login" style={{ color: '#FF9933', textDecoration: 'none', fontWeight: 600 }}>
+                  Login here
+                </Link>
+              </Typography>
+            </Box>
           </form>
         </Paper>
       </Container>
