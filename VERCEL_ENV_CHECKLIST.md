@@ -26,7 +26,7 @@ EMAIL_USER=your_email@gmail.com
 EMAIL_PASSWORD=your_app_password
 ```
 
-## 🔐 Firebase Admin SDK (Optional - for magic links)
+## 🔐 Firebase Admin SDK (Required - for password reset)
 ```
 FIREBASE_PROJECT_ID=your_project_id
 FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@your_project.iam.gserviceaccount.com
@@ -37,6 +37,8 @@ FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY----
 ```
 FIREBASE_SERVICE_ACCOUNT={"type":"service_account","project_id":"..."}
 ```
+
+**Note:** Firebase Admin SDK is now required for the password reset flow. The system allows users to reset passwords directly via OTP verification without needing their current password or email links.
 
 ## 🌐 Site Configuration
 ```
@@ -73,6 +75,12 @@ NEXT_PUBLIC_SENTRY_DSN=https://your_sentry_dsn@sentry.io
 6. Click **Save**
 7. **Important:** Redeploy after adding variables
 
-## Current Critical Issue:
+## Password Reset Flow:
 
-The "OTP expired or not found" error is occurring because `otpStore` is stored in-memory, which doesn't persist across Vercel's serverless instances. This needs to be fixed in the code by using Firestore instead.
+The password reset now uses a secure 4-step process:
+1. User enters email address
+2. User receives and verifies 6-digit OTP via email
+3. User sets new password directly (NO current password required, NO email links)
+4. Password is updated using Firebase Admin SDK
+
+This eliminates the need for password reset links and allows users to reset passwords even when they've forgotten their current password.

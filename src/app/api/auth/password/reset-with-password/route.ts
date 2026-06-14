@@ -1,19 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '@/config/firebase';
+import { adminAuth } from '@/config/firebase-admin';
 import { isOTPVerified, consumeVerifiedOTP } from '../reset/route';
 
 /**
  * POST /api/auth/password/reset-with-password
- * Send Firebase password reset link after OTP verification (NO current password needed!)
+ * Direct password change after OTP verification using Firebase Admin SDK
+ * NO current password or email links required!
  */
 export async function POST(req: NextRequest) {
   try {
-    const { email, otp } = await req.json();
+    const { email, otp, newPassword } = await req.json();
 
-    if (!email || !otp) {
+    if (!email || !otp || !newPassword) {
       return NextResponse.json(
-        { error: 'Email and OTP are required' },
+        { error: 'Email, OTP, and new password are required' },
         { status: 400 }
       );
     }
@@ -21,6 +21,14 @@ export async function POST(req: NextRequest) {
     // Normalize inputs
     const normalizedEmail = email.toLowerCase().trim();
     const normalizedOtp = String(otp).trim();
+
+    // Validate password strength
+    if (newPassword.length < 6) {
+      return NextResponse.json(
+        { error: 'Password must be at least 6 characters long' },
+        { status: 400 }
+      );
+    }
 
     // Check if OTP was recently verified (within last 10 minutes)
     const isVerified = await isOTPVerified(normalizedEmail, normalizedOtp);
@@ -34,23 +42,28 @@ export async function POST(req: NextRequest) {
     // Consume the verified OTP (can only be used once)
     await consumeVerifiedOTP(normalizedEmail, normalizedOtp);
 
-    if (!auth) {
+    if (!adminAuth) {
       return NextResponse.json(
-        { error: 'Authentication service not initialized' },
+        { error: 'Admin authentication service not initialized. Please contact support.' },
         { status: 500 }
       );
     }
 
     try {
-      // Send Firebase password reset email
-      await sendPasswordResetEmail(auth, normalizedEmail);
+      // Get user by email
+      const userRecord = await adminAuth.getUserByEmail(normalizedEmail);
+      
+      // Update password directly using Admin SDK (no current password needed!)
+      await adminAuth.updateUser(userRecord.uid, {
+        password: newPassword,
+      });
 
       return NextResponse.json({
         success: true,
-        message: 'Password reset link sent to your email. Please check your inbox.'
+        message: 'Password reset successfully! You can now login with your new password.'
       });
     } catch (firebaseError: any) {
-      console.error('Firebase password reset error:', firebaseError);
+      console.error('Firebase Admin password reset error:', firebaseError);
 
       if (firebaseError.code === 'auth/user-not-found') {
         return NextResponse.json(
@@ -59,15 +72,15 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      if (firebaseError.code === 'auth/invalid-email') {
+      if (firebaseError.code === 'auth/invalid-password') {
         return NextResponse.json(
-          { error: 'Invalid email address.' },
+          { error: 'Password is too weak. Please choose a stronger password.' },
           { status: 400 }
         );
       }
 
       return NextResponse.json(
-        { error: 'Failed to send password reset link. Please try again.' },
+        { error: 'Failed to reset password. Please try again.' },
         { status: 500 }
       );
     }
