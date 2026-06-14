@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth, db, ensureFirebaseInitialized } from '@/config/firebase';
+import { adminDb } from '@/config/firebase-admin';
 import { withRateLimit, resetRateLimit } from '@/utils/rateLimiter';
 import { getSecurityContext } from '@/utils/securityContext';
 import { generateOTPEmail } from '@/utils/emailTemplates';
@@ -275,13 +276,11 @@ export async function PUT(req: NextRequest) {
 }
 
 // Helper to check if OTP is verified (exported for use by reset-with-password)
+// Uses Firebase Admin SDK for reliable server-side operation
 export async function isOTPVerified(email: string, otp: string): Promise<boolean> {
   try {
-    // Ensure Firebase is initialized
-    const { db: firestore } = ensureFirebaseInitialized();
-    
-    if (!firestore) {
-      console.error('Database not initialized in isOTPVerified');
+    if (!adminDb) {
+      console.error('Firebase Admin Database not initialized in isOTPVerified');
       return false;
     }
     
@@ -290,22 +289,26 @@ export async function isOTPVerified(email: string, otp: string): Promise<boolean
     const key = `${normalizedEmail}:${normalizedOtp}`;
     const sanitizedKey = key.replace(/[:.@]/g, '_');
     
-    const verifiedOtpsRef = collection(firestore, 'verifiedOTPs');
-    const verifiedOtpDocRef = doc(verifiedOtpsRef, sanitizedKey);
-    const verifiedOtpDoc = await getDoc(verifiedOtpDocRef);
+    const verifiedOtpDocRef = adminDb.collection('verifiedOTPs').doc(sanitizedKey);
+    const verifiedOtpDoc = await verifiedOtpDocRef.get();
     
-    if (!verifiedOtpDoc.exists()) {
+    if (!verifiedOtpDoc.exists) {
       console.log(`Verified OTP not found for key: ${sanitizedKey}`);
       return false;
     }
     
     const data = verifiedOtpDoc.data();
     
+    if (!data) {
+      console.log(`Verified OTP data is null for: ${normalizedEmail}`);
+      return false;
+    }
+    
     // Check if OTP is expired
     if (Date.now() > data.expiresAt) {
       console.log(`Verified OTP expired for: ${normalizedEmail}`);
       // Clean up expired OTP
-      await deleteDoc(verifiedOtpDocRef);
+      await verifiedOtpDocRef.delete();
       return false;
     }
     
@@ -318,13 +321,11 @@ export async function isOTPVerified(email: string, otp: string): Promise<boolean
 }
 
 // Helper to consume verified OTP (remove after use)
+// Uses Firebase Admin SDK for reliable server-side operation
 export async function consumeVerifiedOTP(email: string, otp: string): Promise<boolean> {
   try {
-    // Ensure Firebase is initialized
-    const { db: firestore } = ensureFirebaseInitialized();
-    
-    if (!firestore) {
-      console.error('Database not initialized in consumeVerifiedOTP');
+    if (!adminDb) {
+      console.error('Firebase Admin Database not initialized in consumeVerifiedOTP');
       return false;
     }
     
@@ -333,12 +334,11 @@ export async function consumeVerifiedOTP(email: string, otp: string): Promise<bo
     const key = `${normalizedEmail}:${normalizedOtp}`;
     const sanitizedKey = key.replace(/[:.@]/g, '_');
     
-    const verifiedOtpsRef = collection(firestore, 'verifiedOTPs');
-    const verifiedOtpDocRef = doc(verifiedOtpsRef, sanitizedKey);
-    const verifiedOtpDoc = await getDoc(verifiedOtpDocRef);
+    const verifiedOtpDocRef = adminDb.collection('verifiedOTPs').doc(sanitizedKey);
+    const verifiedOtpDoc = await verifiedOtpDocRef.get();
     
-    if (verifiedOtpDoc.exists()) {
-      await deleteDoc(verifiedOtpDocRef);
+    if (verifiedOtpDoc.exists) {
+      await verifiedOtpDocRef.delete();
       console.log(`Consumed verified OTP for: ${normalizedEmail}`);
       return true;
     }
