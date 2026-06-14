@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -87,8 +88,13 @@ export default function ForgotPasswordPage() {
     setError('');
     setMessage('');
 
+    if (!oldPassword) {
+      setError('Please enter your current password.');
+      return;
+    }
+
     if (!newPassword || newPassword.length < 6) {
-      setError('Password must be at least 6 characters long.');
+      setError('New password must be at least 6 characters long.');
       return;
     }
 
@@ -97,24 +103,29 @@ export default function ForgotPasswordPage() {
       return;
     }
 
+    if (oldPassword === newPassword) {
+      setError('New password must be different from current password.');
+      return;
+    }
+
     setLoading(true);
     try {
-      const response = await fetch('/api/auth/password/reset-final', {
+      const response = await fetch('/api/auth/password/reset-with-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify({ email, otp, oldPassword, newPassword }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to send reset link');
+        throw new Error(data.error || 'Failed to reset password');
       }
 
-      setMessage(data.message || 'Password reset link sent! Check your email.');
+      setMessage('Password reset successfully! You can now login with your new password.');
       setStep('success');
     } catch (err: unknown) {
-      setError((err as Error).message || 'Failed to send reset link. Please try again.');
+      setError((err as Error).message || 'Failed to reset password. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -165,8 +176,8 @@ export default function ForgotPasswordPage() {
           <Typography color="text.secondary" sx={{ mb: 4, textAlign: 'center' }}>
             {step === 'email' && 'Enter your email and we\'ll send you a secure OTP to reset your password.'}
             {step === 'otp' && 'Enter the 6-digit OTP sent to your email.'}
-            {step === 'password' && 'Confirm your identity to receive a password reset link.'}
-            {step === 'success' && 'Check your email for the password reset link!'}
+            {step === 'password' && 'Enter your current password and choose a new one.'}
+            {step === 'success' && 'Your password has been reset successfully!'}
           </Typography>
 
           {/* Progress Stepper */}
@@ -178,7 +189,7 @@ export default function ForgotPasswordPage() {
               <StepLabel>Verify OTP</StepLabel>
             </Step>
             <Step>
-              <StepLabel>Get Reset Link</StepLabel>
+              <StepLabel>New Password</StepLabel>
             </Step>
             <Step>
               <StepLabel>Complete</StepLabel>
@@ -262,24 +273,51 @@ export default function ForgotPasswordPage() {
             </form>
           )}
 
-          {/* Step 3: Get Reset Link */}
+          {/* Step 3: Set New Password */}
           {step === 'password' && (
-            <Box>
-              <Alert severity="info" sx={{ mb: 3 }}>
-                <Typography variant="body2" sx={{ mb: 1 }}>
-                  Your identity has been verified! Click the button below to receive a secure password reset link via email.
-                </Typography>
-              </Alert>
+            <form onSubmit={handleResetPassword}>
+              <TextField
+                label="Current Password"
+                type="password"
+                fullWidth
+                required
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                sx={{ mb: 2 }}
+                autoComplete="current-password"
+                helperText="Enter your current password to verify your identity"
+              />
+              <TextField
+                label="New Password"
+                type="password"
+                fullWidth
+                required
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                sx={{ mb: 2 }}
+                autoComplete="new-password"
+                helperText="Must be at least 6 characters"
+              />
+              <TextField
+                label="Confirm New Password"
+                type="password"
+                fullWidth
+                required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                sx={{ mb: 3 }}
+                autoComplete="new-password"
+              />
               <Button
-                onClick={handleResetPassword}
+                type="submit"
                 variant="contained"
                 fullWidth
-                disabled={loading}
+                disabled={loading || newPassword.length < 6}
                 sx={{ py: 1.5, fontSize: '1rem', fontWeight: 600, borderRadius: 2 }}
               >
-                {loading ? <CircularProgress size={24} color="inherit" /> : 'Send Reset Link'}
+                {loading ? <CircularProgress size={24} color="inherit" /> : 'Reset Password'}
               </Button>
-            </Box>
+            </form>
           )}
 
           {/* Step 4: Success */}
@@ -301,7 +339,7 @@ export default function ForgotPasswordPage() {
                 <Typography variant="h3" sx={{ color: 'success.main' }}>✓</Typography>
               </Box>
               <Typography variant="body1" sx={{ mb: 3 }}>
-                A secure password reset link has been sent to <strong>{email}</strong>. Click the link in the email to set your new password.
+                Your password has been successfully reset! You can now log in with your new password.
               </Typography>
               <Link href="/auth/login" style={{ textDecoration: 'none' }}>
                 <Button variant="contained" fullWidth sx={{ py: 1.5, fontWeight: 600, borderRadius: 2 }}>
