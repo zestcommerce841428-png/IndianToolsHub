@@ -277,7 +277,10 @@ export async function PUT(req: NextRequest) {
 // Helper to check if OTP is verified (exported for use by reset-with-password)
 export async function isOTPVerified(email: string, otp: string): Promise<boolean> {
   try {
-    if (!db) {
+    // Ensure Firebase is initialized
+    const { db: firestore } = ensureFirebaseInitialized();
+    
+    if (!firestore) {
       console.error('Database not initialized in isOTPVerified');
       return false;
     }
@@ -287,11 +290,12 @@ export async function isOTPVerified(email: string, otp: string): Promise<boolean
     const key = `${normalizedEmail}:${normalizedOtp}`;
     const sanitizedKey = key.replace(/[:.@]/g, '_');
     
-    const verifiedOtpsRef = collection(db, 'verifiedOTPs');
+    const verifiedOtpsRef = collection(firestore, 'verifiedOTPs');
     const verifiedOtpDocRef = doc(verifiedOtpsRef, sanitizedKey);
     const verifiedOtpDoc = await getDoc(verifiedOtpDocRef);
     
     if (!verifiedOtpDoc.exists()) {
+      console.log(`Verified OTP not found for key: ${sanitizedKey}`);
       return false;
     }
     
@@ -299,11 +303,13 @@ export async function isOTPVerified(email: string, otp: string): Promise<boolean
     
     // Check if OTP is expired
     if (Date.now() > data.expiresAt) {
+      console.log(`Verified OTP expired for: ${normalizedEmail}`);
       // Clean up expired OTP
       await deleteDoc(verifiedOtpDocRef);
       return false;
     }
     
+    console.log(`Verified OTP found and valid for: ${normalizedEmail}`);
     return true;
   } catch (error) {
     console.error('Error checking OTP verification:', error);
@@ -314,7 +320,10 @@ export async function isOTPVerified(email: string, otp: string): Promise<boolean
 // Helper to consume verified OTP (remove after use)
 export async function consumeVerifiedOTP(email: string, otp: string): Promise<boolean> {
   try {
-    if (!db) {
+    // Ensure Firebase is initialized
+    const { db: firestore } = ensureFirebaseInitialized();
+    
+    if (!firestore) {
       console.error('Database not initialized in consumeVerifiedOTP');
       return false;
     }
@@ -324,14 +333,16 @@ export async function consumeVerifiedOTP(email: string, otp: string): Promise<bo
     const key = `${normalizedEmail}:${normalizedOtp}`;
     const sanitizedKey = key.replace(/[:.@]/g, '_');
     
-    const verifiedOtpsRef = collection(db, 'verifiedOTPs');
+    const verifiedOtpsRef = collection(firestore, 'verifiedOTPs');
     const verifiedOtpDocRef = doc(verifiedOtpsRef, sanitizedKey);
     const verifiedOtpDoc = await getDoc(verifiedOtpDocRef);
     
     if (verifiedOtpDoc.exists()) {
       await deleteDoc(verifiedOtpDocRef);
+      console.log(`Consumed verified OTP for: ${normalizedEmail}`);
       return true;
     }
+    console.log(`No verified OTP to consume for: ${normalizedEmail}`);
     return false;
   } catch (error) {
     console.error('Error consuming verified OTP:', error);
