@@ -7,6 +7,9 @@ import { generateOTPEmail } from '@/utils/emailTemplates';
 import nodemailer from 'nodemailer';
 import { collection, doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
 
+// Fallback in-memory store when Firestore is unavailable
+const otpStore: { [key: string]: { otp: string; expiresAt: number; purpose: string } } = {};
+
 // Email transporter configuration
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.gmail.com',
@@ -54,29 +57,31 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check database availability
-    if (!db) {
-      return NextResponse.json(
-        { error: 'Database not initialized' },
-        { status: 500 }
-      );
-    }
-
     // Generate 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = Date.now() + 15 * 60 * 1000; // 15 minutes
 
-    // Store OTP in Firestore for cross-instance persistence
-    const otpCollection = collection(db, 'passwordResetOTPs');
-    const otpDocRef = doc(otpCollection, normalizedEmail.replace(/[@.]/g, '_'));
-    
-    await setDoc(otpDocRef, {
-      otp,
-      expiresAt,
-      purpose: 'password-reset',
-      createdAt: Date.now(),
-      email: normalizedEmail
-    });
+    // Try to store in Firestore, fall back to memory if unavailable
+    if (db) {
+      try {
+        const otpCollection = collection(db, 'passwordResetOTPs');
+        const otpDocRef = doc(otpCollection, normalizedEmail.replace(/[@.]/g, '_'));
+        
+        await setDoc(otpDocRef, {
+          otp,
+          expiresAt,
+          purpose: 'password-reset',
+          createdAt: Date.now(),
+          email: normalizedEmail
+        });
+      } catch (error) {
+        console.error('Firestore write failed, using memory fallback:', error);
+        otpStore[normalizedEmail] = { otp, expiresAt, purpose: 'password-reset' };
+      }
+    } else {
+      console.warn('Firestore not initialized, using in-memory storage (not suitable for serverless)');
+      otpStore[normalizedEmail] = { otp, expiresAt, purpose: 'password-reset' };
+    }
 
     // Get security context
     const securityContext = await getSecurityContext(req);
@@ -140,28 +145,36 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    // Check database availability
-    if (!db) {
-      return NextResponse.json(
-        { error: 'Database not initialized' },
-        { status: 500 }
-      );
+    // Try to verify OTP from Firestore, fall back to memory if unavailable
+    let storedOTP: any = null;
+    let otpDocRef: any = null;
+    
+    if (db) {
+      try {
+        const otpCollection = collection(db, 'passwordResetOTPs');
+        otpDocRef = doc(otpCollection, normalizedEmail.replace(/[@.]/g, '_'));
+        const otpDoc = await getDoc(otpDocRef);
+        
+        if (otpDoc.exists()) {
+          storedOTP = otpDoc.data();
+        }
+      } catch (error) {
+        console.error('Firestore read failed, checking memory fallback:', error);
+      }
+    }
+    
+    // Fall back to in-memory if Firestore didn't have it
+    if (!storedOTP && otpStore[normalizedEmail]) {
+      storedOTP = otpStore[normalizedEmail];
     }
 
-    // Verify OTP from Firestore
-    const otpCollection = collection(db, 'passwordResetOTPs');
-    const otpDocRef = doc(otpCollection, normalizedEmail.replace(/[@.]/g, '_'));
-    const otpDoc = await getDoc(otpDocRef);
-
-    if (!otpDoc.exists()) {
+    if (!storedOTP) {
       return NextResponse.json(
         { error: 'OTP expired or not found. Please request a new one.' },
         { status: 400 }
       );
     }
 
-    const storedOTP = otpDoc.data();
-    
     if (storedOTP.purpose !== 'password-reset') {
       return NextResponse.json(
         { error: 'Invalid OTP purpose' },
@@ -170,7 +183,16 @@ export async function PUT(req: NextRequest) {
     }
 
     if (Date.now() > storedOTP.expiresAt) {
-      await deleteDoc(otpDocRef); // Clean up expired OTP
+      // Clean up expired OTP from both sources
+      if (db && otpDocRef) {
+        try {
+          await deleteDoc(otpDocRef);
+        } catch (error) {
+          console.error('Failed to delete expired OTP from Firestore:', error);
+        }
+      }
+      delete otpStore[normalizedEmail];
+      
       return NextResponse.json(
         { error: 'OTP has expired. Please request a new one.' },
         { status: 400 }
@@ -186,20 +208,32 @@ export async function PUT(req: NextRequest) {
     }
 
     // OTP verified successfully
-    // Store verified OTP in Firestore for cross-instance persistence
+    // Store verified OTP in Firestore if available
     const verifiedKey = `${normalizedEmail}:${normalizedOtp}`;
-    const verifiedOtpsRef = collection(db, 'verifiedOTPs');
-    const verifiedOtpDocRef = doc(verifiedOtpsRef, verifiedKey.replace(/[:.@]/g, '_'));
     
-    await setDoc(verifiedOtpDocRef, {
-      email: normalizedEmail,
-      otp: normalizedOtp,
-      verified: Date.now(),
-      expiresAt: Date.now() + 10 * 60 * 1000 // 10 minutes
-    });
-
-    // Clear the original OTP from Firestore
-    await deleteDoc(otpDocRef);
+    if (db) {
+      try {
+        const verifiedOtpsRef = collection(db, 'verifiedOTPs');
+        const verifiedOtpDocRef = doc(verifiedOtpsRef, verifiedKey.replace(/[:.@]/g, '_'));
+        
+        await setDoc(verifiedOtpDocRef, {
+          email: normalizedEmail,
+          otp: normalizedOtp,
+          verified: Date.now(),
+          expiresAt: Date.now() + 10 * 60 * 1000 // 10 minutes
+        });
+        
+        // Clear the original OTP from Firestore
+        if (otpDocRef) {
+          await deleteDoc(otpDocRef);
+        }
+      } catch (error) {
+        console.error('Failed to store verified OTP in Firestore:', error);
+      }
+    }
+    
+    // Clear from in-memory as well
+    delete otpStore[normalizedEmail];
     
     // Reset rate limits for this email
     resetRateLimit(`password-reset:${normalizedEmail}`);
