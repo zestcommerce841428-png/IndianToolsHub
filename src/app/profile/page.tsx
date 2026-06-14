@@ -24,6 +24,7 @@ import Footer from '@/components/Footer';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import BackupEmailSection from '@/components/BackupEmailSection';
 import TwoFactorSection from '@/components/TwoFactorSection';
+import PasswordChangeSection from '@/components/PasswordChangeSection';
 import { useAuth, UserProfile } from '@/context/AuthContext';
 
 function ProfileDashboard() {
@@ -420,6 +421,14 @@ function ProfileDashboard() {
             userId={user.uid}
             userEmail={user.email || ''}
             isEnabled={profile.twoFactorEnabled}
+            onSuccess={refreshProfile}
+          />
+        )}
+
+        {/* Password Change Section */}
+        {user && (
+          <PasswordChangeSection
+            userEmail={user.email || ''}
             onSuccess={refreshProfile}
           />
         )}

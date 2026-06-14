@@ -11,9 +11,10 @@ import QrCode2Icon from '@mui/icons-material/QrCode2';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DownloadIcon from '@mui/icons-material/Download';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import WarningIcon from '@mui/icons-material/Warning';
 import Image from 'next/image';
 import { db, auth } from '@/config/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
 interface TwoFactorSectionProps {
   isEnabled?: boolean;
@@ -22,11 +23,11 @@ interface TwoFactorSectionProps {
   onSuccess?: () => void;
 }
 
-export default function TwoFactorSection({ 
+export default function TwoFactorSection({
   isEnabled = false,
   userId,
   userEmail,
-  onSuccess 
+  onSuccess
 }: TwoFactorSectionProps) {
   const [enabled, setEnabled] = useState(isEnabled);
   const [loading, setLoading] = useState(false);
@@ -35,11 +36,14 @@ export default function TwoFactorSection({
   
   // Setup state
   const [showSetupDialog, setShowSetupDialog] = useState(false);
+  const [showBackupCodesDialog, setShowBackupCodesDialog] = useState(false);
   const [qrCode, setQrCode] = useState('');
   const [secret, setSecret] = useState('');
   const [backupCodes, setBackupCodes] = useState<string[]>([]);
   const [verificationCode, setVerificationCode] = useState('');
   const [setupStep, setSetupStep] = useState<'qr' | 'verify' | 'backup'>('qr');
+  const [viewBackupCodes, setViewBackupCodes] = useState<string[]>([]);
+  const [usedCodes, setUsedCodes] = useState<string[]>([]);
 
   const handleToggle2FA = async () => {
     if (enabled) {
@@ -183,6 +187,28 @@ Account: ${userEmail}`;
     if (onSuccess) onSuccess();
   };
 
+  const handleViewBackupCodes = async () => {
+    setLoading(true);
+    setError('');
+    
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setViewBackupCodes(userData.backupCodes || []);
+          setUsedCodes(userData.backupCodesUsed || []);
+          setShowBackupCodesDialog(true);
+        }
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load backup codes');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Paper elevation={0} sx={{ p: 4, borderRadius: 4, mb: 4, border: '1px solid', borderColor: enabled ? 'success.main' : 'divider', bgcolor: enabled ? 'success.lighter' : 'background.paper' }}>
@@ -225,13 +251,14 @@ Account: ${userEmail}`;
         </Typography>
 
         {enabled && (
-          <Button 
-            variant="outlined" 
+          <Button
+            variant="outlined"
             startIcon={<QrCode2Icon />}
-            onClick={() => {/* Show backup codes */}}
+            onClick={handleViewBackupCodes}
+            disabled={loading}
             sx={{ mt: 2 }}
           >
-            View Backup Codes
+            {loading ? <CircularProgress size={20} /> : 'View Backup Codes'}
           </Button>
         )}
       </Paper>
@@ -372,6 +399,90 @@ Account: ${userEmail}`;
               Finish Setup
             </Button>
           )}
+        </DialogActions>
+      </Dialog>
+
+      {/* View Backup Codes Dialog */}
+      <Dialog
+        open={showBackupCodesDialog}
+        onClose={() => setShowBackupCodesDialog(false)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <QrCode2Icon color="primary" />
+          Your Backup Codes
+        </DialogTitle>
+        <DialogContent>
+          <Alert severity="warning" sx={{ mb: 3 }}>
+            <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
+              Important: Keep these codes safe!
+            </Typography>
+            <Typography variant="body2">
+              Each code can be used once if you lose access to your authenticator app. Used codes are marked below.
+            </Typography>
+          </Alert>
+          
+          <List sx={{ bgcolor: 'grey.50', borderRadius: 1, mb: 2 }}>
+            {viewBackupCodes.map((code, index) => {
+              const isUsed = usedCodes.includes(code);
+              return (
+                <ListItem
+                  key={index}
+                  sx={{
+                    opacity: isUsed ? 0.5 : 1,
+                    textDecoration: isUsed ? 'line-through' : 'none'
+                  }}
+                >
+                  <ListItemText
+                    primary={
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <Typography sx={{ fontFamily: 'monospace', fontSize: '16px', flex: 1 }}>
+                          {code}
+                        </Typography>
+                        {isUsed && (
+                          <Chip
+                            label="Used"
+                            size="small"
+                            color="error"
+                            icon={<WarningIcon />}
+                          />
+                        )}
+                      </Box>
+                    }
+                  />
+                </ListItem>
+              );
+            })}
+          </List>
+          
+          <Button
+            fullWidth
+            variant="outlined"
+            startIcon={<DownloadIcon />}
+            onClick={() => {
+              const text = `IndianToolsHub - Two-Factor Authentication Backup Codes\n\nIMPORTANT: Save these codes in a secure place!\nEach code can only be used once.\n\n${viewBackupCodes.map((code, i) => `${i + 1}. ${code}${usedCodes.includes(code) ? ' (USED)' : ''}`).join('\n')}\n\nGenerated: ${new Date().toLocaleString()}\nAccount: ${userEmail}`;
+              const blob = new Blob([text], { type: 'text/plain' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `backup-codes-${Date.now()}.txt`;
+              a.click();
+              URL.revokeObjectURL(url);
+              setSuccess('Backup codes downloaded!');
+            }}
+          >
+            Download Backup Codes
+          </Button>
+
+          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2, textAlign: 'center' }}>
+            {usedCodes.length} of {viewBackupCodes.length} codes used
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ p: 3, pt: 0 }}>
+          <Button onClick={() => setShowBackupCodesDialog(false)} variant="contained">
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     </>
