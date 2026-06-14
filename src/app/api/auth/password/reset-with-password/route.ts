@@ -1,19 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { signInWithEmailAndPassword, updatePassword } from 'firebase/auth';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '@/config/firebase';
 import { isOTPVerified, consumeVerifiedOTP } from '../reset/route';
 
 /**
  * POST /api/auth/password/reset-with-password
- * Reset password directly after OTP verification using current password
+ * Send Firebase password reset link after OTP verification (NO current password needed!)
  */
 export async function POST(req: NextRequest) {
   try {
-    const { email, otp, oldPassword, newPassword } = await req.json();
+    const { email, otp } = await req.json();
 
-    if (!email || !otp || !oldPassword || !newPassword) {
+    if (!email || !otp) {
       return NextResponse.json(
-        { error: 'Email, OTP, current password, and new password are required' },
+        { error: 'Email and OTP are required' },
         { status: 400 }
       );
     }
@@ -21,21 +21,6 @@ export async function POST(req: NextRequest) {
     // Normalize inputs
     const normalizedEmail = email.toLowerCase().trim();
     const normalizedOtp = String(otp).trim();
-
-    // Validate password strength
-    if (newPassword.length < 6) {
-      return NextResponse.json(
-        { error: 'New password must be at least 6 characters long' },
-        { status: 400 }
-      );
-    }
-
-    if (oldPassword === newPassword) {
-      return NextResponse.json(
-        { error: 'New password must be different from current password' },
-        { status: 400 }
-      );
-    }
 
     // Check if OTP was recently verified (within last 10 minutes)
     const isVerified = await isOTPVerified(normalizedEmail, normalizedOtp);
@@ -49,30 +34,23 @@ export async function POST(req: NextRequest) {
     // Consume the verified OTP (can only be used once)
     await consumeVerifiedOTP(normalizedEmail, normalizedOtp);
 
+    if (!auth) {
+      return NextResponse.json(
+        { error: 'Authentication service not initialized' },
+        { status: 500 }
+      );
+    }
+
     try {
-      // Verify old password by attempting to sign in
-      const userCredential = await signInWithEmailAndPassword(auth, normalizedEmail, oldPassword);
-      const user = userCredential.user;
-
-      // Update password
-      await updatePassword(user, newPassword);
-
-      // Sign out after password change for security
-      await auth.signOut();
+      // Send Firebase password reset email
+      await sendPasswordResetEmail(auth, normalizedEmail);
 
       return NextResponse.json({
         success: true,
-        message: 'Password reset successfully! Please log in with your new password.'
+        message: 'Password reset link sent to your email. Please check your inbox.'
       });
     } catch (firebaseError: any) {
       console.error('Firebase password reset error:', firebaseError);
-
-      if (firebaseError.code === 'auth/wrong-password' || firebaseError.code === 'auth/invalid-credential') {
-        return NextResponse.json(
-          { error: 'Current password is incorrect. Please try again.' },
-          { status: 401 }
-        );
-      }
 
       if (firebaseError.code === 'auth/user-not-found') {
         return NextResponse.json(
@@ -81,22 +59,15 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      if (firebaseError.code === 'auth/requires-recent-login') {
+      if (firebaseError.code === 'auth/invalid-email') {
         return NextResponse.json(
-          { error: 'Session expired. Please try the password reset flow again.' },
-          { status: 401 }
-        );
-      }
-
-      if (firebaseError.code === 'auth/weak-password') {
-        return NextResponse.json(
-          { error: 'Password is too weak. Please choose a stronger password.' },
+          { error: 'Invalid email address.' },
           { status: 400 }
         );
       }
 
       return NextResponse.json(
-        { error: 'Failed to reset password. Please try again.' },
+        { error: 'Failed to send password reset link. Please try again.' },
         { status: 500 }
       );
     }
