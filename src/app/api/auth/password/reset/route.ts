@@ -107,11 +107,11 @@ export async function POST(req: NextRequest) {
  */
 export async function PUT(req: NextRequest) {
   try {
-    const { email, otp, newPassword } = await req.json();
+    const { email, otp } = await req.json();
 
-    if (!email || !otp || !newPassword) {
+    if (!email || !otp) {
       return NextResponse.json(
-        { error: 'Email, OTP, and new password are required' },
+        { error: 'Email and OTP are required' },
         { status: 400 }
       );
     }
@@ -119,14 +119,6 @@ export async function PUT(req: NextRequest) {
     // Normalize inputs - trim whitespace and ensure string comparison
     const normalizedEmail = email.toLowerCase().trim();
     const normalizedOtp = String(otp).trim();
-
-    // Validate password strength
-    if (newPassword.length < 6) {
-      return NextResponse.json(
-        { error: 'Password must be at least 6 characters long' },
-        { status: 400 }
-      );
-    }
 
     // Check rate limit for verification attempts
     const rateLimitCheck = withRateLimit(`password-verify:${normalizedEmail}`, 'PASSWORD_RESET');
