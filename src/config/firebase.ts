@@ -16,13 +16,27 @@ let app;
 let auth: any = null;
 let db: any = null;
 
-if (typeof window !== 'undefined' || process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
+// Initialize on client (window exists) or server (when env vars are available)
+const shouldInitialize = typeof window !== 'undefined' ||
+  (process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
+   process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
+
+if (shouldInitialize) {
   try {
     app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     auth = getAuth(app);
     db = getFirestore(app);
+    
+    // Log initialization for debugging server-side issues
+    if (typeof window === 'undefined') {
+      console.log('Firebase initialized on server:', {
+        hasAuth: !!auth,
+        hasDb: !!db,
+        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
+      });
+    }
   } catch (error) {
-    console.warn("Firebase initialization skipped or failed:", error);
+    console.error("Firebase initialization failed:", error);
   }
 }
 
