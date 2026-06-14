@@ -67,15 +67,11 @@ export async function POST(req: NextRequest) {
     // Try to store in Firestore, fall back to memory if unavailable
     if (firestore) {
       try {
-        const otpCollection = collection(firestore, 'passwordResetOTPs');
-        const otpDocRef = doc(otpCollection, normalizedEmail.replace(/[@.]/g, '_'));
-        
-        await setDoc(otpDocRef, {
+        // Use the same 'otps' collection that works for other parts of the app
+        await setDoc(doc(firestore, 'otps', normalizedEmail), {
           otp,
           expiresAt,
-          purpose: 'password-reset',
-          createdAt: Date.now(),
-          email: normalizedEmail
+          purpose: 'password-reset'
         });
       } catch (error) {
         console.error('Firestore write failed, using memory fallback:', error);
@@ -157,8 +153,8 @@ export async function PUT(req: NextRequest) {
     
     if (firestore) {
       try {
-        const otpCollection = collection(firestore, 'passwordResetOTPs');
-        otpDocRef = doc(otpCollection, normalizedEmail.replace(/[@.]/g, '_'));
+        // Use the same 'otps' collection
+        otpDocRef = doc(firestore, 'otps', normalizedEmail);
         const otpDoc = await getDoc(otpDocRef);
         
         if (otpDoc.exists()) {
@@ -219,8 +215,9 @@ export async function PUT(req: NextRequest) {
     
     if (firestore) {
       try {
-        const verifiedOtpsRef = collection(firestore, 'verifiedOTPs');
-        const verifiedOtpDocRef = doc(verifiedOtpsRef, verifiedKey.replace(/[:.@]/g, '_'));
+        // Use simpler document ID
+        const sanitizedKey = verifiedKey.replace(/[:.@]/g, '_');
+        const verifiedOtpDocRef = doc(firestore, 'verifiedOTPs', sanitizedKey);
         
         await setDoc(verifiedOtpDocRef, {
           email: normalizedEmail,
