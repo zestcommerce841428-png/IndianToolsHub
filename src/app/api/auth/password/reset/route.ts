@@ -6,6 +6,9 @@ import { getSecurityContext } from '@/utils/securityContext';
 import { generateOTPEmail } from '@/utils/emailTemplates';
 import nodemailer from 'nodemailer';
 
+// Store verified OTPs temporarily (use Redis in production)
+const verifiedOTPs: { [key: string]: { email: string; verified: number; otp: string } } = {};
+
 // Store OTPs temporarily (use Redis in production)
 const otpStore: { [key: string]: { otp: string; expires: number; purpose: string } } = {};
 
@@ -162,17 +165,83 @@ export async function PUT(req: NextRequest) {
     }
 
     // OTP verified successfully
-    // Clear OTP
+    // Mark OTP as verified for the final password reset step
+    const verifiedKey = `${normalizedEmail}:${normalizedOtp}`;
+    verifiedOTPs[verifiedKey] = {
+      email: normalizedEmail,
+      verified: Date.now(),
+      otp: normalizedOtp
+    };
+
+    // Auto cleanup verified OTP after 10 minutes
+    setTimeout(() => {
+      delete verifiedOTPs[verifiedKey];
+    }, 10 * 60 * 1000);
+
+    // Clear the original OTP
     delete otpStore[normalizedEmail];
     
     // Reset rate limits for this email
     resetRateLimit(`password-reset:${normalizedEmail}`);
     resetRateLimit(`password-verify:${normalizedEmail}`);
 
-    // Send Firebase password reset email (actual password change happens via Firebase)
-    // This is the secure way - Firebase handles the password reset link
-    await sendPasswordResetEmail(auth, normalizedEmail);
+    return NextResponse.json({
+      success: true,
+      message: 'OTP verified successfully. You can now set a new password.',
+    });
+  } catch (error: unknown) {
+    console.error('Error resetting password:', error);
+    
+    if (error instanceof Error && 'code' in error) {
+      const firebaseError = error as { code: string; message: string };
+      
+      if (firebaseError.code === 'auth/user-not-found') {
+        return NextResponse.json(
+          { error: 'No account found with this email address.' },
+          { status: 404 }
+        );
+      }
+      
+      if (firebaseError.code === 'auth/invalid-email') {
+        return NextResponse.json(
+          { error: 'Invalid email address format.' },
+          { status: 400 }
+        );
+      }
+    }
+    
+    return NextResponse.json(
+      { error: 'Failed to verify OTP. Please try again.' },
+      { status: 500 }
+    );
+  }
+}
 
+// Helper to check if OTP is verified (exported for use by reset-final)
+export function isOTPVerified(email: string, otp: string): boolean {
+  const normalizedEmail = email.toLowerCase().trim();
+  const normalizedOtp = String(otp).trim();
+  const key = `${normalizedEmail}:${normalizedOtp}`;
+  const verifiedData = verifiedOTPs[key];
+  
+  return verifiedData !== undefined && Date.now() - verifiedData.verified < 10 * 60 * 1000;
+}
+
+// Helper to consume verified OTP (remove after use)
+export function consumeVerifiedOTP(email: string, otp: string): boolean {
+  const normalizedEmail = email.toLowerCase().trim();
+  const normalizedOtp = String(otp).trim();
+  const key = `${normalizedEmail}:${normalizedOtp}`;
+  
+  if (verifiedOTPs[key]) {
+    delete verifiedOTPs[key];
+    return true;
+  }
+  return false;
+}
+
+/* LEGACY CODE - Keeping for reference but not used anymore
+    
     // Get security context for notification
     const securityContext = await getSecurityContext(req);
 
@@ -231,40 +300,10 @@ export async function PUT(req: NextRequest) {
     `;
 
     await transporter.sendMail({
-      from: `"IndianToolsHub Security" <${process.env.SMTP_USER || process.env.EMAIL_USER}>`,
+      from: \`"IndianToolsHub Security" <\${process.env.SMTP_USER || process.env.EMAIL_USER}>\`,
       to: normalizedEmail,
       subject: '✅ Password Reset Verified - Check Your Email',
       html: confirmationHtml,
     });
 
-    return NextResponse.json({
-      success: true,
-      message: 'Password reset link has been sent to your email. Please check your inbox.',
-    });
-  } catch (error: unknown) {
-    console.error('Error resetting password:', error);
-    
-    if (error instanceof Error && 'code' in error) {
-      const firebaseError = error as { code: string; message: string };
-      
-      if (firebaseError.code === 'auth/user-not-found') {
-        return NextResponse.json(
-          { error: 'No account found with this email address.' },
-          { status: 404 }
-        );
-      }
-      
-      if (firebaseError.code === 'auth/invalid-email') {
-        return NextResponse.json(
-          { error: 'Invalid email address format.' },
-          { status: 400 }
-        );
-      }
-    }
-    
-    return NextResponse.json(
-      { error: 'Failed to reset password. Please try again.' },
-      { status: 500 }
-    );
-  }
-}
+*/

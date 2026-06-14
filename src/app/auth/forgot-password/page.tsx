@@ -9,10 +9,12 @@ import Footer from '@/components/Footer';
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [step, setStep] = useState<'email' | 'otp' | 'success'>('email');
+  const [step, setStep] = useState<'email' | 'otp' | 'password' | 'success'>('email');
 
   const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,13 +70,51 @@ export default function ForgotPasswordPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Invalid OTP');
+        throw new Error(data.error || 'Invalid OTP');
       }
 
-      setMessage('Password reset link sent to your email! Check your inbox to set a new password.');
-      setStep('success');
+      setMessage('OTP verified! Now set your new password.');
+      setStep('password');
     } catch (err: unknown) {
       setError((err as Error).message || 'Failed to verify OTP. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setMessage('');
+
+    if (!newPassword || newPassword.length < 6) {
+      setError('Password must be at least 6 characters long.');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch('/api/auth/password/reset-final', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, otp }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send reset link');
+      }
+
+      setMessage(data.message || 'Password reset link sent! Check your email.');
+      setStep('success');
+    } catch (err: unknown) {
+      setError((err as Error).message || 'Failed to send reset link. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -125,11 +165,12 @@ export default function ForgotPasswordPage() {
           <Typography color="text.secondary" sx={{ mb: 4, textAlign: 'center' }}>
             {step === 'email' && 'Enter your email and we\'ll send you a secure OTP to reset your password.'}
             {step === 'otp' && 'Enter the 6-digit OTP sent to your email.'}
-            {step === 'success' && 'Check your email for the password reset link.'}
+            {step === 'password' && 'Confirm your identity to receive a password reset link.'}
+            {step === 'success' && 'Check your email for the password reset link!'}
           </Typography>
 
           {/* Progress Stepper */}
-          <Stepper activeStep={step === 'email' ? 0 : step === 'otp' ? 1 : 2} sx={{ mb: 4 }}>
+          <Stepper activeStep={step === 'email' ? 0 : step === 'otp' ? 1 : step === 'password' ? 2 : 3} sx={{ mb: 4 }}>
             <Step>
               <StepLabel>Enter Email</StepLabel>
             </Step>
@@ -137,7 +178,10 @@ export default function ForgotPasswordPage() {
               <StepLabel>Verify OTP</StepLabel>
             </Step>
             <Step>
-              <StepLabel>Reset Link Sent</StepLabel>
+              <StepLabel>Get Reset Link</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Complete</StepLabel>
             </Step>
           </Stepper>
 
@@ -218,7 +262,27 @@ export default function ForgotPasswordPage() {
             </form>
           )}
 
-          {/* Step 3: Success */}
+          {/* Step 3: Get Reset Link */}
+          {step === 'password' && (
+            <Box>
+              <Alert severity="info" sx={{ mb: 3 }}>
+                <Typography variant="body2" sx={{ mb: 1 }}>
+                  Your identity has been verified! Click the button below to receive a secure password reset link via email.
+                </Typography>
+              </Alert>
+              <Button
+                onClick={handleResetPassword}
+                variant="contained"
+                fullWidth
+                disabled={loading}
+                sx={{ py: 1.5, fontSize: '1rem', fontWeight: 600, borderRadius: 2 }}
+              >
+                {loading ? <CircularProgress size={24} color="inherit" /> : 'Send Reset Link'}
+              </Button>
+            </Box>
+          )}
+
+          {/* Step 4: Success */}
           {step === 'success' && (
             <Box sx={{ textAlign: 'center' }}>
               <Box
@@ -237,7 +301,7 @@ export default function ForgotPasswordPage() {
                 <Typography variant="h3" sx={{ color: 'success.main' }}>✓</Typography>
               </Box>
               <Typography variant="body1" sx={{ mb: 3 }}>
-                We&apos;ve sent a password reset link to <strong>{email}</strong>. Click the link in the email to set your new password.
+                A secure password reset link has been sent to <strong>{email}</strong>. Click the link in the email to set your new password.
               </Typography>
               <Link href="/auth/login" style={{ textDecoration: 'none' }}>
                 <Button variant="contained" fullWidth sx={{ py: 1.5, fontWeight: 600, borderRadius: 2 }}>
@@ -255,7 +319,7 @@ export default function ForgotPasswordPage() {
             </Box>
           )}
 
-          {(step === 'email' || step === 'otp') && (
+          {(step === 'email' || step === 'otp' || step === 'password') && (
             <Box sx={{ mt: 4, textAlign: 'center' }}>
               <Typography variant="body2" color="text.secondary">
                 Remember your password?{' '}
