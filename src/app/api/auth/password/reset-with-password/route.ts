@@ -38,7 +38,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if OTP was recently verified (within last 10 minutes)
-    if (!isOTPVerified(normalizedEmail, normalizedOtp)) {
+    const isVerified = await isOTPVerified(normalizedEmail, normalizedOtp);
+    if (!isVerified) {
       return NextResponse.json(
         { error: 'OTP expired or not verified. Please request a new OTP.' },
         { status: 400 }
@@ -46,7 +47,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Consume the verified OTP (can only be used once)
-    consumeVerifiedOTP(normalizedEmail, normalizedOtp);
+    await consumeVerifiedOTP(normalizedEmail, normalizedOtp);
 
     try {
       // Verify old password by attempting to sign in

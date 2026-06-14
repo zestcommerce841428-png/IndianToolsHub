@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '@/config/firebase';
+import { auth, db } from '@/config/firebase';
 import { withRateLimit, resetRateLimit } from '@/utils/rateLimiter';
 import { getSecurityContext } from '@/utils/securityContext';
 import { generateOTPEmail } from '@/utils/emailTemplates';
 import nodemailer from 'nodemailer';
-
-// Store verified OTPs temporarily (use Redis in production)
-const verifiedOTPs: { [key: string]: { email: string; verified: number; otp: string } } = {};
+import { collection, doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
 
 // Store OTPs temporarily (use Redis in production)
 const otpStore: { [key: string]: { otp: string; expires: number; purpose: string } } = {};
@@ -165,18 +163,17 @@ export async function PUT(req: NextRequest) {
     }
 
     // OTP verified successfully
-    // Mark OTP as verified for the final password reset step
+    // Store verified OTP in Firestore for cross-instance persistence
     const verifiedKey = `${normalizedEmail}:${normalizedOtp}`;
-    verifiedOTPs[verifiedKey] = {
+    const verifiedOtpsRef = collection(db, 'verifiedOTPs');
+    const verifiedOtpDocRef = doc(verifiedOtpsRef, verifiedKey.replace(/[:.@]/g, '_'));
+    
+    await setDoc(verifiedOtpDocRef, {
       email: normalizedEmail,
+      otp: normalizedOtp,
       verified: Date.now(),
-      otp: normalizedOtp
-    };
-
-    // Auto cleanup verified OTP after 10 minutes
-    setTimeout(() => {
-      delete verifiedOTPs[verifiedKey];
-    }, 10 * 60 * 1000);
+      expiresAt: Date.now() + 10 * 60 * 1000 // 10 minutes
+    });
 
     // Clear the original OTP
     delete otpStore[normalizedEmail];
@@ -217,27 +214,59 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-// Helper to check if OTP is verified (exported for use by reset-final)
-export function isOTPVerified(email: string, otp: string): boolean {
-  const normalizedEmail = email.toLowerCase().trim();
-  const normalizedOtp = String(otp).trim();
-  const key = `${normalizedEmail}:${normalizedOtp}`;
-  const verifiedData = verifiedOTPs[key];
-  
-  return verifiedData !== undefined && Date.now() - verifiedData.verified < 10 * 60 * 1000;
+// Helper to check if OTP is verified (exported for use by reset-with-password)
+export async function isOTPVerified(email: string, otp: string): Promise<boolean> {
+  try {
+    const normalizedEmail = email.toLowerCase().trim();
+    const normalizedOtp = String(otp).trim();
+    const key = `${normalizedEmail}:${normalizedOtp}`;
+    const sanitizedKey = key.replace(/[:.@]/g, '_');
+    
+    const verifiedOtpsRef = collection(db, 'verifiedOTPs');
+    const verifiedOtpDocRef = doc(verifiedOtpsRef, sanitizedKey);
+    const verifiedOtpDoc = await getDoc(verifiedOtpDocRef);
+    
+    if (!verifiedOtpDoc.exists()) {
+      return false;
+    }
+    
+    const data = verifiedOtpDoc.data();
+    
+    // Check if OTP is expired
+    if (Date.now() > data.expiresAt) {
+      // Clean up expired OTP
+      await deleteDoc(verifiedOtpDocRef);
+      return false;
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('Error checking OTP verification:', error);
+    return false;
+  }
 }
 
 // Helper to consume verified OTP (remove after use)
-export function consumeVerifiedOTP(email: string, otp: string): boolean {
-  const normalizedEmail = email.toLowerCase().trim();
-  const normalizedOtp = String(otp).trim();
-  const key = `${normalizedEmail}:${normalizedOtp}`;
-  
-  if (verifiedOTPs[key]) {
-    delete verifiedOTPs[key];
-    return true;
+export async function consumeVerifiedOTP(email: string, otp: string): Promise<boolean> {
+  try {
+    const normalizedEmail = email.toLowerCase().trim();
+    const normalizedOtp = String(otp).trim();
+    const key = `${normalizedEmail}:${normalizedOtp}`;
+    const sanitizedKey = key.replace(/[:.@]/g, '_');
+    
+    const verifiedOtpsRef = collection(db, 'verifiedOTPs');
+    const verifiedOtpDocRef = doc(verifiedOtpsRef, sanitizedKey);
+    const verifiedOtpDoc = await getDoc(verifiedOtpDocRef);
+    
+    if (verifiedOtpDoc.exists()) {
+      await deleteDoc(verifiedOtpDocRef);
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error('Error consuming verified OTP:', error);
+    return false;
   }
-  return false;
 }
 
 /* LEGACY CODE - Keeping for reference but not used anymore
