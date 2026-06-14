@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Container, Box, Typography, Paper, Button, Avatar, CircularProgress,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, MenuItem,
-  Switch, FormControlLabel, Alert // Added Alert import here
+  Switch, FormControlLabel, Alert, RadioGroup, Radio // Added RadioGroup and Radio
 } from '@mui/material';
 import Grid from '@mui/material/Grid'; // Ensure this is the correct Grid import
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -41,12 +41,14 @@ function ProfileDashboard() {
   const [saving, setSaving] = useState(false);
   const [editData, setEditData] = useState<Partial<UserProfile>>({});
 
-  // --- OTP Flow State for general actions ---
-  // Expanded otpAction to include new types for backup email and 2FA toggling
+  // --- OTP/TOTP Flow State for general actions ---
   const [otpAction, setOtpAction] = useState<'save' | 'delete' | 'avatar' | 'delete-avatar' | null>(null);
   const [otpCode, setOtpCode] = useState('');
   const [otpLoading, setOtpLoading] = useState(false);
   const [pendingAvatarFile, setPendingAvatarFile] = useState<File | null>(null);
+  const [verificationMethod, setVerificationMethod] = useState<'otp' | 'totp'>('otp');
+  const [showMethodSelection, setShowMethodSelection] = useState(false);
+  const [pendingAction, setPendingAction] = useState<'save' | 'delete' | 'avatar' | 'delete-avatar' | null>(null);
 
   const refreshProfile = useCallback(() => {
     // Force a full page reload to ensure AuthContext reloads profile with latest data
@@ -54,7 +56,7 @@ function ProfileDashboard() {
     window.location.reload(); 
   }, []);
 
-  const triggerOtp = async (action: 'save' | 'delete' | 'avatar' | 'delete-avatar', file?: File) => {
+  const triggerVerification = async (action: 'save' | 'delete' | 'avatar' | 'delete-avatar', file?: File) => {
     if (!user || !user.email) return;
     setError(null);
     setSuccess(null);
@@ -63,16 +65,29 @@ function ProfileDashboard() {
       setPendingAvatarFile(file);
     }
 
+    // Check if user has 2FA enabled
+    if (profile?.twoFactorEnabled) {
+      // Show method selection dialog
+      setPendingAction(action);
+      setShowMethodSelection(true);
+    } else {
+      // No 2FA, use OTP only
+      await sendOtpAndShowDialog(action);
+    }
+  };
+
+  const sendOtpAndShowDialog = async (action: 'save' | 'delete' | 'avatar' | 'delete-avatar') => {
     setOtpLoading(true);
     try {
       const res = await fetch('/api/auth/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: user.email, subject: 'Verify Profile Changes' })
+        body: JSON.stringify({ email: user!.email, subject: 'Verify Profile Changes' })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
 
+      setVerificationMethod('otp');
       setOtpAction(action);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to send OTP.');
@@ -81,44 +96,92 @@ function ProfileDashboard() {
     }
   };
 
+  const handleMethodSelected = async () => {
+    if (!pendingAction) return;
+    
+    setShowMethodSelection(false);
+    
+    if (verificationMethod === 'otp') {
+      await sendOtpAndShowDialog(pendingAction);
+    } else {
+      // TOTP - just show the dialog
+      setOtpAction(pendingAction);
+    }
+    
+    setPendingAction(null);
+  };
+
   const handleVerifyOtp = async () => {
     if (!user || !user.email) return;
     setOtpLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: user.email, otp: otpCode })
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      let verified = false;
 
-      // Success, perform the action based on otpAction
-      switch (otpAction) {
-        case 'save':
-          await executeSaveProfile();
-          break;
-        case 'delete':
-          await executeDeleteAccount();
-          break;
-        case 'avatar':
-          if (pendingAvatarFile) await executeAvatarUpload(pendingAvatarFile);
-          break;
-        case 'delete-avatar':
-          await executeDeleteAvatar();
-          break;
-        // BackupEmailSection and TwoFactorSection will handle their own OTP verification internally
-        default:
-          setSuccess('Action verified successfully!');
-          break;
+      if (verificationMethod === 'otp') {
+        // Verify OTP
+        const res = await fetch('/api/auth/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: user.email, otp: otpCode })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        verified = true;
+      } else if (verificationMethod === 'totp') {
+        // Verify TOTP
+        if (!profile?.twoFactorSecret) {
+          throw new Error('2FA not properly configured');
+        }
+        const res = await fetch('/api/auth/2fa/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token: otpCode,
+            secret: profile.twoFactorSecret,
+            backupCodes: profile.backupCodes || [],
+            usedBackupCodes: profile.backupCodesUsed || []
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        
+        // If backup code was used, update the profile
+        if (data.method === 'backup' && data.usedCode) {
+          const updatedUsedCodes = [...(profile.backupCodesUsed || []), data.usedCode];
+          await updateDoc(doc(db, 'users', user.uid), {
+            backupCodesUsed: updatedUsedCodes
+          });
+        }
+        verified = true;
       }
-      
-      setOtpAction(null);
-      setOtpCode('');
-      refreshProfile(); // Refresh profile after OTP-verified actions
+
+      if (verified) {
+        // Success, perform the action based on otpAction
+        switch (otpAction) {
+          case 'save':
+            await executeSaveProfile();
+            break;
+          case 'delete':
+            await executeDeleteAccount();
+            break;
+          case 'avatar':
+            if (pendingAvatarFile) await executeAvatarUpload(pendingAvatarFile);
+            break;
+          case 'delete-avatar':
+            await executeDeleteAvatar();
+            break;
+          default:
+            setSuccess('Action verified successfully!');
+            break;
+        }
+        
+        setOtpAction(null);
+        setOtpCode('');
+        refreshProfile(); // Refresh profile after verified actions
+      }
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Invalid OTP.');
+      setError(err instanceof Error ? err.message : 'Invalid verification code.');
     } finally {
       setOtpLoading(false);
     }
@@ -138,7 +201,7 @@ function ProfileDashboard() {
       setError("File size should be less than 2MB.");
       return;
     }
-    triggerOtp('avatar', file);
+    triggerVerification('avatar', file);
   };
 
   const executeAvatarUpload = async (file: File) => {
@@ -298,7 +361,7 @@ function ProfileDashboard() {
                 Upload New Avatar
               </Button>
               {profile.photoURL && (
-                <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={() => triggerOtp('delete-avatar')} disabled={uploading || otpLoading}>
+                <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={() => triggerVerification('delete-avatar')} disabled={uploading || otpLoading}>
                   Remove Avatar
                 </Button>
               )}
@@ -314,7 +377,7 @@ function ProfileDashboard() {
             ) : (
               <Box sx={{ display: 'flex', gap: 1 }}>
                 <Button startIcon={<CancelIcon />} variant="text" color="inherit" onClick={handleEditToggle} disabled={saving || otpLoading}>Cancel</Button>
-                <Button startIcon={saving ? <CircularProgress size={20} /> : <SaveIcon />} variant="contained" color="success" onClick={() => triggerOtp('save')} disabled={saving || otpLoading}>
+                <Button startIcon={saving ? <CircularProgress size={20} /> : <SaveIcon />} variant="contained" color="success" onClick={() => triggerVerification('save')} disabled={saving || otpLoading}>
                   Save Changes
                 </Button>
               </Box>
@@ -441,7 +504,7 @@ function ProfileDashboard() {
           <Typography color="text.secondary" sx={{ mb: 3 }}>
             Once you delete your account, there is no going back. All of your personal data will be wiped.
           </Typography>
-          <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={() => triggerOtp('delete')} disabled={deleting || otpLoading}>
+          <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={() => triggerVerification('delete')} disabled={deleting || otpLoading}>
             Delete Account Permanently
           </Button>
         </Paper>
@@ -449,17 +512,68 @@ function ProfileDashboard() {
       </Container>
       <Footer />
 
-      {/* Shared OTP Modal for General Actions */}
+      {/* Verification Method Selection Dialog */}
+      <Dialog open={showMethodSelection} onClose={() => !otpLoading && setShowMethodSelection(false)}>
+        <DialogTitle sx={{ fontWeight: 700 }}>Choose Verification Method</DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ mb: 2 }}>
+            You have 2FA enabled. How would you like to verify this action?
+          </DialogContentText>
+          <RadioGroup
+            value={verificationMethod}
+            onChange={(e) => setVerificationMethod(e.target.value as 'otp' | 'totp')}
+          >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Box sx={{ p: 2, border: '2px solid', borderColor: verificationMethod === 'otp' ? 'primary.main' : 'divider', borderRadius: 2, cursor: 'pointer' }} onClick={() => setVerificationMethod('otp')}>
+                <FormControlLabel
+                  value="otp"
+                  control={<Radio />}
+                  label={
+                    <Box>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>Email OTP</Typography>
+                      <Typography variant="body2" color="text.secondary">Receive a code via email</Typography>
+                    </Box>
+                  }
+                />
+              </Box>
+              <Box sx={{ p: 2, border: '2px solid', borderColor: verificationMethod === 'totp' ? 'primary.main' : 'divider', borderRadius: 2, cursor: 'pointer' }} onClick={() => setVerificationMethod('totp')}>
+                <FormControlLabel
+                  value="totp"
+                  control={<Radio />}
+                  label={
+                    <Box>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>Authenticator App</Typography>
+                      <Typography variant="body2" color="text.secondary">Use Google Authenticator or similar app</Typography>
+                    </Box>
+                  }
+                />
+              </Box>
+            </Box>
+          </RadioGroup>
+        </DialogContent>
+        <DialogActions sx={{ p: 2, pt: 0 }}>
+          <Button onClick={() => setShowMethodSelection(false)} disabled={otpLoading} color="inherit">Cancel</Button>
+          <Button onClick={handleMethodSelected} variant="contained" disabled={otpLoading}>
+            Continue
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Shared Verification Code Modal for General Actions */}
       <Dialog open={!!otpAction} onClose={() => !otpLoading && setOtpAction(null)}>
         <DialogTitle sx={{ fontWeight: 700 }}>Security Verification</DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ mb: 2 }}>
-            To authorize this action, please enter the 6-digit OTP we just sent to <strong>{user.email}</strong>.
+            {verificationMethod === 'otp' ? (
+              <>To authorize this action, please enter the 6-digit OTP we just sent to <strong>{user.email}</strong>.</>
+            ) : (
+              <>Enter the 6-digit code from your authenticator app or use a backup code.</>
+            )}
           </DialogContentText>
           <TextField
             autoFocus
             fullWidth
-            label="6-Digit OTP"
+            label={verificationMethod === 'otp' ? '6-Digit OTP' : '6-Digit Code'}
             variant="outlined"
             value={otpCode}
             onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}

@@ -35,9 +35,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Normalize email - trim whitespace and lowercase
+    const normalizedEmail = email.toLowerCase().trim();
+
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(normalizedEmail)) {
       return NextResponse.json(
         { error: 'Invalid email format' },
         { status: 400 }
@@ -45,7 +48,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check rate limit and cooldown
-    const rateLimitCheck = withRateLimit(`password-reset:${email}`, 'PASSWORD_RESET');
+    const rateLimitCheck = withRateLimit(`password-reset:${normalizedEmail}`, 'PASSWORD_RESET');
     if (!rateLimitCheck.success) {
       return NextResponse.json(
         { error: rateLimitCheck.error },
@@ -57,8 +60,8 @@ export async function POST(req: NextRequest) {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = Date.now() + 15 * 60 * 1000; // 15 minutes
 
-    // Store OTP
-    otpStore[email] = {
+    // Store OTP with normalized email
+    otpStore[normalizedEmail] = {
       otp,
       expires: expiresAt,
       purpose: 'password-reset',
@@ -70,7 +73,7 @@ export async function POST(req: NextRequest) {
     // Generate email content
     const { html, text } = generateOTPEmail({
       otp,
-      email,
+      email: normalizedEmail,
       subject: 'Password Reset Request',
       context: securityContext,
     });
@@ -78,7 +81,7 @@ export async function POST(req: NextRequest) {
     // Send email
     await transporter.sendMail({
       from: `"IndianToolsHub Security" <${process.env.SMTP_USER || process.env.EMAIL_USER}>`,
-      to: email,
+      to: normalizedEmail,
       subject: '🔐 Password Reset Request - IndianToolsHub',
       text,
       html,
@@ -113,6 +116,10 @@ export async function PUT(req: NextRequest) {
       );
     }
 
+    // Normalize inputs - trim whitespace and ensure string comparison
+    const normalizedEmail = email.toLowerCase().trim();
+    const normalizedOtp = String(otp).trim();
+
     // Validate password strength
     if (newPassword.length < 6) {
       return NextResponse.json(
@@ -122,7 +129,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Check rate limit for verification attempts
-    const rateLimitCheck = withRateLimit(`password-verify:${email}`, 'PASSWORD_RESET');
+    const rateLimitCheck = withRateLimit(`password-verify:${normalizedEmail}`, 'PASSWORD_RESET');
     if (!rateLimitCheck.success) {
       return NextResponse.json(
         { error: rateLimitCheck.error },
@@ -131,7 +138,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Verify OTP
-    const storedOTP = otpStore[email];
+    const storedOTP = otpStore[normalizedEmail];
     if (!storedOTP) {
       return NextResponse.json(
         { error: 'OTP expired or not found. Please request a new one.' },
@@ -147,14 +154,15 @@ export async function PUT(req: NextRequest) {
     }
 
     if (Date.now() > storedOTP.expires) {
-      delete otpStore[email];
+      delete otpStore[normalizedEmail];
       return NextResponse.json(
         { error: 'OTP has expired. Please request a new one.' },
         { status: 400 }
       );
     }
 
-    if (storedOTP.otp !== otp) {
+    const storedOtp = String(storedOTP.otp).trim();
+    if (storedOtp !== normalizedOtp) {
       return NextResponse.json(
         { error: 'Invalid OTP. Please check and try again.' },
         { status: 400 }
@@ -163,15 +171,15 @@ export async function PUT(req: NextRequest) {
 
     // OTP verified successfully
     // Clear OTP
-    delete otpStore[email];
+    delete otpStore[normalizedEmail];
     
     // Reset rate limits for this email
-    resetRateLimit(`password-reset:${email}`);
-    resetRateLimit(`password-verify:${email}`);
+    resetRateLimit(`password-reset:${normalizedEmail}`);
+    resetRateLimit(`password-verify:${normalizedEmail}`);
 
     // Send Firebase password reset email (actual password change happens via Firebase)
     // This is the secure way - Firebase handles the password reset link
-    await sendPasswordResetEmail(auth, email);
+    await sendPasswordResetEmail(auth, normalizedEmail);
 
     // Get security context for notification
     const securityContext = await getSecurityContext(req);
@@ -232,7 +240,7 @@ export async function PUT(req: NextRequest) {
 
     await transporter.sendMail({
       from: `"IndianToolsHub Security" <${process.env.SMTP_USER || process.env.EMAIL_USER}>`,
-      to: email,
+      to: normalizedEmail,
       subject: '✅ Password Reset Verified - Check Your Email',
       html: confirmationHtml,
     });

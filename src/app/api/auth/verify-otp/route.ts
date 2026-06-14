@@ -13,7 +13,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Database not initialized' }, { status: 500 });
     }
 
-    const otpDocRef = doc(db, 'otps', email.toLowerCase());
+    // Normalize inputs - trim whitespace and ensure string comparison
+    const normalizedEmail = email.toLowerCase().trim();
+    const normalizedOtp = String(otp).trim();
+
+    const otpDocRef = doc(db, 'otps', normalizedEmail);
     const otpDoc = await getDoc(otpDocRef);
 
     if (!otpDoc.exists()) {
@@ -21,8 +25,17 @@ export async function POST(req: Request) {
     }
 
     const data = otpDoc.data();
-    if (data.otp !== otp || Date.now() > data.expiresAt) {
-      return NextResponse.json({ error: 'Invalid or expired OTP' }, { status: 400 });
+    const storedOtp = String(data.otp).trim();
+    
+    // Check expiration first
+    if (Date.now() > data.expiresAt) {
+      await deleteDoc(otpDocRef); // Clean up expired OTP
+      return NextResponse.json({ error: 'OTP has expired. Please request a new one.' }, { status: 400 });
+    }
+    
+    // Check OTP match
+    if (storedOtp !== normalizedOtp) {
+      return NextResponse.json({ error: 'Invalid OTP. Please check and try again.' }, { status: 400 });
     }
 
     // OTP verified successfully, clean it up

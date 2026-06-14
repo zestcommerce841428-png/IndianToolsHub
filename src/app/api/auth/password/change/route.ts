@@ -36,8 +36,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Normalize email - trim whitespace and lowercase
+    const normalizedEmail = email.toLowerCase().trim();
+
     // Check rate limit and cooldown
-    const rateLimitCheck = withRateLimit(`password-change:${email}`, 'PASSWORD_RESET');
+    const rateLimitCheck = withRateLimit(`password-change:${normalizedEmail}`, 'PASSWORD_RESET');
     if (!rateLimitCheck.success) {
       return NextResponse.json(
         { error: rateLimitCheck.error },
@@ -49,8 +52,8 @@ export async function POST(req: NextRequest) {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-    // Store OTP
-    otpStore[email] = {
+    // Store OTP with normalized email
+    otpStore[normalizedEmail] = {
       otp,
       expires: expiresAt,
       purpose: 'password-change',
@@ -62,7 +65,7 @@ export async function POST(req: NextRequest) {
     // Generate email content
     const { html, text } = generateOTPEmail({
       otp,
-      email,
+      email: normalizedEmail,
       subject: 'Password Change Verification',
       context: securityContext,
     });
@@ -70,7 +73,7 @@ export async function POST(req: NextRequest) {
     // Send email
     await transporter.sendMail({
       from: `"IndianToolsHub Security" <${process.env.SMTP_USER || process.env.EMAIL_USER}>`,
-      to: email,
+      to: normalizedEmail,
       subject: '🔐 Password Change Verification - IndianToolsHub',
       text,
       html,
@@ -105,6 +108,10 @@ export async function PUT(req: NextRequest) {
       );
     }
 
+    // Normalize inputs - trim whitespace and ensure string comparison
+    const normalizedEmail = email.toLowerCase().trim();
+    const normalizedOtp = String(otp).trim();
+
     // Validate password strength
     if (newPassword.length < 6) {
       return NextResponse.json(
@@ -114,7 +121,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Check rate limit
-    const rateLimitCheck = withRateLimit(`password-verify:${email}`, 'PASSWORD_RESET');
+    const rateLimitCheck = withRateLimit(`password-verify:${normalizedEmail}`, 'PASSWORD_RESET');
     if (!rateLimitCheck.success) {
       return NextResponse.json(
         { error: rateLimitCheck.error },
@@ -123,7 +130,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Verify OTP
-    const storedOTP = otpStore[email];
+    const storedOTP = otpStore[normalizedEmail];
     if (!storedOTP) {
       return NextResponse.json(
         { error: 'OTP expired or not found. Please request a new one.' },
@@ -139,14 +146,15 @@ export async function PUT(req: NextRequest) {
     }
 
     if (Date.now() > storedOTP.expires) {
-      delete otpStore[email];
+      delete otpStore[normalizedEmail];
       return NextResponse.json(
         { error: 'OTP has expired. Please request a new one.' },
         { status: 400 }
       );
     }
 
-    if (storedOTP.otp !== otp) {
+    const storedOtp = String(storedOTP.otp).trim();
+    if (storedOtp !== normalizedOtp) {
       return NextResponse.json(
         { error: 'Invalid OTP. Please check and try again.' },
         { status: 400 }
@@ -166,7 +174,7 @@ export async function PUT(req: NextRequest) {
     await updatePassword(user, newPassword);
 
     // Clear OTP
-    delete otpStore[email];
+    delete otpStore[normalizedEmail];
 
     // Get security context for notification email
     const securityContext = await getSecurityContext(req);
@@ -221,7 +229,7 @@ export async function PUT(req: NextRequest) {
 
     await transporter.sendMail({
       from: `"IndianToolsHub Security" <${process.env.SMTP_USER || process.env.EMAIL_USER}>`,
-      to: email,
+      to: normalizedEmail,
       subject: '✅ Password Changed Successfully - IndianToolsHub',
       html: confirmationHtml,
     });
